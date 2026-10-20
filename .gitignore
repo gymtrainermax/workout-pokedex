@@ -1,0 +1,6 @@
+workouts.json
+**/workouts.json
+*.backup.json
+*.private.json
+.env
+.env.*

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#11132a" />
+  <meta name="description" content="A living Pokédex of authentic, carefully programmed Pokémon-inspired workouts." />
+  <title>Workout Dex | Kanto Edition</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="data.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#overview" aria-label="Workout Dex home">
+        <span class="brand-ball" aria-hidden="true"><span></span></span>
+        <span><strong>WORKOUT<span class="lime">DEX</span></strong><small>GYM TRAINER MAX / VOL. 01</small></span>
+      </a>
+      <div class="nav-overline">YOUR ADVENTURE</div>
+      <nav aria-label="Main navigation" class="side-nav">
+        <a href="#overview" data-nav="overview"><span class="nav-icon">◫</span> Dashboard</a>
+        <a href="#pokedex" data-nav="pokedex"><span class="nav-icon">▦</span> Pokédex <span class="nav-pill">151</span></a>
+        <a href="#characters" data-nav="characters"><span class="nav-icon">◇</span> Characters</a>
+        <a href="#forms" data-nav="forms"><span class="nav-icon">✦</span> Forms</a>
+        <a href="#moves" data-nav="moves"><span class="nav-icon">≋</span> Move Registry</a>
+      </nav>
+      <div class="nav-overline studio-label">CREATOR TOOLS</div>
+      <nav aria-label="Creator tools" class="side-nav">
+        <a href="#studio" data-nav="studio"><span class="nav-icon">✎</span> Workout Studio</a>
+        <a href="#guide" data-nav="guide"><span class="nav-icon">?</span> Project Guide</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <span class="edition-icon">01</span>
+        <div><strong>KANTO EDITION</strong><small>151 Pokémon. One journey.</small></div>
+      </div>
+    </aside>
+
+    <div class="main-column">
+      <header class="topbar">
+        <button id="mobileNav" class="mobile-menu icon-button" aria-label="Open navigation">☰</button>
+        <div class="breadcrumbs"><span>WORKOUT POKÉDEX</span><span class="slash">/</span><strong id="breadcrumb">DASHBOARD</strong></div>
+        <div class="top-actions"><span class="local-dot"></span><span class="local-label">LOCAL WORKSPACE</span><button id="topStudio" class="mini-button" type="button">+ Add entry</button></div>
+      </header>
+      <main id="main" tabindex="-1" aria-live="polite"></main>
+      <footer class="footer"><span>MADE FOR THE LONG GAME <span class="footer-star">✳</span> BUILT ONE WORKOUT AT A TIME</span><span>Data saves to this browser · <a href="https://github.com/PokeAPI/sprites" target="_blank" rel="noreferrer">Pokémon artwork via PokéAPI sprites</a></span></footer>
+    </div>
+  </div>
+  <div id="toast" class="toast" aria-live="polite" role="status"></div>
+  <div id="modalHost"></div>
+</body>
+</html>
