@@ -251,3 +251,22 @@
 @media(max-width:1100px){.bulba-hero-copy{padding:30px 25px}.bulba-hero-art>img{max-width:94%}.bulba-move-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.bulba-program-layout{grid-template-columns:1fr}.bulba-program-side{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:750px){.bulba-hero{grid-template-columns:1fr}.bulba-hero-art{min-height:185px;grid-row:1}.bulba-hero-art:before{width:160px;height:160px}.bulba-hero-art>img{max-height:180px}.bulba-hero-copy{padding:20px 22px 25px}.bulba-hero-number{margin-top:12px}.bulba-hero h1{font-size:32px}.bulba-hero-art-label{bottom:8px}.bulba-section{padding:18px}.bulba-program-side,.bulba-shoot-grid,.bulba-post-grid{grid-template-columns:1fr}.bulba-method-grid{grid-template-columns:1fr}.bulba-spotlight img{width:105px;height:115px}.bulba-preview-modal{grid-template-columns:1fr;max-height:92dvh}.bulba-preview-art{min-height:155px;height:155px}.bulba-preview-art img{height:155px;width:150px;max-width:45%;margin-right:auto;margin-left:10px}.bulba-preview-art span{bottom:9px;right:13px;left:auto;font-size:9px}.bulba-preview-info{padding:16px 18px 18px}.bulba-preview-info h2{font-size:23px}.bulba-preview-list{margin-top:11px;gap:6px}.bulba-preview-list>div{padding:8px}.bulba-preview-status{margin:10px 0!important}.bulba-preview-button{padding:11px}}
 @media(max-width:475px){.bulba-move-grid{grid-template-columns:1fr}.bulba-move-card{padding:14px}.bulba-move-icon{display:none}.bulba-hero-buttons .btn{flex:1;font-size:10px}.bulba-section-head h2{font-size:22px}.bulba-tabs{display:grid;grid-template-columns:1fr}.bulba-tab{min-width:0}.bulba-beat{grid-template-columns:1fr;gap:5px}.bulba-program-main{min-width:0}.bulba-spotlight img{width:80px}.bulba-preview-art{height:128px;min-height:128px}.bulba-preview-art img{height:130px;width:130px}.bulba-preview-info h2{font-size:20px}.bulba-preview-list small{font-size:10px}}
+
+
+/* Type emblems for the Bulbasaur four-move preview; Oak keeps the original Poké Balls. */
+.bulba-preview-list>.bulba-preview-move{grid-template-columns:42px minmax(0,1fr);gap:11px;min-height:65px;padding:9px 12px}
+.bulba-preview-list>.bulba-preview-move>.bulba-move-type-icon{grid-row:1;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;color:#fff;border:2px solid #fff;box-shadow:0 0 0 2px #376c49,0 3px 7px #12251a23;flex-shrink:0}
+.bulba-move-type-icon.is-grass{background:linear-gradient(140deg,#81cb75,#449956);box-shadow:0 0 0 2px #449956,0 3px 7px #12251a23}
+.bulba-move-type-icon.is-normal{background:linear-gradient(140deg,#acafa1,#808978);box-shadow:0 0 0 2px #879183,0 3px 7px #12251a23}
+.bulba-move-type-icon.is-unknown{background:#858e96}
+.bulba-move-type-icon svg{display:block}
+.bulba-preview-move-copy{min-width:0;display:flex;flex-direction:column;gap:3px}
+.bulba-preview-move-heading{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.bulba-preview-move-heading strong{font-size:14px;line-height:1.2}
+.bulba-preview-move-heading .bulba-preview-type-name{display:inline-flex;align-items:center;padding:3px 6px;font-size:9px;font-weight:900;line-height:1;text-transform:uppercase;letter-spacing:.55px;border-radius:5px;background:#e0f4dd;color:#287742}
+.bulba-preview-move-heading .bulba-preview-type-name.is-normal{background:#e8ebe6;color:#636a59}
+.bulba-preview-move-heading .bulba-preview-type-name.is-unknown{background:#edeef0;color:#6b7278}
+.bulba-preview-move-copy small{font-size:11px;line-height:1.4;color:#66775e}
+@media(max-width:750px){.bulba-preview-list>.bulba-preview-move{grid-template-columns:36px minmax(0,1fr);gap:9px;min-height:57px;padding:7px 9px}.bulba-move-type-icon{width:34px;height:34px}.bulba-move-type-icon svg{width:19px;height:19px}}
+@media(max-width:475px){.bulba-preview-move-heading strong{font-size:13px}.bulba-preview-move-copy small{font-size:10px}}
+@media(max-width:750px) and (max-height:680px){.bulba-preview-art{min-height:96px;height:96px}.bulba-preview-art img{height:108px;width:110px}.bulba-preview-info{padding:12px 16px 13px}.bulba-preview-info h2{margin-top:5px;margin-bottom:5px}.bulba-preview-list{gap:5px;margin-top:8px}.bulba-preview-list>.bulba-preview-move{min-height:51px;padding:6px 9px}.bulba-preview-status{margin:8px 0!important;line-height:1.4!important}.bulba-preview-button{padding:9px}}
