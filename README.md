@@ -73,3 +73,7 @@ Once a GitHub repository is created and available to the connected GitHub app, C
 - In `app.js`, `publicDatabase()` includes entries that are `Final` **or** explicitly `publicWorkout: true`, and strips private `notes`. All other planned and draft records continue to export as blank shells.
 - Returning visitors whose browser stored the original blank Oak entry will receive the public version unless they have actually started editing Oak locally. The dedicated public Oak page always displays the published seed, not an unreviewed local browser draft.
 - When updating Oak in Studio, export/publish a fresh `data.js` and push it to GitHub; the public page reads its training and filming content from that seed. Site source code and CSS only need republishing if you change the page design or schema.
+
+## Professor Oak artwork
+
+Professor Oak’s popup, character card, dashboard spotlight and full workout page use a recognizable character illustration from the Pokémon: Let’s Go era. The live image is loaded from a third-party artwork reference and automatically falls back to a bundled, original simplified SVG illustration when external artwork cannot load. Source/reference: https://eternia.fr/fr/site/article/1684-pokemon-lets-go-pikachu-et-lets-go-evoli-le-professeur-chen/ . Pokémon characters and official artwork belong to their respective rights holders; this site is an unofficial fan project, and reference attribution does not grant a license.
