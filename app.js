@@ -177,21 +177,30 @@
     document.querySelector('.sidebar').classList.remove('open');
   }
   function openOakPreview(){
-    // Use the published program so visitors with older local drafts still see the official entry.
+    // Always show the published Oak program, even when a visitor has older local Studio edits.
     const e=(window.WORKOUT_DEX_SEED?.entries||[]).find(x=>x.id==='oak-000' && x.publicWorkout) || entryBy('oak-000');
     const assignments=e?.production?.assignments || [];
     if(!e || !assignments.length){selectRoute('oak');return;}
     const host=document.getElementById('modalHost');
-    host.innerHTML=`<div class="modal-scrim" data-action="close-scrim"><article class="modal oak-preview-modal" role="dialog" aria-modal="true" aria-labelledby="oak-preview-title" aria-describedby="oak-preview-description">
-      <button class="modal-close" type="button" data-action="close-modal" aria-label="Close Professor Oak preview">×</button>
-      <div class="oak-preview-header">
-        <div class="oak-preview-picture"><img class="oak-art-image" src="assets/professor-oak-game-portrait.webp" onerror="this.onerror=null;this.src='assets/professor-oak-fallback.svg'" alt="Game-inspired portrait of Professor Oak in a white lab coat, holding a Poké Ball and clipboard" loading="lazy" decoding="async" /></div>
-        <div><div class="eyebrow dark">PROLOGUE • PALLET TOWN • #000</div><h2 id="oak-preview-title">Professor Oak</h2><p id="oak-preview-description">Trainer Orientation · Beginner full-body workout · 40–45 minutes</p></div>
+    host.innerHTML=`<div class="modal-scrim oak-feature-scrim" data-action="close-scrim"><article class="modal oak-feature-modal" role="dialog" aria-modal="true" aria-labelledby="oak-preview-title" aria-describedby="oak-preview-description">
+      <button class="modal-close oak-feature-close" type="button" data-action="close-modal" aria-label="Close Professor Oak preview">×</button>
+      <div class="oak-feature-visual">
+        <img src="assets/professor-oak-game-portrait.webp" alt="Game-inspired portrait of Professor Oak in his laboratory, holding a Poké Ball and clipboard" onerror="this.onerror=null;this.src='assets/professor-oak-fallback.svg'" decoding="async" />
+        <div class="oak-dialogue-box"><span class="oak-dialogue-speaker">Professor Oak</span><p>Ah! Welcome to the world of Pokémon!<br/>Let's get you ready for your journey.</p><span class="oak-dialogue-arrow" aria-hidden="true"></span></div>
       </div>
-      <section class="detail-block"><h3>Four signature assignments</h3><p>Meet your first four training tasks. These are Oak-inspired assignments, not official Pokémon moves.</p>
-      <div class="oak-preview-grid">${assignments.slice(0,4).map((a,i)=>`<div class="oak-preview-move"><div class="oak-preview-number">${safe(a.number || String(i+1).padStart(2,'0'))}</div><div><strong>${safe(a.title)}</strong><span>${safe(a.exercise)}</span><small>${safe(a.reps)}</small></div></div>`).join('')}</div></section>
-      <div class="oak-preview-note"><strong>Workout program published.</strong> All seven exercises, the warm-up, rest intervals, coaching cues, and production package are on Oak's full page. Video and camera tests are still pending.</div>
-      <div class="modal-buttons">${btn('View Full Workout →','oak-full-workout','btn-dark')}${btn('Close','close-modal','btn-outline')}</div>
+      <div class="oak-feature-info">
+        <div class="oak-feature-meta"><span class="oak-feature-pokeball" aria-hidden="true"></span><strong>WORKOUT 000</strong><span class="oak-feature-place">PALLET TOWN</span></div>
+        <h2 id="oak-preview-title">Professor Oak's<br/>Trainer Orientation</h2>
+        <div class="oak-feature-tags"><span class="oak-feature-level">Beginner</span><span class="oak-feature-type">Full Body</span><span class="oak-feature-time"><span aria-hidden="true">◷</span> 40–45 minutes</span></div>
+        <p class="oak-feature-intro" id="oak-preview-description">Before you can choose your starter Pokémon, complete Professor Oak's Trainer Orientation! These four assignments will prepare you for your journey.</p>
+        <div class="oak-feature-moves" aria-label="Four main exercises">
+          ${assignments.slice(0,4).map((a,i)=>`<div class="oak-feature-move"><span class="oak-feature-number" aria-hidden="true">${i+1}</span><img class="oak-feature-thumb" src="assets/oak-exercise-${i+1}.webp" alt="${safe(a.exercise)} exercise demonstration" loading="lazy"/><div class="oak-feature-move-info"><strong>${safe(a.title)}</strong><span>${safe(a.exercise)}</span><small>${safe(a.reps)}</small></div></div>`).join('')}
+        </div>
+        <div class="oak-feature-footer">
+          <button class="oak-feature-action" type="button" data-action="oak-full-workout"><span aria-hidden="true">✦</span> View Full Workout <span aria-hidden="true">→</span></button>
+          <p>Includes warm-up, 3 additional exercises, technique cues, modifications and the full production guide.</p>
+        </div>
+      </div>
     </article></div>`;
     host.querySelector('.modal-close')?.focus();
   }
