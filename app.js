@@ -56,7 +56,7 @@
     <section class="stats-grid" aria-label="Project stats">${stat('ORIGINAL KANTO',species,'Base Pokémon entries','◈')}${stat('CHARACTER WORKOUTS',characters,'Professor, trainers and leaders','♙')}${stat('FORM VARIANTS',forms,'Separate workouts to explore','✦')}${stat('PUBLISHED WORKOUTS',published,'Complete workout programs online','✓',true)}</section>
     <div class="section-heading"><div><h2>The journey so far</h2><p>Track the road from Professor Oak to the Elite Four.</p></div></div>
     <section class="two-cols"><div class="panel panel-pad"><div class="panel-top"><h3>Region completion</h3><small>${baseFinal} / ${species} KANTO</small></div><div class="progress-track"><div class="progress-fill" style="width:${species?100*baseFinal/species:0}%"></div></div><div class="progress-meta"><span>Original 151 completed</span><span>${species?Math.round(baseFinal/species*100):0}%</span></div><div style="margin-top:16px">${sections.map((s,i)=>{let all=count(e=>e.chapter===s),fin=count(e=>e.chapter===s&&e.status==='Final');return `<div class="chapter-row"><div class="chapter-dot">${String(i).padStart(2,'0')}</div><div class="chapter-info"><strong>${s}</strong><small>${s==='Prologue'?'Where the adventure starts':s==='Forms'?'Regional, Mega, Gigantamax and more':'Workout collection'}</small></div><div class="chapter-score">${fin} / ${all}</div></div>`}).join('')}</div></div>
-    <div class="vertical-gap"><div class="spotlight"><div><div class="eyebrow dark">EPISODE 000 • THE PROLOGUE</div><h3>Professor Oak</h3><p>Workout 000 is on the Dex: full training session, coaching, and a two-character comedy shoot plan.</p>${btn('View the first entry →','oak','btn-dark')}</div><div class="oak-portrait" aria-label="Abstract professor illustration">✦</div></div><div class="notice"><span class="mini-poke">!</span><div><strong>Professor Oak's program is live; his video is still in production.</strong><br/>Other planned entries remain placeholders. Studio finalization still requires the full Series Standards v1.1 audit.</div></div></div></section>
+    <div class="vertical-gap"><div class="spotlight"><div><div class="eyebrow dark">EPISODE 000 • THE PROLOGUE</div><h3>Professor Oak</h3><p>Workout 000 is on the Dex: full training session, coaching, and a two-character comedy shoot plan.</p>${btn('View the first entry →','oak-preview','btn-dark')}</div><div class="oak-portrait" aria-label="Abstract professor illustration">✦</div></div><div class="notice"><span class="mini-poke">!</span><div><strong>Professor Oak's program is live; his video is still in production.</strong><br/>Other planned entries remain placeholders. Studio finalization still requires the full Series Standards v1.1 audit.</div></div></div></section>
     <div class="section-heading"><div><h2>Start your adventure</h2><p>The first Pokémon in the National Pokédex.</p></div><a href="#pokedex">VIEW ALL 151 ↗</a></div>
     <div class="cards-grid">${entries().filter(e=>e.kind==='pokemon').slice(0,4).map(card).join('')}</div>`;
   }
@@ -175,8 +175,27 @@
     document.querySelectorAll('[data-nav]').forEach(a=>{a.classList.toggle('active',a.dataset.nav===route);if(a.dataset.nav===route)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
     document.querySelector('.sidebar').classList.remove('open');
   }
+  function openOakPreview(){
+    // Use the published program so visitors with older local drafts still see the official entry.
+    const e=(window.WORKOUT_DEX_SEED?.entries||[]).find(x=>x.id==='oak-000' && x.publicWorkout) || entryBy('oak-000');
+    const assignments=e?.production?.assignments || [];
+    if(!e || !assignments.length){selectRoute('oak');return;}
+    const host=document.getElementById('modalHost');
+    host.innerHTML=`<div class="modal-scrim" data-action="close-scrim"><article class="modal oak-preview-modal" role="dialog" aria-modal="true" aria-labelledby="oak-preview-title" aria-describedby="oak-preview-description">
+      <button class="modal-close" type="button" data-action="close-modal" aria-label="Close Professor Oak preview">×</button>
+      <div class="oak-preview-header">
+        <div class="oak-preview-symbol" aria-hidden="true"><span>000</span><span class="oak-preview-symbol-mark">✦</span></div>
+        <div><div class="eyebrow dark">PROLOGUE • PALLET TOWN • #000</div><h2 id="oak-preview-title">Professor Oak</h2><p id="oak-preview-description">Trainer Orientation · Beginner full-body workout · 40–45 minutes</p></div>
+      </div>
+      <section class="detail-block"><h3>Four signature assignments</h3><p>Meet your first four training tasks. These are Oak-inspired assignments, not official Pokémon moves.</p>
+      <div class="oak-preview-grid">${assignments.slice(0,4).map((a,i)=>`<div class="oak-preview-move"><div class="oak-preview-number">${safe(a.number || String(i+1).padStart(2,'0'))}</div><div><strong>${safe(a.title)}</strong><span>${safe(a.exercise)}</span><small>${safe(a.reps)}</small></div></div>`).join('')}</div></section>
+      <div class="oak-preview-note"><strong>Workout program published.</strong> All seven exercises, the warm-up, rest intervals, coaching cues, and production package are on Oak's full page. Video and camera tests are still pending.</div>
+      <div class="modal-buttons">${btn('View Full Workout →','oak-full-workout','btn-dark')}${btn('Close','close-modal','btn-outline')}</div>
+    </article></div>`;
+    host.querySelector('.modal-close')?.focus();
+  }
   function openDetail(id){
-    if(id==='oak-000'){selectRoute('oak');return;}
+    if(id==='oak-000'){openOakPreview();return;}
     const e=entryBy(id); if(!e) return;
     const final=e.status==='Final';
     const root=document.getElementById('modalHost');
@@ -270,6 +289,12 @@
   function action(action,el){switch(action){
     case 'pokedex':case 'studio':case 'overview':case 'characters':case 'forms':case 'moves':case 'guide':selectRoute(action);break;
     case 'oak':selectRoute('oak');break;
+    case 'oak-preview':openOakPreview();break;
+    case 'oak-full-workout':
+      closeModal();
+      selectRoute('oak');
+      if(route==='oak')requestAnimationFrame(()=>document.getElementById('oak-program')?.scrollIntoView({behavior:'instant',block:'start'}));
+      break;
     case 'edit-oak':navToStudio('oak-000');break;
     case 'jump-oak':document.getElementById(el.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'});break;
     case 'detail':openDetail(el.dataset.id);break;
