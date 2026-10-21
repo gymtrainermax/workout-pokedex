@@ -7,3 +7,111 @@
 .dex-image:before{content:'◓';position:absolute;z-index:0;color:#aaaac8;opacity:.15;font-size:108px;line-height:1;top:50%;left:50%;transform:translate(-50%,-50%)}
 .dex-image img,.dex-image .character-letter{position:relative;z-index:1}
 .dex-image .image-hint{z-index:2}
+
+/* Professor Oak / Workout 000 published program and two-character shoot plan */
+.oak-page{max-width:1250px;margin:0 auto;padding-bottom:55px;color:var(--ink)}
+.oak-hero{background:#121931;color:#fafcf5;border-radius:22px;overflow:hidden;display:grid;grid-template-columns:1.3fr .75fr;position:relative;min-height:335px;margin-bottom:16px;box-shadow:0 12px 24px rgba(14,22,39,.10)}
+.oak-hero-main{position:relative;z-index:2;padding:43px 38px 36px}
+.oak-hero .eyebrow{color:#b8e96b;font-size:11px;font-weight:800;letter-spacing:2px;margin-bottom:15px}
+.oak-hero-label{font-size:11px;letter-spacing:2.6px;color:#b7c7e2;font-weight:800}
+.oak-hero h1{font-family:inherit;font-size:clamp(38px,5.6vw,70px);line-height:.97;font-weight:900;letter-spacing:-3px;margin:10px 0 17px;color:white}
+.oak-hero h1 span{color:#cbf177}
+.oak-hero-main>p{max-width:590px;color:#e2eaf7;font-size:17px;font-weight:500;line-height:1.5;margin-bottom:19px}
+.oak-status-line{font-size:12px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;color:#dbe6f8}
+.oak-live-dot{height:9px;width:9px;border-radius:50%;background:#b3e667;box-shadow:0 0 0 4px #b3e66722}
+.oak-status-divider{color:#758da5}
+.oak-hero-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:25px}
+.oak-hero-art{position:relative;overflow:hidden;min-height:300px;background:radial-gradient(circle at 51% 55%,#27395e 0,#171f37 58%,#10182f 100%);border-left:1px solid rgba(255,255,255,.1)}
+.oak-hero-art:after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 29px,#ffffff08 30px 31px),repeating-linear-gradient(0deg,transparent 0 29px,#ffffff08 30px 31px)}
+.oak-large-ball{height:200px;width:200px;border:12px solid #e8f0fd;border-radius:50%;background:linear-gradient(#e85353 0 46%,#121931 46% 54%,#f7f9fe 54%);position:absolute;left:50%;top:48%;transform:translate(-50%,-50%) rotate(-17deg);box-shadow:0 22px 35px #0006;z-index:1}
+.oak-ball-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:63px;height:63px;background:#f2f7fd;border:12px solid #121931;border-radius:50%;box-shadow:inset 0 0 0 5px #ccd3e3}
+.oak-lab-signal{position:absolute;z-index:2;left:20px;top:22px;font-size:11px;letter-spacing:3px;color:#9dc975;font-weight:800}
+.oak-lab-ticket{position:absolute;z-index:2;right:18px;bottom:19px;padding:11px 15px;border:1px solid #d9f1ae88;border-radius:5px;font-size:10px;letter-spacing:1.5px;color:#bdcdde;line-height:1.9;background:#0f192e99}
+.oak-lab-ticket strong{color:#c6ec76}
+.oak-signal-bars{position:absolute;bottom:20px;left:20px;color:#b9ed6c;letter-spacing:6px;z-index:2}
+.oak-jumplinks{display:flex;gap:8px;overflow-x:auto;margin:14px 0 14px;padding-bottom:2px}
+.oak-jumplinks button{white-space:nowrap;font-family:inherit;border-radius:9px;background:#fff;border:1px solid #dfe2e6;padding:10px 14px;color:#344054;font-size:12px;font-weight:800;cursor:pointer}
+.oak-jumplinks button:hover{background:#f2f7e7;border-color:#c5d8aa}
+.oak-summary-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.oak-summary-cards>div{background:white;border:1px solid #e5e6e4;border-radius:13px;padding:17px}
+.oak-summary-cards small,.oak-production-meta small{font-size:10px;color:#607187;letter-spacing:1.2px;font-weight:800;display:block;margin-bottom:8px}
+.oak-summary-cards strong{font-size:20px;color:#1b283f}
+.oak-announce{border:1px solid #d3e6b4;background:#f2f8e6;color:#344629;padding:17px 19px;border-radius:12px;font-size:13px;line-height:1.7}
+.oak-section-header{scroll-margin-top:30px;margin:45px 0 17px}
+.oak-section-header h2{font-size:clamp(25px,3vw,35px);letter-spacing:-.8px;line-height:1.1;margin:6px 0}
+.oak-section-header p{color:#566375;font-size:14px;line-height:1.55;max-width:800px}
+.oak-workout-intro,.oak-workout-panels{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:12px}
+.oak-workout-intro>div,.oak-workout-panels>article{background:#fff;border:1px solid #e1e5e6;border-radius:13px;padding:20px}
+.oak-kicker{font-size:10px;color:#536b34;letter-spacing:1.3px;font-weight:900}
+.oak-workout-intro h3,.oak-workout-panels h3{font-size:17px;margin:8px 0}
+.oak-workout-intro p,.oak-workout-panels p{font-size:13px;color:#586477;line-height:1.7}
+.oak-table-wrap{overflow-x:auto;border:1px solid #e3e7e7;border-radius:13px;background:white}
+.oak-workout-table{width:100%;border-collapse:collapse;text-align:left;font-size:13px}
+.oak-workout-table th{background:#eef2ed;padding:15px 14px;color:#526477;letter-spacing:1px;font-size:10px;white-space:nowrap}
+.oak-workout-table td{padding:16px 14px;border-top:1px solid #ebedef;vertical-align:top;line-height:1.55}
+.oak-workout-table td:nth-child(3),.oak-workout-table td:nth-child(4){white-space:normal;min-width:85px}
+.oak-workout-table tbody tr:hover{background:#fbfcf8}
+.oak-ex-name{font-weight:850;font-size:15px;color:#1b283f}
+.oak-step-index{background:#18243c;color:#d2f284;padding:6px 8px;border-radius:6px;font-weight:800;display:inline-block;font-size:11px}
+.oak-alias,.oak-support{display:inline-block;margin:4px 0 2px;font-size:11px;font-weight:700;color:#506b2b}
+.oak-support{color:#78859a}
+.oak-workout-table td small{color:#67768a;display:block;margin-top:3px}
+.oak-cue{margin-top:6px;font-size:12px;color:#3d526c}
+.oak-cue summary{cursor:pointer;font-weight:750;list-style:disclosure-closed}
+.oak-cue[open] summary{list-style:disclosure-open}
+.oak-cue p{max-width:650px;line-height:1.65;padding-top:6px;color:#586477}
+.oak-workout-panels{margin-top:13px}
+.oak-safety{background:#fff9eb;border:1px solid #f0d8ad;color:#634c24;font-size:13px;line-height:1.65;border-radius:12px;padding:16px 19px}
+.oak-assignment-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.oak-assignment{border-radius:13px;background:#fff;border:1px solid #e3e6e5;padding:22px 22px 20px;box-shadow:0 2px 4px #101e3008}
+.oak-assignment-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;color:#72859c;font-size:10px;font-weight:800;letter-spacing:1px}
+.oak-pending{border:1px solid #e7d6ad;background:#fff8e7;color:#947136;padding:5px 8px;border-radius:5px;letter-spacing:.4px;font-size:9px}
+.oak-assignment h3{font-size:20px;margin:15px 0 6px;color:#1c2b45;line-height:1.1}
+.oak-assignment-ex{font-size:12px;color:#4b6929;font-weight:750;margin-bottom:10px}
+.oak-assignment-ex span{font-weight:550}
+.oak-assignment p{font-size:13px;line-height:1.65;color:#5b6a7c}
+.oak-match{border-top:1px solid #e9edeb;margin-top:14px;padding-top:13px;color:#233950;font-size:12px;font-weight:760}
+.oak-production-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:13px}
+.oak-production-meta>div{background:#121931;border-radius:11px;padding:16px 18px;color:white}
+.oak-production-meta small{color:#b8e67c}
+.oak-production-meta strong{font-size:14px;line-height:1.5}
+.oak-roles{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.oak-role{background:#eaf2db;border:1px solid #d7e7bb;padding:18px 20px;border-radius:12px}
+.oak-role:nth-child(2){background:#edf1f7;border-color:#d8e3f2}
+.oak-role span{font-size:11px;letter-spacing:1px;color:#42631e;font-weight:850}
+.oak-role:nth-child(2) span{color:#3d567f}
+.oak-role p{font-size:13px;line-height:1.65;margin-top:6px;color:#344153}
+.oak-subtitle{font-size:20px;margin:30px 0 15px}
+.oak-beats{border-radius:13px;overflow:hidden;border:1px solid #e2e6e7;background:#fff}
+.oak-beat{display:grid;grid-template-columns:110px 1fr;border-bottom:1px solid #e9ecec;gap:18px;padding:15px 18px;font-size:12px;line-height:1.6}
+.oak-beat:last-child{border-bottom:0}
+.oak-beat-time{font-weight:900;color:#48692d;font-variant-numeric:tabular-nums}
+.oak-beat strong{font-size:13px;color:#20314c}
+.oak-beat p{margin-top:5px;color:#5f6e81}
+.oak-production-accordions{margin-top:13px;display:grid;gap:8px}
+.oak-production-accordions details{background:white;border:1px solid #e1e5e8;border-radius:12px;padding:15px 18px}
+.oak-production-accordions summary{font-weight:800;font-size:14px;cursor:pointer;color:#1a2b48}
+.oak-production-accordions summary span{float:right;color:#6b7989;font-size:11px}
+.oak-production-accordions ul,.oak-production-accordions ol{padding-left:20px;margin:15px 0 3px;font-size:13px;line-height:1.9;color:#4b5b6d}
+.oak-overlay-text{font-size:12px;line-height:1.65;background:#f1f4f7;padding:14px;white-space:pre-wrap;border-radius:8px;margin-top:10px}
+.oak-social-grid{display:grid;grid-template-columns:minmax(250px,.75fr) 1.25fr;gap:13px}
+.oak-cover-preview{background:#171f37;border-radius:13px;padding:25px;color:white;min-height:350px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.oak-cover-preview:after{content:'◉';position:absolute;right:-30px;top:0;opacity:.08;font-size:330px;color:#d9f68c;line-height:1}
+.oak-cover-eyebrow{font-weight:850;color:#bddf83;letter-spacing:2px;font-size:11px;position:relative;z-index:1}
+.oak-cover-title{font-size:clamp(32px,3.5vw,56px);font-weight:1000;color:#d5f483;line-height:1.04;letter-spacing:-2px;position:relative;z-index:1}
+.oak-cover-small{font-size:12px;color:#ebf4ff;font-weight:900;letter-spacing:1px;position:relative;z-index:1}
+.oak-cover-preview p{font-size:12px;color:#bdcbe0;line-height:1.65;position:relative;z-index:1}
+.oak-caption-card{background:white;border:1px solid #e0e6e7;border-radius:13px;padding:24px}
+.oak-caption-card pre{font-family:inherit;font-size:13px;line-height:1.75;color:#304056;white-space:pre-wrap;overflow-wrap:anywhere;margin-top:15px}
+.oak-pin{border-top:1px solid #e3e6e7;margin-top:15px;padding-top:12px;font-size:12px;color:#465970;line-height:1.6}
+.oak-preflight{border-radius:13px;border:1px solid #e7e2ce;background:#faf7eb;display:grid;grid-template-columns:1fr 1.4fr;gap:25px;padding:24px;margin-top:13px}
+.oak-preflight h3{font-size:20px;margin:8px 0}
+.oak-preflight p{font-size:13px;line-height:1.7;color:#65685d}
+.oak-preflight ul{list-style:none;padding:0;margin:0}
+.oak-preflight li{display:flex;gap:9px;border-bottom:1px solid #e6e1d0;padding:8px 0;font-size:12px;line-height:1.55}
+.oak-preflight li:last-child{border-bottom:0}
+.oak-unchecked{font-size:18px;color:#957b36;line-height:1}
+.oak-back{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}
+@media(max-width:900px){.oak-hero{grid-template-columns:1fr}.oak-hero-art{display:none}.oak-hero-main{padding:31px 24px}.oak-hero h1{font-size:clamp(38px,7vw,65px)}.oak-social-grid{grid-template-columns:1fr}.oak-cover-preview{min-height:280px}.oak-preflight{grid-template-columns:1fr}}
+@media(max-width:620px){.oak-hero-main{padding:28px 20px}.oak-hero h1{letter-spacing:-1.5px;font-size:42px}.oak-hero-main>p{font-size:15px}.oak-summary-cards{grid-template-columns:1fr 1fr}.oak-summary-cards strong{font-size:16px}.oak-workout-intro,.oak-workout-panels,.oak-assignment-grid,.oak-production-meta,.oak-roles{grid-template-columns:1fr}.oak-section-header{margin-top:33px}.oak-workout-table th,.oak-workout-table td{padding:13px 8px;font-size:12px}.oak-workout-table .oak-ex-name{font-size:13px}.oak-workout-table td:nth-child(3){min-width:85px}.oak-workout-table td:nth-child(4){min-width:70px}.oak-beat{grid-template-columns:75px 1fr;gap:10px;padding:13px 10px}.oak-beat strong{font-size:12px}.oak-jumplinks button{padding:8px 10px}.oak-preflight{padding:17px}}
+@media print{.sidebar,.topbar,.oak-hero-actions,.oak-jumplinks,.oak-back{display:none!important}.oak-page{max-width:100%;margin:0}.oak-hero{color:#111;box-shadow:none;border:1px solid #ddd}.oak-hero h1{color:#121931}.oak-hero-main>p,.oak-status-line{color:#111}.oak-beats,.oak-workout-table{break-inside:avoid}}

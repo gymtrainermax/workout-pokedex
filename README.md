@@ -64,3 +64,12 @@ For true one-click public publishing, cross-device sync, collaborative editing, 
 ## GitHub connection from ChatGPT
 
 Once a GitHub repository is created and available to the connected GitHub app, ChatGPT can propose or commit the approved `data.js` change for each Final workout using the GitHub integration. GitHub Pages then redeploys the public site on push. Repository creation and first-time GitHub Pages settings are user-controlled steps; the ChatGPT connector currently cannot create a repository or turn on Pages itself.
+
+## Episode 000 — Professor Oak published program
+
+- The public Kanto Dex includes a dedicated **Professor Oak** page at `/#oak`.
+- Oak's 7-exercise, 14-set beginner Trainer Orientation program, coaching notes and regressions are available to visitors **now**. Four character-inspired signature assignments, two-character sketch dialogue, a timed 17-shot production package, and a social caption are on that page.
+- The **workout program is published** (`publicWorkout: true`), but the entry retains **Review** status because on-camera execution and final video sign-off are not complete. This is deliberately distinct from a `Final` episode; do not set `quality.visual` to true until the footage passes the Camera Test.
+- In `app.js`, `publicDatabase()` includes entries that are `Final` **or** explicitly `publicWorkout: true`, and strips private `notes`. All other planned and draft records continue to export as blank shells.
+- Returning visitors whose browser stored the original blank Oak entry will receive the public version unless they have actually started editing Oak locally. The dedicated public Oak page always displays the published seed, not an unreviewed local browser draft.
+- When updating Oak in Studio, export/publish a fresh `data.js` and push it to GitHub; the public page reads its training and filming content from that seed. Site source code and CSS only need republishing if you change the page design or schema.

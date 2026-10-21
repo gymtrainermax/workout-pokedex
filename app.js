@@ -23,7 +23,12 @@
     let published = cl(window.WORKOUT_DEX_SEED || {schemaVersion:1,entries:[]});
     try {
       const cached = JSON.parse(localStorage.getItem(STORE_KEY));
-      if(cached?.schemaVersion===1 && Array.isArray(cached.entries)) return cached;
+      if(cached?.schemaVersion===1 && Array.isArray(cached.entries)) {
+        const officialOak = published.entries.find(e=>e.id==='oak-000' && e.publicWorkout);
+        const savedOak = cached.entries.find(e=>e.id==='oak-000');
+        if(officialOak && savedOak && savedOak.status==='Planned' && !savedOak.goal && !(savedOak.exercises||[]).length) Object.assign(savedOak, cl(officialOak));
+        return cached;
+      }
     } catch(e) { console.warn('Could not read local save:', e); }
     return published;
   };
@@ -43,15 +48,15 @@
   const head = (eyebrow,title,desc,actions='') => `<div class="section-intro"><div><div class="eyebrow dark">${eyebrow}</div><h1>${title}</h1><p>${desc}</p></div>${actions}</div>`;
   const btn = (text,action,cls='btn-dark',attr='') => `<button type="button" class="btn ${cls}" data-action="${action}" ${attr}>${text}</button>`;
   const count = (f) => entries().filter(f).length;
-  const card = e => `<button class="dex-card" type="button" data-action="detail" data-id="${safe(e.id)}" aria-label="Open ${safe(e.name)}"><div class="card-top"><span>${shortId(e)}</span><span>${statusChip(e.status)}</span></div><div class="dex-image ${e.kind==='form'?'form-image':''}">${artHtml(e)}${e.kind==='form'?'<span class="image-hint">BASE ART</span>':''}</div><h3 title="${safe(e.name)}">${safe(e.name)}</h3><div class="card-tags">${typeChips(e)}</div><div class="card-bottom"><span>${e.kind==='form'?safe(e.formGroup||'Form'):e.kind==='character'?safe(e.chapter):safe(e.difficulty)}</span><span class="tiny-pill ${e.status==='Final'?'is-final':''}">${e.status==='Final'?'✓ COMPLETE': 'NOT FINAL'}</span></div></button>`;
+  const card = e => `<button class="dex-card" type="button" data-action="detail" data-id="${safe(e.id)}" aria-label="Open ${safe(e.name)}"><div class="card-top"><span>${shortId(e)}</span><span>${statusChip(e.status)}</span></div><div class="dex-image ${e.kind==='form'?'form-image':''}">${artHtml(e)}${e.kind==='form'?'<span class="image-hint">BASE ART</span>':''}</div><h3 title="${safe(e.name)}">${safe(e.name)}</h3><div class="card-tags">${typeChips(e)}</div><div class="card-bottom"><span>${e.kind==='form'?safe(e.formGroup||'Form'):e.kind==='character'?safe(e.chapter):safe(e.difficulty)}</span><span class="tiny-pill ${e.status==='Final'||e.publicWorkout?'is-final':''}">${e.status==='Final'?'✓ COMPLETE': e.publicWorkout?'WORKOUT LIVE':'NOT FINAL'}</span></div></button>`;
   function dashboard(){
-    const species=count(e=>e.kind==='pokemon'), characters=count(e=>e.kind==='character'), forms=count(e=>e.kind==='form'), finalized=count(e=>e.status==='Final'), baseFinal=count(e=>e.kind==='pokemon'&&e.status==='Final');
+    const species=count(e=>e.kind==='pokemon'), characters=count(e=>e.kind==='character'), forms=count(e=>e.kind==='form'), finalized=count(e=>e.status==='Final'), published=count(e=>e.status==='Final'||e.publicWorkout), baseFinal=count(e=>e.kind==='pokemon'&&e.status==='Final');
     const sections=['Prologue','Original 151','Trainers','Gym Leaders','Elite Four','Forms'];
     return `<section class="hero"><div class="hero-content"><div class="eyebrow light">◉ WELCOME TO THE JOURNEY</div><h1>Gotta train<br/><span>'em all.</span></h1><p>A living Pokédex built on Pokémon lore, real exercise science, and 151 very good reasons to hit the gym.</p><div class="hero-buttons">${btn('Explore Kanto →','pokedex','btn-lime')}${btn('Open Workout Studio ↗','studio','btn-ghost')}</div></div><div class="hero-graphic" aria-hidden="true"></div><span class="hero-dex" aria-hidden="true">#001</span></section>
-    <section class="stats-grid" aria-label="Project stats">${stat('ORIGINAL KANTO',species,'Base Pokémon entries','◈')}${stat('CHARACTER WORKOUTS',characters,'Professor, trainers and leaders','♙')}${stat('FORM VARIANTS',forms,'Separate workouts to explore','✦')}${stat('FINALIZED WORKOUTS',finalized,'Approved and ready to publish','✓',true)}</section>
+    <section class="stats-grid" aria-label="Project stats">${stat('ORIGINAL KANTO',species,'Base Pokémon entries','◈')}${stat('CHARACTER WORKOUTS',characters,'Professor, trainers and leaders','♙')}${stat('FORM VARIANTS',forms,'Separate workouts to explore','✦')}${stat('PUBLISHED WORKOUTS',published,'Complete workout programs online','✓',true)}</section>
     <div class="section-heading"><div><h2>The journey so far</h2><p>Track the road from Professor Oak to the Elite Four.</p></div></div>
     <section class="two-cols"><div class="panel panel-pad"><div class="panel-top"><h3>Region completion</h3><small>${baseFinal} / ${species} KANTO</small></div><div class="progress-track"><div class="progress-fill" style="width:${species?100*baseFinal/species:0}%"></div></div><div class="progress-meta"><span>Original 151 completed</span><span>${species?Math.round(baseFinal/species*100):0}%</span></div><div style="margin-top:16px">${sections.map((s,i)=>{let all=count(e=>e.chapter===s),fin=count(e=>e.chapter===s&&e.status==='Final');return `<div class="chapter-row"><div class="chapter-dot">${String(i).padStart(2,'0')}</div><div class="chapter-info"><strong>${s}</strong><small>${s==='Prologue'?'Where the adventure starts':s==='Forms'?'Regional, Mega, Gigantamax and more':'Workout collection'}</small></div><div class="chapter-score">${fin} / ${all}</div></div>`}).join('')}</div></div>
-    <div class="vertical-gap"><div class="spotlight"><div><div class="eyebrow dark">EPISODE 000 • THE PROLOGUE</div><h3>Professor Oak</h3><p>Every great training adventure starts with a first step.</p>${btn('View the first entry →','oak','btn-dark')}</div><div class="oak-portrait" aria-label="Abstract professor illustration">✦</div></div><div class="notice"><span class="mini-poke">!</span><div><strong>No workout is marked complete until approved.</strong><br/>Entries are placeholders, not published programs. Your Studio performs a finalization check against Series Standards v1.1.</div></div></div></section>
+    <div class="vertical-gap"><div class="spotlight"><div><div class="eyebrow dark">EPISODE 000 • THE PROLOGUE</div><h3>Professor Oak</h3><p>Workout 000 is on the Dex: full training session, coaching, and a two-character comedy shoot plan.</p>${btn('View the first entry →','oak','btn-dark')}</div><div class="oak-portrait" aria-label="Abstract professor illustration">✦</div></div><div class="notice"><span class="mini-poke">!</span><div><strong>Professor Oak's program is live; his video is still in production.</strong><br/>Other planned entries remain placeholders. Studio finalization still requires the full Series Standards v1.1 audit.</div></div></div></section>
     <div class="section-heading"><div><h2>Start your adventure</h2><p>The first Pokémon in the National Pokédex.</p></div><a href="#pokedex">VIEW ALL 151 ↗</a></div>
     <div class="cards-grid">${entries().filter(e=>e.kind==='pokemon').slice(0,4).map(card).join('')}</div>`;
   }
@@ -87,7 +92,7 @@
   }
   function checkField(label,path,value){return `<label class="checkline"><input data-edit="${safe(path)}" type="checkbox" ${value?'checked':''}>${label}</label>`;}
   function movesEditor(){return `<section class="studio-section"><h3>02 / Signature move set</h3><p>Exactly four legitimate learnset moves. Each gets a real exercise name and must pass the Pokémon, Trainer and Camera tests. Verification requires your actual research, not just ticking a box.</p>${draft.moves.map((m,i)=>`<div class="move-row"><div class="move-head"><span class="move-number">SIGNATURE MOVE 0${i+1}</span>${checkField('Learnset researched & verified',`moves.${i}.verified`,m.verified)}</div><div class="form-grid">${field('Official Pokémon move',`moves.${i}.name`,m.name,'input','e.g. Vine Whip')}${field('Matching real exercise',`moves.${i}.exercise`,m.exercise,'input','e.g. Battle rope alternating waves')}<div class="wide">${field('Connection / coaching notes',`moves.${i}.notes`,m.notes,'textarea','Explain why this exercise represents the move')}</div></div><div class="checks-grid">${checkField('Pokémon test',`moves.${i}.pokemonTest`,m.pokemonTest)}${checkField('Trainer test',`moves.${i}.trainerTest`,m.trainerTest)}${checkField('Camera test',`moves.${i}.cameraTest`,m.cameraTest)}</div></div>`).join('')}</section>`;}
-  function exercisesEditor(){return `<section class="studio-section"><div class="panel-heading"><div><h3>${isPokemon(draft)?'03':'02'} / Exercise choices</h3><p>Supporting movements in addition to the four signature exercises, with usable sets, reps, and rest.</p></div><button class="btn btn-soft" type="button" data-action="add-exercise">+ Exercise</button></div>${draft.exercises.length?draft.exercises.map((e,i)=>`<div class="exercise-row"><div class="exercise-head"><strong>EXERCISE ${i+1}</strong><button class="text-button danger" data-action="remove-exercise" data-index="${i}">Remove ×</button></div><div class="form-grid three">${field('Real exercise name',`exercises.${i}.name`,e.name,'input','Goblet squat')}${field('Pokémon-inspired alias (optional)',`exercises.${i}.alias`,e.alias,'input','Training name')}${field('Equipment',`exercises.${i}.equipment`,e.equipment,'input','Dumbbell')}${field('Sets',`exercises.${i}.sets`,e.sets,'input','3')}${field('Reps / time',`exercises.${i}.reps`,e.reps,'input','8–12')}${field('Rest',`exercises.${i}.rest`,e.rest,'input','60 seconds')}<div class="wide">${field('Coaching cues',`exercises.${i}.notes`,e.notes,'textarea','Why this exercise belongs here')}</div></div></div>`).join(''):'<div class="empty" style="margin-top:15px"><h3>No supporting exercises yet</h3><p>Add any additional work beyond your signature four.</p></div>'}</section>`;}
+  function exercisesEditor(){return `<section class="studio-section"><div class="panel-heading"><div><h3>${isPokemon(draft)?'03':'02'} / Exercise choices</h3><p>For characters, list the full session in actual exercise order. For Pokémon, list supporting exercises alongside the official four-move core.</p></div><button class="btn btn-soft" type="button" data-action="add-exercise">+ Exercise</button></div>${draft.exercises.length?draft.exercises.map((e,i)=>`<div class="exercise-row"><div class="exercise-head"><strong>EXERCISE ${i+1}</strong><button class="text-button danger" data-action="remove-exercise" data-index="${i}">Remove ×</button></div><div class="form-grid three">${field('Real exercise name',`exercises.${i}.name`,e.name,'input','Goblet squat')}${field('Pokémon-inspired alias (optional)',`exercises.${i}.alias`,e.alias,'input','Training name')}${field('Equipment',`exercises.${i}.equipment`,e.equipment,'input','Dumbbell')}${field('Sets',`exercises.${i}.sets`,e.sets,'input','3')}${field('Reps / time',`exercises.${i}.reps`,e.reps,'input','8–12')}${field('Rest',`exercises.${i}.rest`,e.rest,'input','60 seconds')}<div class="wide">${field('Coaching cues',`exercises.${i}.notes`,e.notes,'textarea','Why this exercise belongs here')}</div></div></div>`).join(''):'<div class="empty" style="margin-top:15px"><h3>No supporting exercises yet</h3><p>Add any additional work beyond your signature four.</p></div>'}</section>`;}
   function studio(){
     if(!draft) initStudio(studioId);
     const n=isPokemon(draft)?3:2;
@@ -115,18 +120,63 @@
       <div class="callout" style="margin-bottom:20px"><strong>Important distinction: browser updates vs. public website updates.</strong> Editing and finalizing work immediately in this browser and persist after refresh. A live public site cannot sync those private changes until you publish the exported data files. This starter has no cloud database or authentication.</div>
       <div class="guide-grid">${steps.map(([num,title,body])=>`<div class="guide-card"><div class="guide-number">${num}</div><h3>${title}</h3><p>${body}</p></div>`).join('')}</div>
       <div class="section-heading"><div><h2>Publishing & backup checklist</h2><p>Use this exact flow whenever a workout is finalized.</p></div></div>
-      <div class="panel panel-pad"><div class="vertical-gap"><p><strong>Local master:</strong> ${fmtCount(entries().length)} current entries stored in your browser when you save, with Final, Review, Draft and other stages.</p><p><strong>Backup:</strong> Download a JSON export after meaningful edits. You can import a backup later from the Studio.</p><p><strong>Public data:</strong> Download a new <code>data.js</code> from Studio and replace the same file in your published site. Only Final workouts include content; incomplete entries are blank shells. Final workout notes are removed.</p><p><strong>GitHub Pages:</strong> Push updated <code>data.js</code> to the <code>main</code> branch. Keep your private full JSON backup off public GitHub. The included GitHub Actions workflow deploys the website automatically. Initial Pages setup must use GitHub Actions as its source.</p><p><strong>Going multi-device:</strong> A real shared cloud database with authentication can be connected later. The provided site does not claim to silently synchronize devices or publish changes without a deployment.</p><p><strong>Sprites:</strong> Official-style Pokémon artwork is loaded from the open PokéAPI sprites repository when connected to the internet. Form cards deliberately show faded base-species art to avoid misidentifying a form.</p></div></div>
+      <div class="panel panel-pad"><div class="vertical-gap"><p><strong>Local master:</strong> ${fmtCount(entries().length)} current entries stored in your browser when you save, with Final, Review, Draft and other stages.</p><p><strong>Backup:</strong> Download a JSON export after meaningful edits. You can import a backup later from the Studio.</p><p><strong>Public data:</strong> Download a new <code>data.js</code> from Studio and replace the same file in your published site. Final workouts and explicitly approved public programs (such as Oak #000) include content; other incomplete entries are blank shells. Final workout notes are removed.</p><p><strong>GitHub Pages:</strong> Push updated <code>data.js</code> to the <code>main</code> branch. Keep your private full JSON backup off public GitHub. The included GitHub Actions workflow deploys the website automatically. Initial Pages setup must use GitHub Actions as its source.</p><p><strong>Going multi-device:</strong> A real shared cloud database with authentication can be connected later. The provided site does not claim to silently synchronize devices or publish changes without a deployment.</p><p><strong>Sprites:</strong> Official-style Pokémon artwork is loaded from the open PokéAPI sprites repository when connected to the internet. Form cards deliberately show faded base-species art to avoid misidentifying a form.</p></div></div>
       <div style="margin-top:18px" class="studio-toolbar">${btn('Go to Workout Studio →','studio','btn-dark')}${btn('Download full backup ↓','export-json','btn-outline')}</div>`;
   }
+  function oakPage(){
+    // The public program is always taken from the published seed, not a visitor's local Studio edits.
+    const e=(window.WORKOUT_DEX_SEED?.entries||[]).find(x=>x.id==='oak-000' && x.publicWorkout) || entryBy('oak-000');
+    if(!e || !e.publicWorkout)return `${head('PROLOGUE / WORKOUT 000','Professor Oak','His Trainer Orientation is in development.')}${btn('Open Workout Studio','studio','btn-dark')}`;
+    const prod=e.production||{}, shots=prod.shootList||[], beats=prod.beats||[], assignments=prod.assignments||[];
+    const count=arr=>Array.isArray(arr)?arr.length:0;
+    const subhead=(id,label,title,desc)=>`<div class="oak-section-header" id="${id}"><div class="eyebrow dark">${label}</div><h2>${title}</h2><p>${desc}</p></div>`;
+    return `<div class="oak-page">
+      <section class="oak-hero">
+        <div class="oak-hero-main"><div class="eyebrow">THE PROLOGUE • PALLET TOWN • #000</div>
+          <div class="oak-hero-label">PROFESSOR OAK'S LAB</div><h1>TRAINER<br/><span>ORIENTATION.</span></h1>
+          <p>${safe(prod.subtitle||'Before you pick your first Pokémon, finish your first workout.')}</p>
+          <div class="oak-status-line"><span class="oak-live-dot"></span><strong>Workout program published</strong><span class="oak-status-divider">•</span><span>Video shoot & camera review pending</span></div>
+          <div class="oak-hero-actions"><button class="btn btn-lime" data-action="jump-oak" data-target="oak-program">View complete workout ↓</button><button class="btn btn-ghost" data-action="jump-oak" data-target="oak-production">View production package ↗</button></div>
+        </div>
+        <div class="oak-hero-art" aria-hidden="true"><div class="oak-lab-signal">P O K É D E X / 0 0 0</div><div class="oak-large-ball"><div class="oak-ball-band"></div><div class="oak-ball-center"></div></div><div class="oak-lab-ticket">PALLET TOWN<br/><strong>LAB ACCESS APPROVED</strong></div><div class="oak-signal-bars">▂ ▅ ▇ ▅ ▂</div></div>
+      </section>
+      <nav class="oak-jumplinks" aria-label="Professor Oak sections"><button data-action="jump-oak" data-target="oak-program">01 / Workout</button><button data-action="jump-oak" data-target="oak-assignments">02 / Signature assignments</button><button data-action="jump-oak" data-target="oak-production">03 / Film production</button><button data-action="jump-oak" data-target="oak-social">04 / Social & release</button></nav>
+      <section class="oak-summary-cards"><div><small>LEVEL</small><strong>${safe(e.difficulty)}</strong></div><div><small>TIME</small><strong>40–45 min</strong></div><div><small>TRAINING</small><strong>Full body</strong></div><div><small>WORKING SETS</small><strong>14</strong></div></section>
+      <div class="oak-announce"><strong>The workout is ready to follow.</strong> The four signature story assignments and the full seven-exercise program are published here. The video is a production plan, not a released episode. Camera tests and creator sign-off remain pending before marking #000 <em>Final</em>.</div>
+      ${subhead('oak-program','01 / THE ACTUAL WORKOUT','Full-body fundamentals','Do the exercises in this training order. The video tells the assignments in a different sequence for the story.')}
+      <section class="oak-workout-intro"><div><span class="oak-kicker">WARM UP</span><h3>Welcome to the lab</h3><p>${safe(e.workout.warmup)}</p></div><div><span class="oak-kicker">TRAINING INTENSITY</span><h3>RPE 6–7</h3><p>Use manageable resistance, roughly 3–4 good reps left in reserve for strength sets. Technique first.</p></div></section>
+      <div class="oak-table-wrap"><table class="oak-workout-table"><thead><tr><th>STEP</th><th>EXERCISE</th><th>DOSE</th><th>REST</th></tr></thead><tbody>
+      ${(e.exercises||[]).map((x,i)=>`<tr><td><span class="oak-step-index">${String(i+1).padStart(2,'0')}</span></td><td><div class="oak-ex-name">${safe(x.name)}</div>${x.alias?`<span class="oak-alias">${safe(x.alias)}</span>`:`<span class="oak-support">Supporting movement</span>`}<div><small>${safe(x.equipment||'')}</small></div><details class="oak-cue"><summary>Technique & scaling</summary><p>${safe(x.notes||'')}</p></details></td><td><strong>${safe(x.sets)} × ${safe(x.reps)}</strong></td><td>${safe(x.rest)}</td></tr>`).join('')}
+      </tbody></table></div>
+      <div class="oak-workout-panels"><article><span class="oak-kicker">COOL DOWN</span><h3>Research complete</h3><p>${safe(e.workout.cooldown)}</p></article><article><span class="oak-kicker">PROGRESSION</span><h3>Level up at your pace</h3><p>${safe(e.workout.modifications)}</p></article></div>
+      <div class="oak-safety"><strong>Safety first.</strong> ${safe(e.workout.safety)}</div>
+      ${subhead('oak-assignments','02 / THE FOUR SIGNATURE ASSIGNMENTS','From the lab to the gym','These are character-inspired training tasks, not official Pokémon moves. The filmed story order is 01–04; the actual session places the throwing drill first.')}
+      <div class="oak-assignment-grid">${assignments.map(x=>`<article class="oak-assignment"><div class="oak-assignment-head"><span>ASSIGNMENT ${safe(x.number)}</span><span class="oak-pending">CAMERA TEST PENDING</span></div><h3>${safe(x.title)}</h3><div class="oak-assignment-ex">${safe(x.exercise)} <span>· ${safe(x.reps)}</span></div><p>${safe(x.connection)}</p><div class="oak-match">↗ ${safe(x.camera)}</div></article>`).join('')}</div>
+      ${subhead('oak-production','03 / CAMERA, COSTUME & EDIT','The shoot-ready production plan','One performer, two characters: Oak is the professor who takes gym form far too seriously; Max just wants to choose a starter.')}
+      <div class="oak-production-meta"><div><small>FORMAT</small><strong>${safe(prod.format||'Vertical 9:16')}</strong></div><div><small>EDIT TARGET</small><strong>${safe(prod.runtime||'70–75 sec')}</strong></div><div><small>TONE</small><strong>${safe(prod.tone||'Comedy + nostalgia')}</strong></div></div>
+      <div class="oak-roles">${(prod.roles||[]).map((role,i)=>`<div class="oak-role"><span>${i?'MAX / COSTUME B':'PROFESSOR OAK / COSTUME A'}</span><p>${safe(role)}</p></div>`).join('')}</div>
+      <h3 class="oak-subtitle">Timed two-character script & edit beats</h3><div class="oak-beats">${beats.map(x=>`<div class="oak-beat"><div class="oak-beat-time">${safe(x.time)}</div><div><strong>${safe(x.audio)}</strong><p>${safe(x.visual)}</p></div></div>`).join('')}</div>
+      <div class="oak-production-accordions">
+        <details><summary>Full 17-shot camera checklist <span>${shots.length} shots</span></summary><ol>${shots.map(x=>`<li>${safe(x)}</li>`).join('')}</ol></details>
+        <details><summary>Costumes, props & training equipment <span>${count(prod.setup)} items</span></summary><ul>${(prod.setup||[]).map(x=>`<li>${safe(x)}</li>`).join('')}</ul></details>
+        <details><summary>Editing & on-screen text <span>${count(prod.editing)} notes</span></summary><ul>${(prod.editing||[]).map(x=>`<li>${safe(x)}</li>`).join('')}</ul><div class="oak-overlay-text">${safe(e.content.onScreen)}</div></details>
+      </div>
+      ${subhead('oak-social','04 / THE FINISH LINE','Cover, caption & release checklist','The content is written and planned. Keep the episode in Review until the actual footage passes the Camera Test.')}
+      <div class="oak-social-grid"><article class="oak-cover-preview"><div class="oak-cover-eyebrow">WORKOUT DEX / 000</div><div class="oak-cover-title">OAK MADE<br/>ME WORK<br/>OUT?!</div><div class="oak-cover-small">A TRAINER ORIENTATION</div><p>${safe(e.content.cover)}</p></article><article class="oak-caption-card"><div class="oak-kicker">FINAL CAPTION DRAFT</div><pre>${safe(e.content.caption)}</pre><div class="oak-pin"><strong>Pinned comment</strong><p>${safe(prod.pinnedComment)}</p></div></article></div>
+      <div class="oak-preflight"><div><span class="oak-kicker">PRE-FLIGHT / CREATOR SIGN-OFF</span><h3>Before the video goes live</h3><p>The published workout program is not an assertion that this footage has already been filmed or tested.</p></div><ul>${(prod.preflight||[]).map(x=>`<li><span class="oak-unchecked">□</span>${safe(x)}</li>`).join('')}</ul></div>
+      <div class="oak-back"><button class="btn btn-dark" data-action="characters">← Back to Kanto characters</button><button class="btn btn-outline" data-action="edit-oak">Edit Oak in Workout Studio ↗</button></div>
+    </div>`;
+  }
   function render(){
-    const views={overview:dashboard,pokedex:()=>browse('pokedex'),characters:()=>browse('characters'),forms:()=>browse('forms'),moves:registry,studio,guide};
+    const views={overview:dashboard,pokedex:()=>browse('pokedex'),characters:()=>browse('characters'),forms:()=>browse('forms'),moves:registry,studio,guide,oak:oakPage};
     if(!views[route]) route='overview';
     root.innerHTML=views[route]();
-    document.getElementById('breadcrumb').textContent=({overview:'DASHBOARD',pokedex:'KANTO POKÉDEX',characters:'CHARACTERS',forms:'FORM REGISTRY',moves:'MOVE REGISTRY',studio:'WORKOUT STUDIO',guide:'PROJECT GUIDE'})[route];
+    document.getElementById('breadcrumb').textContent=({overview:'DASHBOARD',pokedex:'KANTO POKÉDEX',characters:'CHARACTERS',forms:'FORM REGISTRY',moves:'MOVE REGISTRY',studio:'WORKOUT STUDIO',guide:'PROJECT GUIDE',oak:'PROFESSOR OAK / #000'})[route];
     document.querySelectorAll('[data-nav]').forEach(a=>{a.classList.toggle('active',a.dataset.nav===route);if(a.dataset.nav===route)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
     document.querySelector('.sidebar').classList.remove('open');
   }
   function openDetail(id){
+    if(id==='oak-000'){selectRoute('oak');return;}
     const e=entryBy(id); if(!e) return;
     const final=e.status==='Final';
     const root=document.getElementById('modalHost');
@@ -182,7 +232,7 @@
   function publicDatabase(){
     const snapshot=cl(db);
     snapshot.entries=snapshot.entries.map(e=>{
-      if(e.status==='Final')return {...e,notes:''};
+      if(e.status==='Final'||e.publicWorkout===true)return {...e,notes:''};
       const clean=newRecord(e.id,e.name,e.kind,e.chapter,e.dexNumber,e.types||[],e.baseId,e.form,e.formGroup);
       clean.role=e.role||clean.role;
       return clean;
@@ -191,7 +241,7 @@
   }
   function exportJs(){
     downloadFile('window.WORKOUT_DEX_SEED = '+JSON.stringify(publicDatabase())+';\n','data.js','text/javascript');
-    toast('Public data.js exported (only final workouts). Replace site data.js and redeploy.');
+    toast('Public data.js exported (Final workouts and explicitly published programs). Replace site data.js and redeploy.');
   }
   function openCreate(kind){
     const isForm=kind==='form', parentOptions=entries().filter(e=>e.kind==='pokemon').map(e=>`<option value="${safe(e.id)}">${shortId(e)} ${safe(e.name)}</option>`).join('');
@@ -219,7 +269,9 @@
   function closeModal(){document.getElementById('modalHost').innerHTML='';}
   function action(action,el){switch(action){
     case 'pokedex':case 'studio':case 'overview':case 'characters':case 'forms':case 'moves':case 'guide':selectRoute(action);break;
-    case 'oak':openDetail('oak-000');break;
+    case 'oak':selectRoute('oak');break;
+    case 'edit-oak':navToStudio('oak-000');break;
+    case 'jump-oak':document.getElementById(el.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'});break;
     case 'detail':openDetail(el.dataset.id);break;
     case 'close-modal':closeModal();break;
     case 'edit-detail':{const id=el.dataset.id;closeModal();navToStudio(id);break;}
