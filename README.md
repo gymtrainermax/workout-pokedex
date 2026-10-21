@@ -77,3 +77,15 @@ Once a GitHub repository is created and available to the connected GitHub app, C
 ## Professor Oak artwork
 
 Professor Oak’s popup, character card, dashboard spotlight and full workout page use a recognizable character illustration from the Pokémon: Let’s Go era. The live image is loaded from a third-party artwork reference and automatically falls back to a bundled, original simplified SVG illustration when external artwork cannot load. Source/reference: https://eternia.fr/fr/site/article/1684-pokemon-lets-go-pikachu-et-lets-go-evoli-le-professeur-chen/ . Pokémon characters and official artwork belong to their respective rights holders; this site is an unofficial fan project, and reference attribution does not grant a license.
+
+
+## Episode 001 — Bulbasaur approved workout + A/B scripts
+
+- Dedicated public workout page at `/#bulbasaur`, with a four-move preview from its Kanto Pokédex card and dashboard teaser.
+- Seven-exercise program and exact work/rest doses approved by the creator, **Review** status (the video has not been shot). No Camera Tests were marked complete.
+- Dual scripts with the same timecodes and footage: **A = accessible gym humor** and **B = Pokémon-specific game humor**. Toggle on the Bulbasaur page to see timed dialogue, scene direction and on-screen cards.
+- The two separate production drafts and approved training reference are linked from that page, under `production/`.
+- **New editorial production convention for all future Pokémon episodes:** Write a Version A and Version B script, hold the workout, footage, labels and editing conditions constant and compare retention, completion, shares and saves. This is a project workflow addition, not a silent change to Series Standards v1.1.
+- Bulbasaur's `production.versions` structured data is a reusable format for future Pokémon to follow.
+- The public `data.js` contains the approved workout and both scripts. Do not export a private Studio `workouts.json` backup into the public repository.
+- Existing browsers with an untouched Bulbasaur placeholder receive the published seed. Public Bulbasaur and Oak pages always show the published program even if a visitor has an older local Studio draft.

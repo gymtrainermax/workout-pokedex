@@ -24,9 +24,12 @@
     try {
       const cached = JSON.parse(localStorage.getItem(STORE_KEY));
       if(cached?.schemaVersion===1 && Array.isArray(cached.entries)) {
-        const officialOak = published.entries.find(e=>e.id==='oak-000' && e.publicWorkout);
-        const savedOak = cached.entries.find(e=>e.id==='oak-000');
-        if(officialOak && savedOak && savedOak.status==='Planned' && !savedOak.goal && !(savedOak.exercises||[]).length) Object.assign(savedOak, cl(officialOak));
+        // Refresh untouched local placeholders with newly published workouts without discarding actual Studio edits.
+        for(const official of published.entries.filter(e=>e.publicWorkout)){
+          const saved=cached.entries.find(e=>e.id===official.id);
+          if(!saved){cached.entries.push(cl(official));continue;}
+          if(saved.status==='Planned' && !saved.goal && !(saved.exercises||[]).length && !(saved.moves||[]).length) Object.assign(saved,cl(official));
+        }
         return cached;
       }
     } catch(e) { console.warn('Could not read local save:', e); }
@@ -56,7 +59,7 @@
     <section class="stats-grid" aria-label="Project stats">${stat('ORIGINAL KANTO',species,'Base Pokémon entries','◈')}${stat('CHARACTER WORKOUTS',characters,'Professor, trainers and leaders','♙')}${stat('FORM VARIANTS',forms,'Separate workouts to explore','✦')}${stat('PUBLISHED WORKOUTS',published,'Complete workout programs online','✓',true)}</section>
     <div class="section-heading"><div><h2>The journey so far</h2><p>Track the road from Professor Oak to the Elite Four.</p></div></div>
     <section class="two-cols"><div class="panel panel-pad"><div class="panel-top"><h3>Region completion</h3><small>${baseFinal} / ${species} KANTO</small></div><div class="progress-track"><div class="progress-fill" style="width:${species?100*baseFinal/species:0}%"></div></div><div class="progress-meta"><span>Original 151 completed</span><span>${species?Math.round(baseFinal/species*100):0}%</span></div><div style="margin-top:16px">${sections.map((s,i)=>{let all=count(e=>e.chapter===s),fin=count(e=>e.chapter===s&&e.status==='Final');return `<div class="chapter-row"><div class="chapter-dot">${String(i).padStart(2,'0')}</div><div class="chapter-info"><strong>${s}</strong><small>${s==='Prologue'?'Where the adventure starts':s==='Forms'?'Regional, Mega, Gigantamax and more':'Workout collection'}</small></div><div class="chapter-score">${fin} / ${all}</div></div>`}).join('')}</div></div>
-    <div class="vertical-gap"><div class="spotlight"><div><div class="eyebrow dark">EPISODE 000 • THE PROLOGUE</div><h3>Professor Oak</h3><p>Workout 000 is on the Dex: full training session, coaching, and a two-character comedy shoot plan.</p>${btn('View the first entry →','oak-preview','btn-dark')}</div><div class="oak-portrait" aria-label="Professor Oak portrait"><img class="oak-art-image" src="assets/professor-oak-game-portrait.webp" onerror="this.onerror=null;this.src='assets/professor-oak-fallback.svg'" alt="Game-inspired portrait of Professor Oak in a white lab coat, holding a Poké Ball and clipboard" loading="lazy" decoding="async" /></div></div><div class="notice"><span class="mini-poke">!</span><div><strong>Professor Oak's program is live; his video is still in production.</strong><br/>Other planned entries remain placeholders. Studio finalization still requires the full Series Standards v1.1 audit.</div></div></div></section>
+    <div class="vertical-gap"><div class="spotlight"><div><div class="eyebrow dark">EPISODE 000 • THE PROLOGUE</div><h3>Professor Oak</h3><p>Workout 000 is on the Dex: full training session, coaching, and a two-character comedy shoot plan.</p>${btn('View the first entry →','oak-preview','btn-dark')}</div><div class="oak-portrait" aria-label="Professor Oak portrait"><img class="oak-art-image" src="assets/professor-oak-game-portrait.webp" onerror="this.onerror=null;this.src='assets/professor-oak-fallback.svg'" alt="Game-inspired portrait of Professor Oak in a white lab coat, holding a Poké Ball and clipboard" loading="lazy" decoding="async" /></div></div><div class="notice"><span class="mini-poke">!</span><div><strong>Professor Oak's program is live; his video is still in production.</strong><br/>Bulbasaur's approved workout is also available. Videos still require filming and the Series Standards v1.1 final audit.</div></div><div class="bulba-spotlight"><div class="bulba-spotlight-text"><span class="eyebrow">WORKOUT 001 • GRASS / POISON</span><h3>Bulbasaur</h3><p>Seedling Strength: a complete seven-exercise workout with two A/B-ready scripts.</p><button class="btn btn-dark" data-action="bulbasaur-preview" type="button">Preview Bulbasaur's workout →</button></div><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" alt="Bulbasaur Pokémon artwork" loading="lazy" /></div></div></section>
     <div class="section-heading"><div><h2>Start your adventure</h2><p>The first Pokémon in the National Pokédex.</p></div><a href="#pokedex">VIEW ALL 151 ↗</a></div>
     <div class="cards-grid">${entries().filter(e=>e.kind==='pokemon').slice(0,4).map(card).join('')}</div>`;
   }
@@ -110,8 +113,8 @@
   function guide(){
     const steps=[
       ['01','Choose your entry','Open Workout Studio, select Professor Oak or a Kanto Pokémon, and begin the research and programming. All 167 core entries are already registered.'],
-      ['02','Build a complete episode','Log the workout identity, equipment, warm-up, actual exercises, sets, reps, rest, modifications, lore research, social content and audit.'],
-      ['03','Pass the final audit','Pokémon must have four distinct verified official moves, each mapped to an exercise that passes the Pokémon, Trainer and Camera tests. No duplicate four-move combinations.'],
+      ['02','Build a complete episode','Log the workout identity, equipment, warm-up, actual exercises, sets, reps, rest, modifications, lore research and audit. Create two video scripts for each Pokémon: A = gym comedy, B = Pokémon-specific comedy; share exercise footage.'],
+      ['03','Pass the final audit','Pokémon must have four distinct verified official moves, each mapped to an exercise that passes the Pokémon, Trainer and Camera tests. No duplicate four-move combinations. Both A and B video scripts must be reviewed.'],
       ['04','Finalize and save','Select “Finalize workout” to validate. The workout immediately changes to Final in your browser and shows up in the Dex and the move registry.'],
       ['05','Export the master data','Use “Export JSON” for backups. Use “Publish data.js” and overwrite the website’s data.js file with the downloaded version. Keep data/workouts.json updated too.'],
       ['06','Publish to the web','Upload the whole site to a static hosting service or push its files to a GitHub Pages repository. Each later file update triggers a fresh public deployment.']
@@ -168,11 +171,60 @@
       <div class="oak-back"><button class="btn btn-dark" data-action="characters">← Back to Kanto characters</button><button class="btn btn-outline" data-action="edit-oak">Edit Oak in Workout Studio ↗</button></div>
     </div>`;
   }
+
+  // Published Pokémon page uses the official seed so public details do not depend on visitors' saved Studio drafts.
+  function bulbasaurPage(){
+    const e=(window.WORKOUT_DEX_SEED?.entries||[]).find(x=>x.id==='kanto-001' && x.publicWorkout);
+    if(!e)return head('WORKOUT 001','Bulbasaur','Programming underway.');
+    const prod=e.production||{}, variants=prod.versions||[], shots=prod.shootList||[];
+    const signature=(name)=>e.moves.find(m=>m.name===name);
+    const badgeTitle=(m)=>m?.name||'';
+    const rows=e.exercises.map((x,i)=>`<tr><td><span class="bulba-row-no">${String(i+1).padStart(2,'0')}</span></td><td><strong>${safe(x.alias||x.name)}</strong>${x.alias?`<span class="bulba-exercise-sub">${safe(x.name)}</span>`:''}</td><td>${safe(x.sets)} × ${safe(x.reps)}</td><td>${safe(x.rest)}</td></tr>`).join('');
+    const videoTabs=variants.length===2?`<div class="bulba-tabs" role="tablist" aria-label="Video script versions">${variants.map((v,i)=>`<button id="bulba-tab-${safe(v.id)}" type="button" data-action="video-version" data-version="${safe(v.id)}" role="tab" aria-selected="${i===0?'true':'false'}" aria-controls="bulba-panel-${safe(v.id)}" tabindex="${i===0?'0':'-1'}" class="bulba-tab ${i===0?'selected':''}">${safe(v.label)} <span>${safe(v.subtitle)}</span></button>`).join('')}</div>
+      ${variants.map((v,i)=>`<div id="bulba-panel-${safe(v.id)}" role="tabpanel" aria-labelledby="bulba-tab-${safe(v.id)}" class="bulba-script-panel" ${i?'hidden':''}>
+        <div class="bulba-script-intro"><strong>${safe(v.label)}: ${safe(v.subtitle)}</strong><span>${safe(v.status)}</span></div>
+        ${v.beats.map(b=>`<div class="bulba-beat"><div class="bulba-beat-time">${safe(b.time)}</div><div class="bulba-beat-body"><strong>${safe(b.audio)}</strong><p>${safe(b.visual)}</p><small>ON SCREEN: ${safe(b.onScreen)}</small></div></div>`).join('')}</div>`).join('')}`:'';
+    return `<div class="bulba-page">
+      <section class="bulba-hero"><div class="bulba-hero-copy"><div class="eyebrow">POKÉDEX #001 • GRASS / POISON • FIRST PARTNER</div><span class="bulba-hero-number">WORKOUT 001</span><h1>SO YOU PICKED<br/><span>BULBASAUR?</span></h1><p>Seedling Strength combines four recognizable Pokémon moves with three foundational lifts. Your starter might be small. This workout isn't a joke.</p>
+        <div class="bulba-hero-tags"><span>Beginner+</span><span>40–50 min</span><span>Full body</span><span>15–16 sets / intervals</span></div>
+        <div class="bulba-hero-state">✓ Programming approved <span>•</span> Video A/B scripts written <span>•</span> Filming pending</div>
+        <div class="bulba-hero-buttons"><button class="btn btn-lime" data-action="jump-bulbasaur" data-target="bulba-program">Complete workout ↓</button><button class="btn btn-ghost" data-action="jump-bulbasaur" data-target="bulba-scripts">Compare scripts A / B ↗</button></div>
+      </div><div class="bulba-hero-art"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" alt="Bulbasaur official Pokémon character illustration" /><div class="bulba-hero-art-label">SEED POKÉMON<br/><strong>#001</strong></div></div></section>
+      <div class="bulba-progress-note"><span class="bulba-status-dot"></span><p><strong>Workout published for planning and training.</strong> The program is approved, but filming, four Camera Tests, A/B test results and the final quality review remain pending. The episode is <strong>Review</strong>, not Final.</p></div>
+      <section class="bulba-section" id="bulba-moves"><div class="bulba-section-head"><span class="eyebrow dark">THE FOUR SIGNATURE MOVES</span><h2>From game moves to gym movements</h2><p>All four names are official Bulbasaur moves. The exercise mappings are creative interpretations; camera approval is still pending.</p></div>
+        <div class="bulba-move-grid">${e.moves.map((m,i)=>`<article class="bulba-move-card"><div class="bulba-move-number">0${i+1}</div><div class="bulba-move-icon">${['◉','➜','✕','≈'][i]}</div><h3>${safe(m.name)}</h3><strong>${safe(m.exercise)}</strong><p>${safe(m.notes.replace(' Filming Camera Test is not yet complete.',''))}</p><span class="bulba-move-dose">${safe(m.reps)}</span></article>`).join('')}</div>
+      </section>
+      <section class="bulba-section" id="bulba-program"><div class="bulba-section-head"><span class="eyebrow dark">APPROVED PROGRAM • 7 EXERCISES</span><h2>Complete Seedling Strength workout</h2><p>Perform Seed Bomb first while fresh. The rope finisher goes last. All working sets are moderate effort, with crisp technique before heavier loading.</p></div>
+        <div class="bulba-program-layout"><div class="bulba-program-main"><div class="bulba-warmup"><strong>WARM-UP • 7–8 MIN</strong><p>${safe(e.workout.warmup)}</p></div><div class="bulba-table-wrap"><table class="bulba-workout-table"><thead><tr><th>#</th><th>Exercise</th><th>Work</th><th>Rest</th></tr></thead><tbody>${rows}</tbody></table></div><div class="bulba-warmup"><strong>COOLDOWN • 3–5 MIN</strong><p>${safe(e.workout.cooldown)}</p></div></div>
+          <aside class="bulba-program-side"><div class="bulba-why"><div class="eyebrow dark">TRAINING IDENTITY</div><h3>Sturdy. Controlled. Explosive.</h3><p>${safe(e.goalRationale)}</p></div><div class="bulba-why"><h3>Scale it to your level</h3><p>${safe(e.workout.modifications)}</p></div><div class="bulba-why"><h3>Technique & safety</h3><p>${safe(e.workout.safety)}</p></div></aside>
+        </div>
+      </section>
+      <section class="bulba-section" id="bulba-scripts"><div class="bulba-section-head"><span class="eyebrow dark">TWO SCRIPTS • ONE EPISODE</span><h2>Video A / B: which comedy lands?</h2><p>Both versions use the same four attacks, shot list, workout prescriptions and target 60–67 second runtime. Only spoken jokes and matching subtitles change for the controlled comparison.</p></div>
+        ${videoTabs}
+        <div class="bulba-ab-method"><h3>A/B testing rules</h3><div class="bulba-method-grid">${(prod.testPlan||[]).map((t,i)=>`<p><span>${String(i+1).padStart(2,'0')}</span>${safe(t)}</p>`).join('')}</div></div>
+      </section>
+      <section class="bulba-section" id="bulba-shoot"><div class="bulba-section-head"><span class="eyebrow dark">PRE-PRODUCTION • SHOOT CHECKLIST</span><h2>Film once, cut twice</h2><p>Record the same exercise footage and two dialogue tracks. Both edits stay the same length and use the same presentation.</p></div>
+       <div class="bulba-shoot-grid"><div class="bulba-shoot-list"><h3>16-shot checklist</h3><ol>${shots.map(s=>`<li>${safe(s.shot)}</li>`).join('')}</ol></div><div class="bulba-camera-tests"><h3>The four Camera Tests <span class="bulba-pending">ALL PENDING</span></h3>${(prod.cameraTests||[]).map(t=>`<div class="bulba-camera-test"><strong>${safe(t.move)}</strong><p>${safe(t.test)}</p><small>${safe(t.status)}</small></div>`).join('')}</div></div>
+      </section>
+      <section class="bulba-section bulba-production-notes"><div class="bulba-section-head"><span class="eyebrow dark">VIDEO / SOCIAL DELIVERABLES</span><h2>Posting package & working files</h2></div><div class="bulba-post-grid"><div><strong>Cover concept</strong><p>${safe(e.content.cover)}</p><strong>Caption draft</strong><p>${safe(e.content.caption)}</p><strong>Hashtags</strong><p>${safe(e.content.hashtags)}</p></div><div><strong>Production documents</strong><p>Read the approved workout and the full Version A and Version B drafts.</p><div class="bulba-doc-links">${(prod.assets||[]).map((path,i)=>`<a href="${safe(path)}" target="_blank" rel="noopener">${['Approved program & safety notes','Script A • Gym comedy','Script B • Pokémon comedy'][i]||'Production notes'} ↗</a>`).join('')}</div><p class="bulba-draft-note">Working scripts only. No recorded video or final A/B results are available yet.</p></div></div></section>
+    </div>`;
+  }
+  function openBulbasaurPreview(){
+    const e=(window.WORKOUT_DEX_SEED?.entries||[]).find(x=>x.id==='kanto-001' && x.publicWorkout);
+    if(!e){selectRoute('pokedex');return;}
+    const host=document.getElementById('modalHost');
+    host.innerHTML=`<div class="modal-scrim bulba-preview-scrim" data-action="close-scrim"><article class="modal bulba-preview-modal" role="dialog" aria-modal="true" aria-labelledby="bulba-preview-title">
+      <button class="modal-close" data-action="close-modal" type="button" aria-label="Close Bulbasaur preview">×</button>
+      <div class="bulba-preview-art"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" alt="Bulbasaur Pokémon artwork" /><span>GRASS / POISON • #001</span></div><div class="bulba-preview-info"><div class="eyebrow dark">WORKOUT 001 • PROGRAM APPROVED</div><h2 id="bulba-preview-title">So You Picked Bulbasaur?</h2><p>Seedling Strength • Beginner+ • 40–50 minutes</p><div class="bulba-preview-list">${e.moves.map((m,i)=>`<div><span>0${i+1}</span><strong>${safe(m.name)}</strong><small>${safe(m.exercise)} · ${safe(m.reps)}</small></div>`).join('')}</div><p class="bulba-preview-status">Seven-exercise workout is published; Version A / B video scripts and the shot list are ready to review. Filming pending.</p><button class="bulba-preview-button" type="button" data-action="bulbasaur-full">View Full Workout & A/B Scripts →</button></div>
+    </article></div>`;
+    host.querySelector('.modal-close')?.focus();
+  }
+
   function render(){
-    const views={overview:dashboard,pokedex:()=>browse('pokedex'),characters:()=>browse('characters'),forms:()=>browse('forms'),moves:registry,studio,guide,oak:oakPage};
+    const views={overview:dashboard,pokedex:()=>browse('pokedex'),characters:()=>browse('characters'),forms:()=>browse('forms'),moves:registry,studio,guide,oak:oakPage,bulbasaur:bulbasaurPage};
     if(!views[route]) route='overview';
     root.innerHTML=views[route]();
-    document.getElementById('breadcrumb').textContent=({overview:'DASHBOARD',pokedex:'KANTO POKÉDEX',characters:'CHARACTERS',forms:'FORM REGISTRY',moves:'MOVE REGISTRY',studio:'WORKOUT STUDIO',guide:'PROJECT GUIDE',oak:'PROFESSOR OAK / #000'})[route];
+    document.getElementById('breadcrumb').textContent=({overview:'DASHBOARD',pokedex:'KANTO POKÉDEX',characters:'CHARACTERS',forms:'FORM REGISTRY',moves:'MOVE REGISTRY',studio:'WORKOUT STUDIO',guide:'PROJECT GUIDE',oak:'PROFESSOR OAK / #000',bulbasaur:'BULBASAUR / #001'})[route];
     document.querySelectorAll('[data-nav]').forEach(a=>{a.classList.toggle('active',a.dataset.nav===route);if(a.dataset.nav===route)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
     document.querySelector('.sidebar').classList.remove('open');
   }
@@ -206,6 +258,7 @@
   }
   function openDetail(id){
     if(id==='oak-000'){openOakPreview();return;}
+    if(id==='kanto-001' && (window.WORKOUT_DEX_SEED?.entries||[]).some(x=>x.id===id&&x.publicWorkout)){openBulbasaurPreview();return;}
     const e=entryBy(id); if(!e) return;
     const final=e.status==='Final';
     const root=document.getElementById('modalHost');
@@ -299,6 +352,11 @@
   function action(action,el){switch(action){
     case 'pokedex':case 'studio':case 'overview':case 'characters':case 'forms':case 'moves':case 'guide':selectRoute(action);break;
     case 'oak':selectRoute('oak');break;
+    case 'bulbasaur':selectRoute('bulbasaur');break;
+    case 'bulbasaur-preview':openBulbasaurPreview();break;
+    case 'bulbasaur-full':closeModal();selectRoute('bulbasaur');requestAnimationFrame(()=>document.getElementById('bulba-program')?.scrollIntoView({behavior:'instant',block:'start'}));break;
+    case 'jump-bulbasaur':document.getElementById(el.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'});break;
+    case 'video-version':{const tab=document.getElementById('bulba-tab-'+el.dataset.version);if(!tab)break;document.querySelectorAll('#bulba-scripts [role="tab"]').forEach(t=>{const selected=t===tab;t.setAttribute('aria-selected',String(selected));t.tabIndex=selected?0:-1;t.classList.toggle('selected',selected);});document.querySelectorAll('#bulba-scripts [role="tabpanel"]').forEach(p=>p.hidden=p.id!=='bulba-panel-'+el.dataset.version);tab.focus();break;}
     case 'oak-preview':openOakPreview();break;
     case 'oak-full-workout':
       closeModal();
