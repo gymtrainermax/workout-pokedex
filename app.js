@@ -59,7 +59,7 @@
     <section class="stats-grid" aria-label="Project stats">${stat('ORIGINAL KANTO',species,'Base Pokémon entries','◈')}${stat('CHARACTER WORKOUTS',characters,'Professor, trainers and leaders','♙')}${stat('FORM VARIANTS',forms,'Separate workouts to explore','✦')}${stat('PUBLISHED WORKOUTS',published,'Complete workout programs online','✓',true)}</section>
     <div class="section-heading"><div><h2>The journey so far</h2><p>Track the road from Professor Oak to the Elite Four.</p></div></div>
     <section class="two-cols"><div class="panel panel-pad"><div class="panel-top"><h3>Region completion</h3><small>${baseFinal} / ${species} KANTO</small></div><div class="progress-track"><div class="progress-fill" style="width:${species?100*baseFinal/species:0}%"></div></div><div class="progress-meta"><span>Original 151 completed</span><span>${species?Math.round(baseFinal/species*100):0}%</span></div><div style="margin-top:16px">${sections.map((s,i)=>{let all=count(e=>e.chapter===s),fin=count(e=>e.chapter===s&&e.status==='Final');return `<div class="chapter-row"><div class="chapter-dot">${String(i).padStart(2,'0')}</div><div class="chapter-info"><strong>${s}</strong><small>${s==='Prologue'?'Where the adventure starts':s==='Forms'?'Regional, Mega, Gigantamax and more':'Workout collection'}</small></div><div class="chapter-score">${fin} / ${all}</div></div>`}).join('')}</div></div>
-    <div class="vertical-gap"><div class="spotlight"><div><div class="eyebrow dark">EPISODE 000 • THE PROLOGUE</div><h3>Professor Oak</h3><p>Workout 000 is on the Dex: full training session, coaching, and a two-character comedy shoot plan.</p>${btn('View the first entry →','oak-preview','btn-dark')}</div><div class="oak-portrait" aria-label="Professor Oak portrait"><img class="oak-art-image" src="assets/professor-oak-game-portrait.webp" onerror="this.onerror=null;this.src='assets/professor-oak-fallback.svg'" alt="Game-inspired portrait of Professor Oak in a white lab coat, holding a Poké Ball and clipboard" loading="lazy" decoding="async" /></div></div><div class="notice"><span class="mini-poke">!</span><div><strong>Professor Oak's program is live; his video is still in production.</strong><br/>Bulbasaur's approved workout is also available. Videos still require filming and the Series Standards v1.1 final audit.</div></div><div class="bulba-spotlight"><div class="bulba-spotlight-text"><span class="eyebrow">WORKOUT 001 • GRASS / POISON</span><h3>Bulbasaur</h3><p>Seedling Strength: a complete seven-exercise workout with two A/B-ready scripts.</p><button class="btn btn-dark" data-action="bulbasaur-preview" type="button">Preview Bulbasaur's workout →</button></div><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" alt="Bulbasaur Pokémon artwork" loading="lazy" /></div></div></section>
+    <div class="vertical-gap"><div class="spotlight"><div><div class="eyebrow dark">EPISODE 000 • THE PROLOGUE</div><h3>Professor Oak</h3><p>Workout 000 is on the Dex: full training session, coaching, and a two-character comedy shoot plan.</p>${btn('View the first entry →','oak-preview','btn-dark')}</div><div class="oak-portrait" aria-label="Professor Oak portrait"><img class="oak-art-image" src="assets/professor-oak-game-portrait.webp" onerror="this.onerror=null;this.src='assets/professor-oak-fallback.svg'" alt="Game-inspired portrait of Professor Oak in a white lab coat, holding a Poké Ball and clipboard" loading="lazy" decoding="async" /></div></div><div class="notice"><span class="mini-poke">!</span><div><strong>Professor Oak's program is live; his video is still in production.</strong><br/>Bulbasaur #001 and Ivysaur #002 both have approved workouts and A/B scripts online. Neither video is Final until filming and camera review are complete.</div></div><div class="bulba-spotlight"><div class="bulba-spotlight-text"><span class="eyebrow">WORKOUT 001 • GRASS / POISON</span><h3>Bulbasaur</h3><p>Seedling Strength: a complete seven-exercise workout with two A/B-ready scripts.</p><button class="btn btn-dark" data-action="bulbasaur-preview" type="button">Preview Bulbasaur's workout →</button></div><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" alt="Bulbasaur Pokémon artwork" loading="lazy" /></div><div class="bulba-spotlight ivy-spotlight"><div class="bulba-spotlight-text"><span class="eyebrow">WORKOUT 002 • GRASS / POISON</span><h3>Ivysaur</h3><p>Rooted Power: a seven-exercise intermediate workout with two approved A/B video scripts.</p><button class="btn btn-dark" data-action="ivysaur-preview" type="button">Preview Ivysaur's workout →</button></div><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png" alt="Ivysaur Pokémon artwork" loading="lazy"/></div></div></section>
     <div class="section-heading"><div><h2>Start your adventure</h2><p>The first Pokémon in the National Pokédex.</p></div><a href="#pokedex">VIEW ALL 151 ↗</a></div>
     <div class="cards-grid">${entries().filter(e=>e.kind==='pokemon').slice(0,4).map(card).join('')}</div>`;
   }
@@ -209,6 +209,65 @@
       <section class="bulba-section bulba-production-notes"><div class="bulba-section-head"><span class="eyebrow dark">VIDEO / SOCIAL DELIVERABLES</span><h2>Posting package & working files</h2></div><div class="bulba-post-grid"><div><strong>Cover concept</strong><p>${safe(e.content.cover)}</p><strong>Caption draft</strong><p>${safe(e.content.caption)}</p><strong>Hashtags</strong><p>${safe(e.content.hashtags)}</p></div><div><strong>Production documents</strong><p>Read the approved workout and the full Version A and Version B drafts.</p><div class="bulba-doc-links">${(prod.assets||[]).map((path,i)=>`<a href="${safe(path)}" target="_blank" rel="noopener">${['Approved program & safety notes','Script A • Gym comedy','Script B • Pokémon comedy'][i]||'Production notes'} ↗</a>`).join('')}</div><p class="bulba-draft-note">Working scripts only. No recorded video or final A/B results are available yet.</p></div></div></section>
     </div>`;
   }
+  function ivysaurPage(){
+    const e=(window.WORKOUT_DEX_SEED?.entries||[]).find(x=>x.id==='kanto-002' && x.publicWorkout);
+    if(!e)return head('WORKOUT 002','Ivysaur','Programming underway.');
+    const prod=e.production||{}, variants=prod.versions||[], shots=prod.shootList||[];
+    const signature=(name)=>e.moves.find(m=>m.name===name);
+    const badgeTitle=(m)=>m?.name||'';
+    const rows=e.exercises.map((x,i)=>`<tr><td><span class="bulba-row-no">${String(i+1).padStart(2,'0')}</span></td><td><strong>${safe(x.alias||x.name)}</strong>${x.alias?`<span class="bulba-exercise-sub">${safe(x.name)}</span>`:''}</td><td>${safe(x.sets)} × ${safe(x.reps)}</td><td>${safe(x.rest)}</td></tr>`).join('');
+    const videoTabs=variants.length===2?`<div class="bulba-tabs" role="tablist" aria-label="Video script versions">${variants.map((v,i)=>`<button id="ivy-tab-${safe(v.id)}" type="button" data-action="video-version" data-version="${safe(v.id)}" role="tab" aria-selected="${i===0?'true':'false'}" aria-controls="ivy-panel-${safe(v.id)}" tabindex="${i===0?'0':'-1'}" class="bulba-tab ${i===0?'selected':''}">${safe(v.label)} <span>${safe(v.subtitle)}</span></button>`).join('')}</div>
+      ${variants.map((v,i)=>`<div id="ivy-panel-${safe(v.id)}" role="tabpanel" aria-labelledby="ivy-tab-${safe(v.id)}" class="bulba-script-panel" ${i?'hidden':''}>
+        <div class="bulba-script-intro"><strong>${safe(v.label)}: ${safe(v.subtitle)}</strong><span>${safe(v.status)}</span></div>
+        ${v.beats.map(b=>`<div class="bulba-beat"><div class="bulba-beat-time">${safe(b.time)}</div><div class="bulba-beat-body"><strong>${safe(b.audio)}</strong><p>${safe(b.visual)}</p><small>ON SCREEN: ${safe(b.onScreen)}</small></div></div>`).join('')}</div>`).join('')}`:'';
+    return `<div class="bulba-page ivy-page">
+      <section class="bulba-hero"><div class="bulba-hero-copy"><div class="eyebrow">POKÉDEX #002 • GRASS / POISON • MIDDLE EVOLUTION</div><span class="bulba-hero-number">WORKOUT 002</span><h1>SO YOU'RE TRAINING<br/><span>IVYSAUR?</span></h1><p>Rooted Power combines four official Pokémon moves with three supporting strength exercises. Bigger bud, stronger legs—and finally a recovery move.</p>
+        <div class="bulba-hero-tags"><span>Intermediate</span><span>45–55 min</span><span>Full body</span><span>Strength + recovery</span></div>
+        <div class="bulba-hero-state">✓ Programming approved <span>•</span> Video A/B scripts written <span>•</span> Filming pending</div>
+        <div class="bulba-hero-buttons"><button class="btn btn-lime" data-action="jump-ivysaur" data-target="ivy-program">Complete workout ↓</button><button class="btn btn-ghost" data-action="jump-ivysaur" data-target="ivy-scripts">Compare scripts A / B ↗</button></div>
+      </div><div class="bulba-hero-art"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png" alt="Ivysaur official Pokémon character illustration" /><div class="bulba-hero-art-label">SEED POKÉMON<br/><strong>#002</strong></div></div></section>
+      <div class="bulba-progress-note"><span class="bulba-status-dot"></span><p><strong>Workout published for planning and training.</strong> The program is approved, but filming, four Camera Tests, A/B test results and the final quality review remain pending. The episode is <strong>Review</strong>, not Final.</p></div>
+      <section class="bulba-section" id="ivy-moves"><div class="bulba-section-head"><span class="eyebrow dark">THE FOUR SIGNATURE MOVES</span><h2>From game moves to gym movements</h2><p>All four names are official Ivysaur moves. The exercise mappings are creative interpretations; camera approval is still pending.</p></div>
+        <div class="bulba-move-grid">${e.moves.map((m,i)=>`<article class="bulba-move-card"><div class="bulba-move-number">0${i+1}</div><div class="bulba-move-icon">${['☄','↟','⇆','☀'][i]}</div><h3>${safe(m.name)}</h3><strong>${safe(m.exercise)}</strong><p>${safe(m.notes.replace(' Filming Camera Test is not yet complete.',''))}</p><span class="bulba-move-dose">${safe(m.reps)}</span></article>`).join('')}</div>
+      </section>
+      <section class="bulba-section" id="ivy-program"><div class="bulba-section-head"><span class="eyebrow dark">APPROVED PROGRAM • 7 EXERCISES</span><h2>Complete Rooted Power workout</h2><p>Throw while fresh, then deadlift before thrusters. Use controlled loading for strength and preserve the Synthesis breathing as your cooldown. Main strength sets are RPE 7–8.</p></div>
+        <div class="bulba-program-layout"><div class="bulba-program-main"><div class="bulba-warmup"><strong>WARM-UP • 7–8 MIN</strong><p>${safe(e.workout.warmup)}</p></div><div class="bulba-table-wrap"><table class="bulba-workout-table"><thead><tr><th>#</th><th>Exercise</th><th>Work</th><th>Rest</th></tr></thead><tbody>${rows}</tbody></table></div><div class="bulba-warmup"><strong>COOLDOWN • 3–5 MIN</strong><p>${safe(e.workout.cooldown)}</p></div></div>
+          <aside class="bulba-program-side"><div class="bulba-why"><div class="eyebrow dark">TRAINING IDENTITY</div><h3>Grounded. Stronger. Still growing.</h3><p>${safe(e.goalRationale)}</p></div><div class="bulba-why"><h3>Scale it to your level</h3><p>${safe(e.workout.modifications)}</p></div><div class="bulba-why"><h3>Technique & safety</h3><p>${safe(e.workout.safety)}</p></div></aside>
+        </div>
+      </section>
+      <section class="bulba-section" id="ivy-scripts"><div class="bulba-section-head"><span class="eyebrow dark">TWO SCRIPTS • ONE EPISODE</span><h2>Video A / B: which comedy lands?</h2><p>Both versions use the same four signature moves, shot list, workout prescriptions and target ~68-second runtime. Only spoken jokes and matching subtitles change for the controlled comparison.</p></div>
+        ${videoTabs}
+        <div class="bulba-ab-method"><h3>A/B testing rules</h3><div class="bulba-method-grid">${(prod.testPlan||[]).map((t,i)=>`<p><span>${String(i+1).padStart(2,'0')}</span>${safe(t)}</p>`).join('')}</div></div>
+      </section>
+      <section class="bulba-section" id="ivy-shoot"><div class="bulba-section-head"><span class="eyebrow dark">PRE-PRODUCTION • SHOOT CHECKLIST</span><h2>Film once, cut twice</h2><p>Record the same exercise footage and two dialogue tracks. Both edits stay the same length and use the same presentation.</p></div>
+       <div class="bulba-shoot-grid"><div class="bulba-shoot-list"><h3>18-shot checklist</h3><ol>${shots.map(s=>`<li>${safe(s.shot)}</li>`).join('')}</ol></div><div class="bulba-camera-tests"><h3>The four Camera Tests <span class="bulba-pending">ALL PENDING</span></h3>${(prod.cameraTests||[]).map(t=>`<div class="bulba-camera-test"><strong>${safe(t.move)}</strong><p>${safe(t.test)}</p><small>${safe(t.status)}</small></div>`).join('')}</div></div>
+      </section>
+      <section class="bulba-section bulba-production-notes"><div class="bulba-section-head"><span class="eyebrow dark">VIDEO / SOCIAL DELIVERABLES</span><h2>Posting package & working files</h2></div><div class="bulba-post-grid"><div><strong>Cover concept</strong><p>${safe(e.content.cover)}</p><strong>Caption draft</strong><p>${safe(e.content.caption)}</p><strong>Hashtags</strong><p>${safe(e.content.hashtags)}</p></div><div><strong>Production documents</strong><p>Read the approved workout and the full Version A and Version B drafts.</p><div class="bulba-doc-links">${(prod.assets||[]).map((path,i)=>`<a href="${safe(path)}" target="_blank" rel="noopener">${['Approved program & safety notes','Script A • Gym comedy','Script B • Pokémon comedy','Filming checklist & A/B testing'][i]||'Production notes'} ↗</a>`).join('')}</div><p class="bulba-draft-note">Working scripts only. No recorded video or final A/B results are available yet.</p></div></div></section>
+    </div>`;
+  }
+
+  function ivysaurMoveType(m){
+    const type=String(m.type||'').toLowerCase();
+    const label=type==='poison'?'Poison':type==='normal'?'Normal':type==='grass'?'Grass':'Unknown';
+    const glyph=type==='grass'?`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true"><path d="M20 4C11 4 4.5 7.5 4.5 15.5a4.5 4.5 0 0 0 4.5 4.5C17 20 20 12 20 4Z" fill="currentColor"/><path d="M5.5 19c3.5-4.7 7.5-8 11.4-10.5" stroke="#4c9f5a" stroke-width="1.8" stroke-linecap="round"/></svg>`:
+      type==='poison'?`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true"><path d="M12 2.5c-4.2 5.2-7.4 9.4-7.4 13a7.4 7.4 0 0 0 14.8 0c0-3.6-3.2-7.8-7.4-13Z" fill="currentColor"/><circle cx="9" cy="15.5" r="1.2" fill="#733d86"/><circle cx="15" cy="15.5" r="1.2" fill="#733d86"/><path d="m10 18 2 1 2-1" stroke="#733d86" stroke-width="1"/></svg>`:
+      `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true"><path d="m12 2.8 2.6 6.1 6.6.6-5.1 4.4 1.6 6.6-5.7-3.4-5.7 3.4 1.6-6.6-5.1-4.4 6.6-.6L12 2.8Z" fill="currentColor"/></svg>`;
+    return `<span class="bulba-move-type-icon is-${type}" aria-label="${label}-type move" title="${label}-type move">${glyph}</span>`;
+  }
+  function openIvysaurPreview(){
+    const e=(window.WORKOUT_DEX_SEED?.entries||[]).find(x=>x.id==='kanto-002' && x.publicWorkout);
+    if(!e){selectRoute('pokedex');return;}
+    const host=document.getElementById('modalHost');
+    host.innerHTML=`<div class="modal-scrim bulba-preview-scrim ivy-preview-scrim" data-action="close-scrim"><article class="modal bulba-preview-modal ivy-preview-modal" role="dialog" aria-modal="true" aria-labelledby="ivy-preview-title">
+      <button class="modal-close" type="button" data-action="close-modal" aria-label="Close Ivysaur preview">×</button>
+      <div class="bulba-preview-art"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png" alt="Ivysaur Pokémon artwork"/><span>GRASS / POISON • #002</span></div>
+      <div class="bulba-preview-info"><div class="eyebrow dark">WORKOUT 002 • PROGRAM APPROVED</div><h2 id="ivy-preview-title">So You're Training Ivysaur?</h2><p>Rooted Power • Intermediate • 45–55 minutes</p>
+      <div class="bulba-preview-list">${e.moves.map(m=>`<div class="bulba-preview-move">${ivysaurMoveType(m)}<div class="bulba-preview-move-copy"><div class="bulba-preview-move-heading"><strong>${safe(m.name)}</strong><span class="bulba-preview-type-name is-${safe(String(m.type||'').toLowerCase())}">${safe(m.type)}</span></div><small>${safe(m.exercise)} · ${safe(m.reps)}</small></div></div>`).join('')}</div>
+      <p class="bulba-preview-status">Seven-exercise workout published, with both approved A/B scripts and an 18-shot filming plan. Camera Tests remain pending.</p>
+      <button class="bulba-preview-button" data-action="ivysaur-full" type="button">View Full Workout & A/B Scripts →</button></div>
+    </article></div>`;
+    host.querySelector('.modal-close')?.focus();
+  }
   function openBulbasaurPreview(){
     const e=(window.WORKOUT_DEX_SEED?.entries||[]).find(x=>x.id==='kanto-001' && x.publicWorkout);
     if(!e){selectRoute('pokedex');return;}
@@ -221,10 +280,10 @@
   }
 
   function render(){
-    const views={overview:dashboard,pokedex:()=>browse('pokedex'),characters:()=>browse('characters'),forms:()=>browse('forms'),moves:registry,studio,guide,oak:oakPage,bulbasaur:bulbasaurPage};
+    const views={overview:dashboard,pokedex:()=>browse('pokedex'),characters:()=>browse('characters'),forms:()=>browse('forms'),moves:registry,studio,guide,oak:oakPage,bulbasaur:bulbasaurPage,ivysaur:ivysaurPage};
     if(!views[route]) route='overview';
     root.innerHTML=views[route]();
-    document.getElementById('breadcrumb').textContent=({overview:'DASHBOARD',pokedex:'KANTO POKÉDEX',characters:'CHARACTERS',forms:'FORM REGISTRY',moves:'MOVE REGISTRY',studio:'WORKOUT STUDIO',guide:'PROJECT GUIDE',oak:'PROFESSOR OAK / #000',bulbasaur:'BULBASAUR / #001'})[route];
+    document.getElementById('breadcrumb').textContent=({overview:'DASHBOARD',pokedex:'KANTO POKÉDEX',characters:'CHARACTERS',forms:'FORM REGISTRY',moves:'MOVE REGISTRY',studio:'WORKOUT STUDIO',guide:'PROJECT GUIDE',oak:'PROFESSOR OAK / #000',bulbasaur:'BULBASAUR / #001',ivysaur:'IVYSAUR / #002'})[route];
     document.querySelectorAll('[data-nav]').forEach(a=>{a.classList.toggle('active',a.dataset.nav===route);if(a.dataset.nav===route)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
     document.querySelector('.sidebar').classList.remove('open');
   }
@@ -259,6 +318,7 @@
   function openDetail(id){
     if(id==='oak-000'){openOakPreview();return;}
     if(id==='kanto-001' && (window.WORKOUT_DEX_SEED?.entries||[]).some(x=>x.id===id&&x.publicWorkout)){openBulbasaurPreview();return;}
+    if(id==='kanto-002' && (window.WORKOUT_DEX_SEED?.entries||[]).some(x=>x.id===id&&x.publicWorkout)){openIvysaurPreview();return;}
     const e=entryBy(id); if(!e) return;
     const final=e.status==='Final';
     const root=document.getElementById('modalHost');
@@ -353,10 +413,14 @@
     case 'pokedex':case 'studio':case 'overview':case 'characters':case 'forms':case 'moves':case 'guide':selectRoute(action);break;
     case 'oak':selectRoute('oak');break;
     case 'bulbasaur':selectRoute('bulbasaur');break;
+    case 'ivysaur':selectRoute('ivysaur');break;
+    case 'ivysaur-preview':openIvysaurPreview();break;
+    case 'ivysaur-full':closeModal();selectRoute('ivysaur');requestAnimationFrame(()=>document.getElementById('ivy-program')?.scrollIntoView({behavior:'instant',block:'start'}));break;
+    case 'jump-ivysaur':document.getElementById(el.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'});break;
     case 'bulbasaur-preview':openBulbasaurPreview();break;
     case 'bulbasaur-full':closeModal();selectRoute('bulbasaur');requestAnimationFrame(()=>document.getElementById('bulba-program')?.scrollIntoView({behavior:'instant',block:'start'}));break;
     case 'jump-bulbasaur':document.getElementById(el.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'});break;
-    case 'video-version':{const tab=document.getElementById('bulba-tab-'+el.dataset.version);if(!tab)break;document.querySelectorAll('#bulba-scripts [role="tab"]').forEach(t=>{const selected=t===tab;t.setAttribute('aria-selected',String(selected));t.tabIndex=selected?0:-1;t.classList.toggle('selected',selected);});document.querySelectorAll('#bulba-scripts [role="tabpanel"]').forEach(p=>p.hidden=p.id!=='bulba-panel-'+el.dataset.version);tab.focus();break;}
+    case 'video-version':{const ns=route==='ivysaur'?'ivy':'bulba';const tab=document.getElementById(ns+'-tab-'+el.dataset.version);if(!tab)break;document.querySelectorAll('#'+ns+'-scripts [role="tab"]').forEach(t=>{const selected=t===tab;t.setAttribute('aria-selected',String(selected));t.tabIndex=selected?0:-1;t.classList.toggle('selected',selected);});document.querySelectorAll('#'+ns+'-scripts [role="tabpanel"]').forEach(p=>p.hidden=p.id!==ns+'-panel-'+el.dataset.version);tab.focus();break;}
     case 'oak-preview':openOakPreview();break;
     case 'oak-full-workout':
       closeModal();

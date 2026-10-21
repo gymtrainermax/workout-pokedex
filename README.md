@@ -89,3 +89,12 @@ Professor Oak’s popup, character card, dashboard spotlight and full workout pa
 - Bulbasaur's `production.versions` structured data is a reusable format for future Pokémon to follow.
 - The public `data.js` contains the approved workout and both scripts. Do not export a private Studio `workouts.json` backup into the public repository.
 - Existing browsers with an untouched Bulbasaur placeholder receive the published seed. Public Bulbasaur and Oak pages always show the published program even if a visitor has an older local Studio draft.
+
+
+## Episode 002 — Ivysaur approved workout + two approved A/B scripts
+
+- Dedicated public entry at `/#ivysaur`; Pokémon #002 preview shows official move-type emblems (Sludge Bomb: Poison; Growth: Normal; Grassy Glide and Synthesis: Grass) and the full seven-exercise Rooted Power workout.
+- Intermediate 45–55 minute program, approved by GymTrainerMax, **Review** status (`publicWorkout: true`), filming and all four Camera Tests pending.
+- Version A: accessible gym comedy. Version B: game-mechanics jokes. Both scripts are approved and have matching exercise labels, shot list, edit structure and CTA.
+- The 18-shot guide, prescriptions, exercise modifications, and downloadable production documents are under `production/`.
+- The project's pre-draft workflow is recorded in `production/EDITORIAL_PREFLIGHT.md` and checks are runnable with `python production/check_workouts.py data.js`; pre-filming Camera Test *planning* can be checked automatically, but actual filmed camera quality still requires video review.
