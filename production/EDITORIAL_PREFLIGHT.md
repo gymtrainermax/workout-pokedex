@@ -20,3 +20,8 @@ The final **Camera Test** is a practical footage test and cannot be certified fr
 ### Lightweight handoff for the creator
 
 Present the Pokémon concept, four signature moves and the **complete pre-audited workout** at once, calling out at most the one or two *creative* decisions worth choosing. After approval, deliver the two video cuts and shot plan together. After script approval, publish the episode as a public `Review` entry with the preview and move-type emblems.
+
+
+## Creator-requested program-only publication (Venusaur precedent, 2026-10-22)
+
+A creator may explicitly approve the exercise program and request its website publication **before** video A/B scripts have been drafted. In that case, `publicWorkout: true`, `status: Review`, and `production.releaseStage: program-only` are required. The published site must prominently say both video scripts and filmed Camera Tests are **pending**, contain no dummy/approved script tabs, and link the complete approved program. The automated check still enforces exactly four verified distinct moves, matching seven-exercise prescriptions, research, honest quality flags, camera feasibility notes for all four moves, and a linked approved program. The editor must create and review the genuine A/B scripts, full ≥12-shot filming plan, and posting assets in a subsequent stage, remove the program-only marker, and pass the strict A/B parity checks before representing the episode as video-ready. No program-only release may be called `Final`.

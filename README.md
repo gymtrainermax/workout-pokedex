@@ -98,3 +98,8 @@ Professor Oak’s popup, character card, dashboard spotlight and full workout pa
 - Version A: accessible gym comedy. Version B: game-mechanics jokes. Both scripts are approved and have matching exercise labels, shot list, edit structure and CTA.
 - The 18-shot guide, prescriptions, exercise modifications, and downloadable production documents are under `production/`.
 - The project's pre-draft workflow is recorded in `production/EDITORIAL_PREFLIGHT.md` and checks are runnable with `python production/check_workouts.py data.js`; pre-filming Camera Test *planning* can be checked automatically, but actual filmed camera quality still requires video review.
+
+
+## Venusaur #003 • Solar Overload (2026-10-22)
+
+Approved and locked full-body strength/power program is published in `Review` status. Visit `#venusaur` or click the Venusaur #003 Pokédex card for its four-move Grass/Poison preview and seven-exercise full program. The four assigned moves are Solar Beam (standing single-arm landmine push press), Frenzy Plant (double-arm battle rope power slams), Giga Drain (half-kneeling single-arm cable row), and Poison Powder (resistance band pull-apart). The video A/B scripts are intentionally **pending**, not written or approved; filmed Camera Tests and Final status are also pending. Full prescription, scaling and source notes: `production/Workout_003_Venusaur_Approved_Program.md`. This is a program-only publication at the creator's explicit direction and does not relax later video quality gates.

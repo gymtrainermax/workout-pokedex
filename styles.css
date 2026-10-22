@@ -291,3 +291,23 @@
 .bulba-move-type-icon.is-poison{background:linear-gradient(140deg,#c48acc,#8f4eaa);box-shadow:0 0 0 2px #975bb1,0 3px 7px #12251a23}
 .bulba-preview-move-heading .bulba-preview-type-name.is-poison{background:#f0e3f5;color:#86519d}
 @media(max-width:750px){.ivy-preview-modal .bulba-preview-art{min-height:150px}}
+
+/* Venusaur #003: final-evolution preview, program-first status; reuse prior popup geometry. */
+.venus-page .bulba-hero{background:linear-gradient(113deg,#203b35 0%,#315a42 48%,#59415d 100%)}
+.venus-page .bulba-hero h1 span{color:#e1f5aa}
+.venus-page .bulba-hero-art{background:radial-gradient(circle at 45% 44%,#ebf8cc 0%,#9fcc87 50%,#668d70 100%)}
+.venus-page .bulba-move-card:nth-child(4){background:#f8eff8;border-color:#e5d4ec}
+.venus-page .bulba-move-card:nth-child(4) h3{color:#81549a}
+.venus-page .bulba-row-no{color:#437a4b}
+.venus-stage-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:22px}
+.venus-stage-grid .bulba-why{background:#f7faf2;border:1px solid #e4e9df;border-radius:14px;padding:20px}
+.venus-stage-grid .bulba-why h3{margin-bottom:7px;color:#28503b}
+.venus-stage-grid .bulba-why p{font-size:13px;color:#627460;line-height:1.55}
+.venus-shoot{margin-top:14px}.venus-docs{margin-top:20px}
+.venus-spotlight{border-color:#c8dabe;background:linear-gradient(125deg,#edf2d0,#b7d6aa 61%,#e4cee3)}
+.venus-spotlight .btn{background:#315e44}
+.venus-preview-modal{border-color:#dbead3}
+.venus-preview-modal .bulba-preview-art{background:radial-gradient(circle at 47% 43%,#f0f5c2,#9cbd80 60%,#76658b)}
+.venus-preview-modal .bulba-preview-button{background:#315e44}
+.venus-preview-modal .bulba-preview-button:hover{background:#234832}
+@media(max-width:750px){.venus-stage-grid{grid-template-columns:1fr}.venus-preview-modal .bulba-preview-art{min-height:150px}}

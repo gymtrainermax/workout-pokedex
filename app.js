@@ -59,7 +59,7 @@
     <section class="stats-grid" aria-label="Project stats">${stat('ORIGINAL KANTO',species,'Base Pokémon entries','◈')}${stat('CHARACTER WORKOUTS',characters,'Professor, trainers and leaders','♙')}${stat('FORM VARIANTS',forms,'Separate workouts to explore','✦')}${stat('PUBLISHED WORKOUTS',published,'Complete workout programs online','✓',true)}</section>
     <div class="section-heading"><div><h2>The journey so far</h2><p>Track the road from Professor Oak to the Elite Four.</p></div></div>
     <section class="two-cols"><div class="panel panel-pad"><div class="panel-top"><h3>Region completion</h3><small>${baseFinal} / ${species} KANTO</small></div><div class="progress-track"><div class="progress-fill" style="width:${species?100*baseFinal/species:0}%"></div></div><div class="progress-meta"><span>Original 151 completed</span><span>${species?Math.round(baseFinal/species*100):0}%</span></div><div style="margin-top:16px">${sections.map((s,i)=>{let all=count(e=>e.chapter===s),fin=count(e=>e.chapter===s&&e.status==='Final');return `<div class="chapter-row"><div class="chapter-dot">${String(i).padStart(2,'0')}</div><div class="chapter-info"><strong>${s}</strong><small>${s==='Prologue'?'Where the adventure starts':s==='Forms'?'Regional, Mega, Gigantamax and more':'Workout collection'}</small></div><div class="chapter-score">${fin} / ${all}</div></div>`}).join('')}</div></div>
-    <div class="vertical-gap"><div class="spotlight"><div><div class="eyebrow dark">EPISODE 000 • THE PROLOGUE</div><h3>Professor Oak</h3><p>Workout 000 is on the Dex: full training session, coaching, and a two-character comedy shoot plan.</p>${btn('View the first entry →','oak-preview','btn-dark')}</div><div class="oak-portrait" aria-label="Professor Oak portrait"><img class="oak-art-image" src="assets/professor-oak-game-portrait.webp" onerror="this.onerror=null;this.src='assets/professor-oak-fallback.svg'" alt="Game-inspired portrait of Professor Oak in a white lab coat, holding a Poké Ball and clipboard" loading="lazy" decoding="async" /></div></div><div class="notice"><span class="mini-poke">!</span><div><strong>Professor Oak's program is live; his video is still in production.</strong><br/>Bulbasaur #001 and Ivysaur #002 both have approved workouts and A/B scripts online. Neither video is Final until filming and camera review are complete.</div></div><div class="bulba-spotlight"><div class="bulba-spotlight-text"><span class="eyebrow">WORKOUT 001 • GRASS / POISON</span><h3>Bulbasaur</h3><p>Seedling Strength: a complete seven-exercise workout with two A/B-ready scripts.</p><button class="btn btn-dark" data-action="bulbasaur-preview" type="button">Preview Bulbasaur's workout →</button></div><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" alt="Bulbasaur Pokémon artwork" loading="lazy" /></div><div class="bulba-spotlight ivy-spotlight"><div class="bulba-spotlight-text"><span class="eyebrow">WORKOUT 002 • GRASS / POISON</span><h3>Ivysaur</h3><p>Rooted Power: a seven-exercise intermediate workout with two approved A/B video scripts.</p><button class="btn btn-dark" data-action="ivysaur-preview" type="button">Preview Ivysaur's workout →</button></div><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png" alt="Ivysaur Pokémon artwork" loading="lazy"/></div></div></section>
+    <div class="vertical-gap"><div class="spotlight"><div><div class="eyebrow dark">EPISODE 000 • THE PROLOGUE</div><h3>Professor Oak</h3><p>Workout 000 is on the Dex: full training session, coaching, and a two-character comedy shoot plan.</p>${btn('View the first entry →','oak-preview','btn-dark')}</div><div class="oak-portrait" aria-label="Professor Oak portrait"><img class="oak-art-image" src="assets/professor-oak-game-portrait.webp" onerror="this.onerror=null;this.src='assets/professor-oak-fallback.svg'" alt="Game-inspired portrait of Professor Oak in a white lab coat, holding a Poké Ball and clipboard" loading="lazy" decoding="async" /></div></div><div class="notice"><span class="mini-poke">!</span><div><strong>Professor Oak's program is live; his video is still in production.</strong><br/>Bulbasaur #001 and Ivysaur #002 have A/B video scripts; Venusaur #003 now has its approved full workout online. Filming and Camera Tests remain pending for all three.</div></div><div class="bulba-spotlight"><div class="bulba-spotlight-text"><span class="eyebrow">WORKOUT 001 • GRASS / POISON</span><h3>Bulbasaur</h3><p>Seedling Strength: a complete seven-exercise workout with two A/B-ready scripts.</p><button class="btn btn-dark" data-action="bulbasaur-preview" type="button">Preview Bulbasaur's workout →</button></div><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" alt="Bulbasaur Pokémon artwork" loading="lazy" /></div><div class="bulba-spotlight ivy-spotlight"><div class="bulba-spotlight-text"><span class="eyebrow">WORKOUT 002 • GRASS / POISON</span><h3>Ivysaur</h3><p>Rooted Power: a seven-exercise intermediate workout with two approved A/B video scripts.</p><button class="btn btn-dark" data-action="ivysaur-preview" type="button">Preview Ivysaur's workout →</button></div><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png" alt="Ivysaur Pokémon artwork" loading="lazy"/></div><div class="bulba-spotlight venus-spotlight"><div class="bulba-spotlight-text"><span class="eyebrow">WORKOUT 003 • GRASS / POISON</span><h3>Venusaur</h3><p>Solar Overload: approved seven-exercise power workout. A/B video scripts coming next.</p><button class="btn btn-dark" data-action="venusaur-preview" type="button">Preview Venusaur's workout →</button></div><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png" alt="Venusaur Pokémon artwork" loading="lazy"/></div></div></section>
     <div class="section-heading"><div><h2>Start your adventure</h2><p>The first Pokémon in the National Pokédex.</p></div><a href="#pokedex">VIEW ALL 151 ↗</a></div>
     <div class="cards-grid">${entries().filter(e=>e.kind==='pokemon').slice(0,4).map(card).join('')}</div>`;
   }
@@ -246,6 +246,49 @@
     </div>`;
   }
 
+
+  // Venusaur #003 public program-first release. A/B scripts are deliberately pending creator review.
+  function venusaurPage(){
+    const e=(window.WORKOUT_DEX_SEED?.entries||[]).find(x=>x.id==='kanto-003' && x.publicWorkout);
+    if(!e)return head('WORKOUT 003','Venusaur','Programming underway.');
+    const prod=e.production||{}, shots=prod.shootList||[];
+    const rows=e.exercises.map((x,i)=>`<tr><td><span class="bulba-row-no">${String(i+1).padStart(2,'0')}</span></td><td><strong>${safe(x.alias||x.name)}</strong>${x.alias?`<span class="bulba-exercise-sub">${safe(x.name)}</span>`:''}</td><td>${safe(x.sets)} × ${safe(x.reps)}</td><td>${safe(x.rest)}</td></tr>`).join('');
+    return `<div class="bulba-page venus-page">
+      <section class="bulba-hero"><div class="bulba-hero-copy"><div class="eyebrow">POKÉDEX #003 • GRASS / POISON • FINAL EVOLUTION</div><span class="bulba-hero-number">WORKOUT 003</span><h1>SO YOU'RE TRAINING<br/><span>VENUSAUR?</span></h1><p>Solar Overload brings the fully evolved Grass starter's Solar Beam, root slams, energy-draining pull and spore release into a complete strength-and-power workout.</p>
+        <div class="bulba-hero-tags"><span>Advanced-intermediate</span><span>55–70 min</span><span>Full body</span><span>18 working sets</span></div>
+        <div class="bulba-hero-state">✓ Program approved and locked <span>•</span> A/B scripts pending <span>•</span> Filming pending</div>
+        <div class="bulba-hero-buttons"><button class="btn btn-lime" data-action="jump-venusaur" data-target="venus-program">Complete workout ↓</button><button class="btn btn-ghost" data-action="jump-venusaur" data-target="venus-production">Filming notes ↗</button></div>
+      </div><div class="bulba-hero-art"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png" alt="Venusaur official Pokémon character illustration" /><div class="bulba-hero-art-label">SEED POKÉMON<br/><strong>#003</strong></div></div></section>
+      <div class="bulba-progress-note"><span class="bulba-status-dot"></span><p><strong>Approved workout, now published for planning and training.</strong> Both A/B video scripts are the next creative step. Filming, four actual Camera Tests, A/B comparison and final quality review remain pending. The entry is <strong>Review</strong>, not Final.</p></div>
+      <section class="bulba-section" id="venus-moves"><div class="bulba-section-head"><span class="eyebrow dark">THE FOUR SIGNATURE MOVES</span><h2>Solar power, roots, energy and spores</h2><p>These are official Venusaur moves mapped to real exercises. Move types are shown in the Pokédex preview, while the complete exercise programming appears below.</p></div>
+        <div class="bulba-move-grid">${e.moves.map((m,i)=>`<article class="bulba-move-card"><div class="bulba-move-number">0${i+1} • ${safe(m.type)}</div><div class="bulba-move-icon">${['☀','〰','↢','✺'][i]}</div><h3>${safe(m.name)}</h3><strong>${safe(m.exercise)}</strong><p>${safe(m.notes)}</p><span class="bulba-move-dose">${safe(m.reps)}</span></article>`).join('')}</div>
+      </section>
+      <section class="bulba-section" id="venus-program"><div class="bulba-section-head"><span class="eyebrow dark">PROGRAM LOCKED • 7 EXERCISES</span><h2>Complete Solar Overload workout</h2><p>Launch Solar Beam while fresh, keep rope slams brief and sharp, ramp up before your working back squats, then complete the balanced row, bench, hinge and band finisher. Each unilateral set includes both sides.</p></div>
+        <div class="bulba-program-layout"><div class="bulba-program-main"><div class="bulba-warmup"><strong>WARM-UP • 8–10 MIN + SQUAT RAMP-UP SETS</strong><p>${safe(e.workout.warmup)}</p></div><div class="bulba-table-wrap"><table class="bulba-workout-table"><thead><tr><th>#</th><th>Exercise</th><th>Work</th><th>Rest</th></tr></thead><tbody>${rows}</tbody></table></div><div class="bulba-warmup"><strong>COOLDOWN • 3–5 MIN</strong><p>${safe(e.workout.cooldown)}</p></div></div>
+          <aside class="bulba-program-side"><div class="bulba-why"><div class="eyebrow dark">TRAINING IDENTITY</div><h3>Powerful. Grounded. Fully evolved.</h3><p>${safe(e.goalRationale)}</p></div><div class="bulba-why"><h3>Scale it to your level</h3><p>${safe(e.workout.modifications)}</p></div><div class="bulba-why"><h3>Technique & safety</h3><p>${safe(e.workout.safety)}</p></div></aside></div>
+      </section>
+      <section class="bulba-section" id="venus-production"><div class="bulba-section-head"><span class="eyebrow dark">VIDEO DEVELOPMENT • A/B SCRIPT STAGE NEXT</span><h2>One workout. Two comedy versions.</h2><p>Our production standard remains Version A (gym comedy) and Version B (Pokémon-specific comedy), with matched exercise shots, timing, overlays and CTA. Neither script has been written or approved for Venusaur yet.</p></div>
+        <div class="venus-stage-grid"><div class="bulba-why"><h3>A • Gym Comedy</h3><p>Relatable gym jokes around Solar Beam, big ropes, heavy lifting and the final evolution. Script pending creator review.</p></div><div class="bulba-why"><h3>B • Pokémon Comedy</h3><p>Game-specific battle references, Solar Beam charge-up and Frenzy Plant recharge. Script pending creator review.</p></div></div>
+        <div class="bulba-shoot-grid venus-shoot"><div class="bulba-shoot-list"><h3>Initial filming feasibility checklist</h3><ol>${shots.map(s=>`<li>${safe(s.shot)}</li>`).join('')}</ol></div><div class="bulba-camera-tests"><h3>Four Camera Tests <span class="bulba-pending">ALL PENDING</span></h3>${(prod.cameraTests||[]).map(t=>`<div class="bulba-camera-test"><strong>${safe(t.move)}</strong><p>${safe(t.test)}</p><small>${safe(t.status)}</small></div>`).join('')}</div></div>
+        <div class="bulba-post-grid venus-docs"><div><strong>Approved working program</strong><p>All seven prescriptions, exercise notes, progressions, regressions, filming feasibility checks and research references are saved with the workout.</p><div class="bulba-doc-links"><a href="production/Workout_003_Venusaur_Approved_Program.md" target="_blank" rel="noopener">Approved program & safety notes ↗</a></div></div><div><strong>Next production milestone</strong><p>Write and review both video scripts. Only after filming and all three real-world audits can the episode move from Review to Final.</p></div></div>
+      </section>
+    </div>`;
+  }
+  function openVenusaurPreview(){
+    const e=(window.WORKOUT_DEX_SEED?.entries||[]).find(x=>x.id==='kanto-003' && x.publicWorkout);
+    if(!e){selectRoute('pokedex');return;}
+    const host=document.getElementById('modalHost');
+    host.innerHTML=`<div class="modal-scrim bulba-preview-scrim venus-preview-scrim" data-action="close-scrim"><article class="modal bulba-preview-modal venus-preview-modal" role="dialog" aria-modal="true" aria-labelledby="venus-preview-title">
+      <button class="modal-close" type="button" data-action="close-modal" aria-label="Close Venusaur preview">×</button>
+      <div class="bulba-preview-art"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png" alt="Venusaur Pokémon artwork"/><span>GRASS / POISON • #003</span></div>
+      <div class="bulba-preview-info"><div class="eyebrow dark">WORKOUT 003 • PROGRAM APPROVED</div><h2 id="venus-preview-title">So You're Training Venusaur?</h2><p>Solar Overload • Advanced-intermediate • 55–70 minutes</p>
+      <div class="bulba-preview-list">${e.moves.map(m=>`<div class="bulba-preview-move">${ivysaurMoveType(m)}<div class="bulba-preview-move-copy"><div class="bulba-preview-move-heading"><strong>${safe(m.name)}</strong><span class="bulba-preview-type-name is-${safe(String(m.type||'').toLowerCase())}">${safe(m.type)}</span></div><small>${safe(m.exercise)} · ${safe(m.reps)}</small></div></div>`).join('')}</div>
+      <p class="bulba-preview-status">The full seven-exercise workout is approved and available. A/B scripts and filmed Camera Tests are still pending.</p>
+      <button class="bulba-preview-button" data-action="venusaur-full" type="button">View Full Workout →</button></div>
+    </article></div>`;
+    host.querySelector('.modal-close')?.focus();
+  }
+
   function ivysaurMoveType(m){
     const type=String(m.type||'').toLowerCase();
     const label=type==='poison'?'Poison':type==='normal'?'Normal':type==='grass'?'Grass':'Unknown';
@@ -280,10 +323,10 @@
   }
 
   function render(){
-    const views={overview:dashboard,pokedex:()=>browse('pokedex'),characters:()=>browse('characters'),forms:()=>browse('forms'),moves:registry,studio,guide,oak:oakPage,bulbasaur:bulbasaurPage,ivysaur:ivysaurPage};
+    const views={overview:dashboard,pokedex:()=>browse('pokedex'),characters:()=>browse('characters'),forms:()=>browse('forms'),moves:registry,studio,guide,oak:oakPage,bulbasaur:bulbasaurPage,ivysaur:ivysaurPage,venusaur:venusaurPage};
     if(!views[route]) route='overview';
     root.innerHTML=views[route]();
-    document.getElementById('breadcrumb').textContent=({overview:'DASHBOARD',pokedex:'KANTO POKÉDEX',characters:'CHARACTERS',forms:'FORM REGISTRY',moves:'MOVE REGISTRY',studio:'WORKOUT STUDIO',guide:'PROJECT GUIDE',oak:'PROFESSOR OAK / #000',bulbasaur:'BULBASAUR / #001',ivysaur:'IVYSAUR / #002'})[route];
+    document.getElementById('breadcrumb').textContent=({overview:'DASHBOARD',pokedex:'KANTO POKÉDEX',characters:'CHARACTERS',forms:'FORM REGISTRY',moves:'MOVE REGISTRY',studio:'WORKOUT STUDIO',guide:'PROJECT GUIDE',oak:'PROFESSOR OAK / #000',bulbasaur:'BULBASAUR / #001',ivysaur:'IVYSAUR / #002',venusaur:'VENUSAUR / #003'})[route];
     document.querySelectorAll('[data-nav]').forEach(a=>{a.classList.toggle('active',a.dataset.nav===route);if(a.dataset.nav===route)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
     document.querySelector('.sidebar').classList.remove('open');
   }
@@ -319,6 +362,7 @@
     if(id==='oak-000'){openOakPreview();return;}
     if(id==='kanto-001' && (window.WORKOUT_DEX_SEED?.entries||[]).some(x=>x.id===id&&x.publicWorkout)){openBulbasaurPreview();return;}
     if(id==='kanto-002' && (window.WORKOUT_DEX_SEED?.entries||[]).some(x=>x.id===id&&x.publicWorkout)){openIvysaurPreview();return;}
+    if(id==='kanto-003' && (window.WORKOUT_DEX_SEED?.entries||[]).some(x=>x.id===id&&x.publicWorkout)){openVenusaurPreview();return;}
     const e=entryBy(id); if(!e) return;
     const final=e.status==='Final';
     const root=document.getElementById('modalHost');
@@ -414,6 +458,10 @@
     case 'oak':selectRoute('oak');break;
     case 'bulbasaur':selectRoute('bulbasaur');break;
     case 'ivysaur':selectRoute('ivysaur');break;
+    case 'venusaur':selectRoute('venusaur');break;
+    case 'venusaur-preview':openVenusaurPreview();break;
+    case 'venusaur-full':closeModal();selectRoute('venusaur');requestAnimationFrame(()=>document.getElementById('venus-program')?.scrollIntoView({behavior:'instant',block:'start'}));break;
+    case 'jump-venusaur':document.getElementById(el.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'});break;
     case 'ivysaur-preview':openIvysaurPreview();break;
     case 'ivysaur-full':closeModal();selectRoute('ivysaur');requestAnimationFrame(()=>document.getElementById('ivy-program')?.scrollIntoView({behavior:'instant',block:'start'}));break;
     case 'jump-ivysaur':document.getElementById(el.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'});break;

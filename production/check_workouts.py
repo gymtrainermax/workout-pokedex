@@ -42,13 +42,21 @@ for e in db['entries']:
     check(len([x for x in e['content'].get('hashtags','').split(',') if x.strip()])==5,f'{id_}: should have five hashtags')
     check(e.get('quality',{}).get('visual') is False if e['status']=='Review' else True,f'{id_}: visual QA status does not match Review/Final')
     vers=prog.get('versions') or []
-    check(len(vers)==2 and [v.get('id') for v in vers]==['a','b'],f'{id_}: needs gym-comedy A and Pokémon-comedy B')
+    is_program_only=prog.get('releaseStage')=='program-only'
+    if is_program_only:
+        # Explicit creator-directed program-only release: video QA has NOT passed.
+        check(e['status']=='Review',f'{id_}: program-only release cannot be Final')
+        check(not vers,f'{id_}: program-only release must not misrepresent scripts as approved')
+        check('pending' in str(prog.get('videoStatus','')).lower(),f'{id_}: program-only release must label scripts pending')
+        check(len(prog.get('shootList') or [])>=4,f'{id_}: needs filming feasibility notes for all moves')
+    else:
+        check(len(vers)==2 and [v.get('id') for v in vers]==['a','b'],f'{id_}: needs gym-comedy A and Pokémon-comedy B')
     if len(vers)==2:
         a,b=vers
         check(len(a.get('beats',[]))==len(b.get('beats',[]))>=6,f'{id_}: unequal/incomplete A/B beats')
         check([v.get('time') for v in a['beats']]==[v.get('time') for v in b['beats']],f'{id_}: A/B timecode mismatch')
         check([v.get('onScreen') for v in a['beats']]==[v.get('onScreen') for v in b['beats']],f'{id_}: unequal A/B workout overlays')
-    check(len(prog.get('shootList') or [])>=12,f'{id_}: insufficient filming plan')
+    if not is_program_only:check(len(prog.get('shootList') or [])>=12,f'{id_}: insufficient filming plan')
     check(len(prog.get('cameraTests') or [])==4,f'{id_}: needs four camera tests')
     check(bool(prog.get('assets')),f'{id_}: no linked supporting production documents')
     for asset in prog.get('assets',[]):
