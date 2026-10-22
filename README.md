@@ -103,3 +103,10 @@ Professor Oak’s popup, character card, dashboard spotlight and full workout pa
 ## Venusaur #003 • Solar Overload (2026-10-22)
 
 Approved and locked full-body strength/power program is published in `Review` status. Visit `#venusaur` or click the Venusaur #003 Pokédex card for its four-move Grass/Poison preview and seven-exercise full program. The four assigned moves are Solar Beam (standing single-arm landmine push press), Frenzy Plant (double-arm battle rope power slams), Giga Drain (half-kneeling single-arm cable row), and Poison Powder (resistance band pull-apart). The video A/B scripts are intentionally **pending**, not written or approved; filmed Camera Tests and Final status are also pending. Full prescription, scaling and source notes: `production/Workout_003_Venusaur_Approved_Program.md`. This is a program-only publication at the creator's explicit direction and does not relax later video quality gates.
+
+
+## Charmander #004 • First Flame (2026-10-22)
+
+Seven-exercise creator-approved athletic workout is publicly available in **Review** status via `#charmander` and the #004 Pokédex preview. Four moves: **Flame Charge** (Short Acceleration Run, Fire), **Ember** (Medicine Ball Chest Pass to Wall, Fire), **Fire Spin** (Landmine 180s, Fire), and **Scratch** (Single-Arm High-to-Low Diagonal Cable Pulldown, Normal). Three supporting exercises: Goblet Squat, Dumbbell Romanian Deadlift, and Incline Push-Up. **16 working sets**, beginner+, ~40–50 minutes. The popup matches existing #001–003 design but shows new Fire/Normal move-type icons. See `production/Workout_004_Charmander_Approved_Program.md` for all doses, rests, equipment, scaling, and safety details.
+
+This is a creator-directed **program-only publication** (`publicWorkout: true`, `status: Review`, `production.releaseStage: program-only`). A/B video scripts are pending rather than placeholders; final Camera Tests require footage. The preflight validates this release type using the same strict programming and uniqueness checks as previous workouts.

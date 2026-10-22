@@ -311,3 +311,23 @@
 .venus-preview-modal .bulba-preview-button{background:#315e44}
 .venus-preview-modal .bulba-preview-button:hover{background:#234832}
 @media(max-width:750px){.venus-stage-grid{grid-template-columns:1fr}.venus-preview-modal .bulba-preview-art{min-height:150px}}
+
+
+/* Charmander #004: Fire-type move icons and First Flame program-only presentation. */
+.char-page .bulba-hero{background:linear-gradient(111deg,#35272e 0%,#6f382c 58%,#a24f2f 100%)}
+.char-page .bulba-hero h1 span{color:#ffe0a0}
+.char-page .bulba-hero-art{background:radial-gradient(circle at 44% 40%,#fff0c5 0%,#f4b47f 52%,#b96555 100%)}
+.char-page .bulba-move-card:nth-child(-n+3){background:#fff5ed;border-color:#f4ded0}
+.char-page .bulba-move-card:nth-child(-n+3) h3{color:#ad512d}
+.char-page .bulba-row-no{color:#bf5e38}
+.char-page .bulba-warmup{background:#fff6ef}
+.char-spotlight{border-color:#eed0bb;background:linear-gradient(125deg,#fff0dd,#f5cb9c 60%,#eeb18e)}
+.char-spotlight .btn{background:#793c2d}
+.char-preview-modal{border-color:#f4d8c4}
+.char-preview-modal .bulba-preview-art{background:radial-gradient(circle at 48% 40%,#fff1cb,#f4b27c 58%,#d47250)}
+.char-preview-modal .bulba-preview-list>.bulba-preview-move{background:#fff7ef}
+.char-preview-modal .bulba-preview-button{background:#994a31}
+.char-preview-modal .bulba-preview-button:hover{background:#7c3827}
+.bulba-move-type-icon.is-fire{background:linear-gradient(140deg,#f8b65b,#e77839);box-shadow:0 0 0 2px #e7823f,0 3px 7px #48231527;color:#fff7da}
+.bulba-preview-move-heading .bulba-preview-type-name.is-fire{background:#ffebd5;color:#b3542a}
+@media(max-width:750px){.char-preview-modal .bulba-preview-art{min-height:150px}}
