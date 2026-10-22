@@ -249,20 +249,23 @@
 
 
 
-  // Charmander #004: creator-approved seven-exercise program-only release.
-  // The A/B scripts remain pending; filmed Camera Tests cannot pass until actual footage exists.
+  // Charmander #004: creator-approved workout and A/B scripts; filmed Camera Tests remain pending.
   function charmanderPage(){
     const e=(window.WORKOUT_DEX_SEED?.entries||[]).find(x=>x.id==='kanto-004' && x.publicWorkout);
     if(!e)return head('WORKOUT 004','Charmander','Programming underway.');
-    const prod=e.production||{},shots=prod.shootList||[];
+    const prod=e.production||{},shots=prod.shootList||[],variants=prod.versions||[];
     const rows=e.exercises.map((x,i)=>`<tr><td><span class="bulba-row-no">${String(i+1).padStart(2,'0')}</span></td><td><strong>${safe(x.alias||x.name)}</strong>${x.alias?`<span class="bulba-exercise-sub">${safe(x.name)}</span>`:''}</td><td>${safe(x.sets)} × ${safe(x.reps)}</td><td>${safe(x.rest)}</td></tr>`).join('');
+    const videoTabs=variants.length===2?`<div class="bulba-tabs" role="tablist" aria-label="Charmander A/B video scripts">${variants.map((v,i)=>`<button id="char-tab-${safe(v.id)}" type="button" data-action="video-version" data-version="${safe(v.id)}" role="tab" aria-selected="${i===0?'true':'false'}" aria-controls="char-panel-${safe(v.id)}" tabindex="${i===0?'0':'-1'}" class="bulba-tab ${i===0?'selected':''}">${safe(v.label)} <span>${safe(v.subtitle)}</span></button>`).join('')}</div>
+      ${variants.map((v,i)=>`<div id="char-panel-${safe(v.id)}" role="tabpanel" aria-labelledby="char-tab-${safe(v.id)}" class="bulba-script-panel" ${i?'hidden':''}>
+        <div class="bulba-script-intro"><strong>${safe(v.label)}: ${safe(v.subtitle)}</strong><span>${safe(v.status)}</span></div>
+        ${v.beats.map(b=>`<div class="bulba-beat"><div class="bulba-beat-time">${safe(b.time)}</div><div class="bulba-beat-body"><strong>${safe(b.audio)}</strong><p>${safe(b.visual)}</p><small>ON SCREEN: ${safe(b.onScreen)}</small></div></div>`).join('')}</div>`).join('')}`:'';
     return `<div class="bulba-page char-page">
       <section class="bulba-hero"><div class="bulba-hero-copy"><div class="eyebrow">POKÉDEX #004 • FIRE • FIRST EVOLUTION STAGE</div><span class="bulba-hero-number">WORKOUT 004</span><h1>SO YOU PICKED<br/><span>CHARMANDER?</span></h1><p>First Flame turns speed boosts, tiny fireballs, swirling flames and a claw swipe into a balanced, beginner-friendly athletic workout.</p>
         <div class="bulba-hero-tags"><span>Beginner+</span><span>40–50 min</span><span>16 working sets</span><span>Full body + power</span></div>
-        <div class="bulba-hero-state">✓ Program approved and locked <span>•</span> A/B scripts pending <span>•</span> Filming pending</div>
-        <div class="bulba-hero-buttons"><button class="btn btn-lime" data-action="jump-charmander" data-target="char-program">Complete workout ↓</button><button class="btn btn-ghost" data-action="jump-charmander" data-target="char-production">Production status ↗</button></div>
+        <div class="bulba-hero-state">✓ Program approved and locked <span>•</span> A/B scripts approved <span>•</span> Filming pending</div>
+        <div class="bulba-hero-buttons"><button class="btn btn-lime" data-action="jump-charmander" data-target="char-program">Complete workout ↓</button><button class="btn btn-ghost" data-action="jump-charmander" data-target="char-scripts">Compare scripts A / B ↗</button></div>
       </div><div class="bulba-hero-art"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png" alt="Charmander official Pokémon character illustration" /><div class="bulba-hero-art-label">LIZARD POKÉMON<br/><strong>#004</strong></div></div></section>
-      <div class="bulba-progress-note"><span class="bulba-status-dot"></span><p><strong>Seven-exercise workout approved and published for planning and training.</strong> Both A/B scripts, all filmed Camera Tests and the final quality review are still pending. This episode remains in <strong>Review</strong>, not Final.</p></div>
+      <div class="bulba-progress-note"><span class="bulba-status-dot"></span><p><strong>Seven-exercise workout approved and published for planning and training.</strong> Filming, four Camera Tests, A/B test results and final quality review remain pending; both A/B scripts are approved. This episode remains in <strong>Review</strong>, not Final.</p></div>
       <section class="bulba-section" id="char-moves"><div class="bulba-section-head"><span class="eyebrow dark">FOUR SIGNATURE MOVES</span><h2>Quick feet. First sparks. Controlled fire.</h2><p>Four real Charmander moves mapped to four purposeful gym movements. The Fire and Normal-type emblems appear in the Pokédex preview.</p></div>
         <div class="bulba-move-grid">${e.moves.map((m,i)=>`<article class="bulba-move-card"><div class="bulba-move-number">0${i+1} • ${safe(m.type)}</div><div class="bulba-move-icon">${['➜','✷','◌','╱'][i]}</div><h3>${safe(m.name)}</h3><strong>${safe(m.exercise)}</strong><p>${safe(m.notes)}</p><span class="bulba-move-dose">${safe(m.reps)}</span></article>`).join('')}</div>
       </section>
@@ -270,10 +273,13 @@
         <div class="bulba-program-layout"><div class="bulba-program-main"><div class="bulba-warmup"><strong>WARM-UP • 8–10 MIN</strong><p>${safe(e.workout.warmup)}</p></div><div class="bulba-table-wrap"><table class="bulba-workout-table"><thead><tr><th>#</th><th>Exercise</th><th>Work</th><th>Rest</th></tr></thead><tbody>${rows}</tbody></table></div><div class="bulba-warmup"><strong>COOLDOWN • 3–5 MIN</strong><p>${safe(e.workout.cooldown)}</p></div></div>
           <aside class="bulba-program-side"><div class="bulba-why"><div class="eyebrow dark">TRAINING IDENTITY</div><h3>Fast. Fiery. Foundational.</h3><p>${safe(e.goalRationale)}</p></div><div class="bulba-why"><h3>Beginner → advanced</h3><p>${safe(e.workout.modifications)}</p></div><div class="bulba-why"><h3>Technique &amp; safety</h3><p>${safe(e.workout.safety)}</p></div></aside></div>
       </section>
-      <section class="bulba-section" id="char-production"><div class="bulba-section-head"><span class="eyebrow dark">VIDEO DEVELOPMENT • SCRIPTS NEXT</span><h2>One workout. Two comedy versions.</h2><p>Version A will focus on accessible gym comedy; Version B will use more Pokémon-specific references. As with previous Pokémon, both edits will eventually share footage and exercise labels. Neither script is written or approved yet.</p></div>
-        <div class="venus-stage-grid"><div class="bulba-why"><h3>A • Gym Comedy</h3><p>Friendly jokes about a tiny Fire-type turning an ordinary workout into short accelerations, throws and diagonal claws. Full script pending review.</p></div><div class="bulba-why"><h3>B • Pokémon Comedy</h3><p>Game-mechanics humor around Flame Charge’s Speed boost, Ember and Fire Spin. Full script pending review.</p></div></div>
-        <div class="bulba-shoot-grid venus-shoot"><div class="bulba-shoot-list"><h3>Early filming feasibility checklist</h3><ol>${shots.map(s=>`<li>${safe(s.shot)}</li>`).join('')}</ol></div><div class="bulba-camera-tests"><h3>Four Camera Tests <span class="bulba-pending">ALL PENDING</span></h3>${(prod.cameraTests||[]).map(t=>`<div class="bulba-camera-test"><strong>${safe(t.move)}</strong><p>${safe(t.test)}</p><small>${safe(t.status)}</small></div>`).join('')}</div></div>
-        <div class="bulba-post-grid venus-docs"><div><strong>Approved program &amp; safety notes</strong><p>Read all seven exact prescriptions, easier and harder variations, safety notes, research references and preliminary camera plans.</p><div class="bulba-doc-links"><a href="production/Workout_004_Charmander_Approved_Program.md" target="_blank" rel="noopener">Approved program &amp; safety notes ↗</a></div></div><div><strong>Next milestone</strong><p>Write and review both A/B scripts, then film and audit all four on-camera move transitions. Until then, this is an approved workout, not a finished episode.</p></div></div>
+      <section class="bulba-section" id="char-scripts"><div class="bulba-section-head"><span class="eyebrow dark">TWO APPROVED VIDEO SCRIPTS • ONE WORKOUT</span><h2>Charmander A / B: which jokes land?</h2><p>Both cuts run approximately 70 seconds with the same footage, moves, on-screen exercise instructions, VFX, music, cover, caption and CTA. Only spoken humor and matched subtitles change.</p></div>
+        ${videoTabs}
+        <div class="bulba-ab-method"><h3>A/B testing rules</h3><div class="bulba-method-grid">${(prod.testPlan||[]).map((t,i)=>`<p><span>${String(i+1).padStart(2,'0')}</span>${safe(t)}</p>`).join('')}</div></div>
+      </section>
+      <section class="bulba-section" id="char-production"><div class="bulba-section-head"><span class="eyebrow dark">SHOOT PLAN • NOT YET FILMED</span><h2>Film once, cut twice</h2><p>The video groups Pokémon moves first for storytelling, but the actual exercise prescription keeps Scratch seventh. Follow the full workout table for the correct gym order.</p></div>
+        <div class="bulba-shoot-grid venus-shoot"><div class="bulba-shoot-list"><h3>20-shot checklist</h3><ol>${shots.map(s=>`<li>${safe(s.shot)}</li>`).join('')}</ol></div><div class="bulba-camera-tests"><h3>Four Camera Tests <span class="bulba-pending">ALL PENDING</span></h3>${(prod.cameraTests||[]).map(t=>`<div class="bulba-camera-test"><strong>${safe(t.move)}</strong><p>${safe(t.test)}</p><small>${safe(t.status)}</small></div>`).join('')}</div></div>
+        <div class="bulba-post-grid venus-docs"><div><strong>Social / cover package</strong><p><strong>Cover:</strong> ${safe(e.content.cover)}</p><p><strong>Caption:</strong> ${safe(e.content.caption)}</p><p><strong>Five hashtags:</strong> ${safe(e.content.hashtags)}</p></div><div><strong>Production files</strong><p>Approved program, matched A/B scripts and shot-by-shot production notes.</p><div class="bulba-doc-links">${(prod.assets||[]).map((path,i)=>`<a href="${safe(path)}" target="_blank" rel="noopener">${['Approved workout & safety','Script A • Gym comedy','Script B • Pokémon comedy','20-shot filming & A/B test plan','Complete production package'][i]||'Working document'} ↗</a>`).join('')}</div><p class="bulba-draft-note">Scripts approved, but no recorded video or verified Camera Tests yet. Status: Review.</p></div></div>
       </section>
     </div>`;
   }
@@ -286,8 +292,8 @@
       <div class="bulba-preview-art"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png" alt="Charmander Pokémon artwork"/><span>FIRE • #004</span></div>
       <div class="bulba-preview-info"><div class="eyebrow dark">WORKOUT 004 • PROGRAM APPROVED</div><h2 id="char-preview-title">So You Picked Charmander?</h2><p>First Flame • Beginner+ • 40–50 minutes</p>
       <div class="bulba-preview-list">${e.moves.map(m=>`<div class="bulba-preview-move">${ivysaurMoveType(m)}<div class="bulba-preview-move-copy"><div class="bulba-preview-move-heading"><strong>${safe(m.name)}</strong><span class="bulba-preview-type-name is-${safe(String(m.type||'').toLowerCase())}">${safe(m.type)}</span></div><small>${safe(m.exercise)} · ${safe(m.reps)}</small></div></div>`).join('')}</div>
-      <p class="bulba-preview-status">Approved seven-exercise workout available now. A/B scripts and filmed Camera Tests are pending.</p>
-      <button class="bulba-preview-button" data-action="charmander-full" type="button">View Full Workout →</button></div>
+      <p class="bulba-preview-status">Approved seven-exercise workout and both A/B scripts are ready. Filming and four Camera Tests remain pending.</p>
+      <button class="bulba-preview-button" data-action="charmander-full" type="button">View Full Workout & A/B Scripts →</button></div>
     </article></div>`;
     host.querySelector('.modal-close')?.focus();
   }
@@ -519,7 +525,7 @@
     case 'bulbasaur-preview':openBulbasaurPreview();break;
     case 'bulbasaur-full':closeModal();selectRoute('bulbasaur');requestAnimationFrame(()=>document.getElementById('bulba-program')?.scrollIntoView({behavior:'instant',block:'start'}));break;
     case 'jump-bulbasaur':document.getElementById(el.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'});break;
-    case 'video-version':{const ns=route==='ivysaur'?'ivy':'bulba';const tab=document.getElementById(ns+'-tab-'+el.dataset.version);if(!tab)break;document.querySelectorAll('#'+ns+'-scripts [role="tab"]').forEach(t=>{const selected=t===tab;t.setAttribute('aria-selected',String(selected));t.tabIndex=selected?0:-1;t.classList.toggle('selected',selected);});document.querySelectorAll('#'+ns+'-scripts [role="tabpanel"]').forEach(p=>p.hidden=p.id!==ns+'-panel-'+el.dataset.version);tab.focus();break;}
+    case 'video-version':{const ns=route==='ivysaur'?'ivy':route==='charmander'?'char':'bulba';const tab=document.getElementById(ns+'-tab-'+el.dataset.version);if(!tab)break;document.querySelectorAll('#'+ns+'-scripts [role="tab"]').forEach(t=>{const selected=t===tab;t.setAttribute('aria-selected',String(selected));t.tabIndex=selected?0:-1;t.classList.toggle('selected',selected);});document.querySelectorAll('#'+ns+'-scripts [role="tabpanel"]').forEach(p=>p.hidden=p.id!==ns+'-panel-'+el.dataset.version);tab.focus();break;}
     case 'oak-preview':openOakPreview();break;
     case 'oak-full-workout':
       closeModal();
