@@ -347,6 +347,56 @@
     host.querySelector('.modal-close')?.focus();
   }
 
+  // Charizard #006: creator-locked workout and matched script drafts; filmed Camera Tests pending.
+  function charizardPage(){
+    const e=(window.WORKOUT_DEX_SEED?.entries||[]).find(x=>x.id==='kanto-006' && x.publicWorkout);
+    if(!e)return head('WORKOUT 006','Charizard','Programming underway.');
+    const prod=e.production||{},shots=prod.shootList||[],variants=prod.versions||[];
+    const rows=e.exercises.map((x,i)=>`<tr><td><span class="bulba-row-no">${String(i+1).padStart(2,'0')}</span></td><td><strong>${safe(x.alias||x.name)}</strong>${x.alias?`<span class="bulba-exercise-sub">${safe(x.name)}</span>`:''}</td><td>${safe(x.sets)} × ${safe(x.reps)}</td><td>${safe(x.rest)}</td></tr>`).join('');
+    const videoTabs=variants.length===2?`<div class="bulba-tabs" role="tablist" aria-label="Charizard A/B video scripts">${variants.map((v,i)=>`<button id="zard-tab-${safe(v.id)}" type="button" data-action="video-version" data-version="${safe(v.id)}" role="tab" aria-selected="${i===0?'true':'false'}" aria-controls="zard-panel-${safe(v.id)}" tabindex="${i===0?'0':'-1'}" class="bulba-tab ${i===0?'selected':''}">${safe(v.label)} <span>${safe(v.subtitle)}</span></button>`).join('')}</div>
+      ${variants.map((v,i)=>`<div id="zard-panel-${safe(v.id)}" role="tabpanel" aria-labelledby="zard-tab-${safe(v.id)}" class="bulba-script-panel" ${i?'hidden':''}>
+        <div class="bulba-script-intro"><strong>${safe(v.label)}: ${safe(v.subtitle)}</strong><span>${safe(v.status)}</span></div>
+        ${v.beats.map(b=>`<div class="bulba-beat"><div class="bulba-beat-time">${safe(b.time)}</div><div class="bulba-beat-body"><strong>${safe(b.audio)}</strong><p>${safe(b.visual)}</p><small>ON SCREEN: ${safe(b.onScreen)}</small></div></div>`).join('')}</div>`).join('')}`:'';
+    return `<div class="bulba-page meleon-page zard-page">
+      <section class="bulba-hero"><div class="bulba-hero-copy"><div class="eyebrow">POKÉDEX #006 • FIRE / FLYING • FINAL EVOLUTION</div><span class="bulba-hero-number">WORKOUT 006</span><h1>SO YOU'RE TRAINING<br/><span>CHARMELEON?</span></h1><p>Full Blaze completes three training move chains from Charmander and Charmeleon, combining stronger fire projection, a loaded charge, Dragon Claw and Seismic Toss.</p>
+        <div class="bulba-hero-tags"><span>Advanced</span><span>65–75 min</span><span>22 working sets</span><span>Power + strength</span></div>
+        <div class="bulba-hero-state">✓ Program approved and locked <span>•</span> A/B scripts drafted <span>•</span> Filming pending</div>
+        <div class="bulba-hero-buttons"><button class="btn btn-lime" data-action="jump-charizard" data-target="zard-program">Complete workout ↓</button><button class="btn btn-ghost" data-action="jump-charizard" data-target="zard-scripts">Compare scripts A / B ↗</button></div>
+      </div><div class="bulba-hero-art"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" alt="Charizard official Pokémon character illustration" /><div class="bulba-hero-art-label">FLAME POKÉMON<br/><strong>#006</strong></div></div></section>
+      <div class="bulba-progress-note"><span class="bulba-status-dot"></span><p><strong>Seven-exercise Charizard workout approved and published for planning and training.</strong> Filming, four Camera Tests, A/B test results and final quality review remain pending; both A/B scripts are drafted for production review. This episode remains in <strong>Review</strong>, not Final.</p></div>
+      <section class="bulba-section" id="zard-moves"><div class="bulba-section-head"><span class="eyebrow dark">FOUR SIGNATURE MOVES</span><h2>Three evolved moves. One new finishing throw.</h2><p>Four real Charizard moves map to trained movements. Seismic Toss is from historical learnsets, rather than Scarlet/Violet; Dragon Claw is Dragon-type even though Charizard itself is Fire/Flying.</p></div>
+        <div class="bulba-move-grid">${e.moves.map((m,i)=>`<article class="bulba-move-card"><div class="bulba-move-number">0${i+1} • ${safe(m.type)}</div><div class="bulba-move-icon">${['✊','➜','╱','◌'][i]}</div><h3>${safe(m.name)}</h3><strong>${safe(m.exercise)}</strong><p>${safe(m.notes)}</p><span class="bulba-move-dose">${safe(m.reps)}</span></article>`).join('')}</div>
+      </section>
+      <section class="bulba-section" id="zard-evolution"><div class="bulba-section-head"><span class="eyebrow dark">THE EVOLUTION PAYOFF</span><h2>Every starter stage builds to this</h2><p>Three move families, with Seismic Toss arriving at the final evolution.</p></div><div class="bulba-move-grid"><article class="bulba-move-card"><h3>Scratch → Slash → Dragon Claw</h3><p>One-hand diagonal pull → two-hand cable woodchop → single-arm descending cable chop with controlled footwork.</p></article><article class="bulba-move-card"><h3>Flame Charge → Flare Blitz</h3><p>Short unloaded acceleration becomes a strong, steady loaded sled charge.</p></article><article class="bulba-move-card"><h3>Ember → Flamethrower → Blast Burn</h3><p>Medicine-ball chest pass → light Svend press → explosive squat-driven landmine thruster.</p></article><article class="bulba-move-card"><h3>Seismic Toss: new dimension</h3><p>Aerial-grappling signature with safe sandbag toss, drawing on earlier hinge and deadlift strength.</p></article></div></section><section class="bulba-section" id="zard-program"><div class="bulba-section-head"><span class="eyebrow dark">PROGRAM LOCKED • 7 EXERCISES</span><h2>Complete Full Blaze workout</h2><p>Perform crisp landmine thrusters and safe sandbag tosses first, then front squats, sled pushes, pull-ups, incline dumbbell presses and a controlled Dragon Claw chop. Heavy strength stays near RPE 7–8.</p></div>
+        <div class="bulba-program-layout"><div class="bulba-program-main"><div class="bulba-warmup"><strong>WARM-UP • 8–10 MIN</strong><p>${safe(e.workout.warmup)}</p></div><div class="bulba-table-wrap"><table class="bulba-workout-table"><thead><tr><th>#</th><th>Exercise</th><th>Work</th><th>Rest</th></tr></thead><tbody>${rows}</tbody></table></div><div class="bulba-warmup"><strong>COOLDOWN • 3–5 MIN</strong><p>${safe(e.workout.cooldown)}</p></div></div>
+          <aside class="bulba-program-side"><div class="bulba-why"><div class="eyebrow dark">TRAINING IDENTITY</div><h3>The final evolution of a real training plan.</h3><p>${safe(e.goalRationale)}</p></div><div class="bulba-why"><h3>Beginner → advanced</h3><p>${safe(e.workout.modifications)}</p></div><div class="bulba-why"><h3>Technique &amp; safety</h3><p>${safe(e.workout.safety)}</p></div></aside></div>
+      </section>
+      <section class="bulba-section" id="zard-scripts"><div class="bulba-section-head"><span class="eyebrow dark">TWO MATCHED VIDEO DRAFTS • ONE WORKOUT</span><h2>Charizard A / B: which jokes land?</h2><p>Both 70-second cuts share the exercise footage, timecodes, move labels, VFX, music, cover, caption and CTA. Spoken jokes and matched subtitles are the only differences.</p></div>
+        ${videoTabs}
+        <div class="bulba-ab-method"><h3>A/B testing rules</h3><div class="bulba-method-grid">${(prod.testPlan||[]).map((t,i)=>`<p><span>${String(i+1).padStart(2,'0')}</span>${safe(t)}</p>`).join('')}</div></div>
+      </section>
+      <section class="bulba-section" id="zard-production"><div class="bulba-section-head"><span class="eyebrow dark">SHOOT PLAN • NOT YET FILMED</span><h2>Film once, cut twice</h2><p>The video highlights Blast Burn, Seismic Toss, Flare Blitz and Dragon Claw. For the real session follow the seven-exercise program in order; Camera Tests and evolution comparisons must be filmed.</p></div>
+        <div class="bulba-shoot-grid venus-shoot"><div class="bulba-shoot-list"><h3>20-shot checklist</h3><ol>${shots.map(s=>`<li>${safe(s.shot)}</li>`).join('')}</ol></div><div class="bulba-camera-tests"><h3>Four Camera Tests <span class="bulba-pending">ALL PENDING</span></h3>${(prod.cameraTests||[]).map(t=>`<div class="bulba-camera-test"><strong>${safe(t.move)}</strong><p>${safe(t.test)}</p><small>${safe(t.status)}</small></div>`).join('')}</div></div>
+        <div class="bulba-post-grid venus-docs"><div><strong>Social / cover package</strong><p><strong>Cover:</strong> ${safe(e.content.cover)}</p><p><strong>Caption:</strong> ${safe(e.content.caption)}</p><p><strong>Five hashtags:</strong> ${safe(e.content.hashtags)}</p></div><div><strong>Production files</strong><p>Approved seven-exercise program, two draft A/B scripts, 20-shot filming plan and the full evolution audit.</p><div class="bulba-doc-links">${(prod.assets||[]).map((path,i)=>`<a href="${safe(path)}" target="_blank" rel="noopener">${['Complete training & safety','Filming & A/B plan','Script A • Gym comedy','Script B • Pokémon comedy','Workout card','Evolution progression audit'][i]||'Working document'} ↗</a>`).join('')}</div><p class="bulba-draft-note">Scripts drafted for production review; no footage or verified Camera Tests yet. Status: Review.</p></div></div>
+      </section>
+    </div>`;
+  }
+  function openCharizardPreview(){
+    const e=(window.WORKOUT_DEX_SEED?.entries||[]).find(x=>x.id==='kanto-006' && x.publicWorkout);
+    if(!e){selectRoute('pokedex');return;}
+    const host=document.getElementById('modalHost');
+    host.innerHTML=`<div class="modal-scrim bulba-preview-scrim zard-preview-scrim" data-action="close-scrim"><article class="modal bulba-preview-modal zard-preview-modal" role="dialog" aria-modal="true" aria-labelledby="zard-preview-title">
+      <button class="modal-close" type="button" data-action="close-modal" aria-label="Close Charizard preview">×</button>
+      <div class="bulba-preview-art"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" alt="Charizard Pokémon artwork"/><span>FIRE • #006</span></div>
+      <div class="bulba-preview-info"><div class="eyebrow dark">WORKOUT 006 • PROGRAM APPROVED</div><h2 id="zard-preview-title">So You’re Training Charizard?</h2><p>Full Blaze • Advanced • 65–75 minutes</p>
+      <div class="bulba-preview-list">${e.moves.map(m=>`<div class="bulba-preview-move">${ivysaurMoveType(m)}<div class="bulba-preview-move-copy"><div class="bulba-preview-move-heading"><strong>${safe(m.name)}</strong><span class="bulba-preview-type-name is-${safe(String(m.type||'').toLowerCase())}">${safe(m.type)}</span></div><small>${safe(m.exercise)} · ${safe(m.reps)}</small></div></div>`).join('')}</div>
+      <p class="bulba-preview-status">Approved seven-exercise workout and both A/B script drafts are ready for review. Filming and four Camera Tests remain pending.</p>
+      <button class="bulba-preview-button" data-action="charizard-full" type="button">View Full Workout & A/B Scripts →</button></div>
+    </article></div>`;
+    host.querySelector('.modal-close')?.focus();
+  }
+
+
   // Venusaur #003 public program-first release. A/B scripts are deliberately pending creator review.
   function venusaurPage(){
     const e=(window.WORKOUT_DEX_SEED?.entries||[]).find(x=>x.id==='kanto-003' && x.publicWorkout);
@@ -424,10 +474,10 @@
   }
 
   function render(){
-    const views={overview:dashboard,pokedex:()=>browse('pokedex'),characters:()=>browse('characters'),forms:()=>browse('forms'),moves:registry,studio,guide,oak:oakPage,bulbasaur:bulbasaurPage,ivysaur:ivysaurPage,venusaur:venusaurPage,charmander:charmanderPage,charmeleon:charmeleonPage};
+    const views={overview:dashboard,pokedex:()=>browse('pokedex'),characters:()=>browse('characters'),forms:()=>browse('forms'),moves:registry,studio,guide,oak:oakPage,bulbasaur:bulbasaurPage,ivysaur:ivysaurPage,venusaur:venusaurPage,charmander:charmanderPage,charmeleon:charmeleonPage,charizard:charizardPage};
     if(!views[route]) route='overview';
     root.innerHTML=views[route]();
-    document.getElementById('breadcrumb').textContent=({overview:'DASHBOARD',pokedex:'KANTO POKÉDEX',characters:'CHARACTERS',forms:'FORM REGISTRY',moves:'MOVE REGISTRY',studio:'WORKOUT STUDIO',guide:'PROJECT GUIDE',oak:'PROFESSOR OAK / #000',bulbasaur:'BULBASAUR / #001',ivysaur:'IVYSAUR / #002',venusaur:'VENUSAUR / #003',charmander:'CHARMANDER / #004',charmeleon:'CHARMELEON / #005'})[route];
+    document.getElementById('breadcrumb').textContent=({overview:'DASHBOARD',pokedex:'KANTO POKÉDEX',characters:'CHARACTERS',forms:'FORM REGISTRY',moves:'MOVE REGISTRY',studio:'WORKOUT STUDIO',guide:'PROJECT GUIDE',oak:'PROFESSOR OAK / #000',bulbasaur:'BULBASAUR / #001',ivysaur:'IVYSAUR / #002',venusaur:'VENUSAUR / #003',charmander:'CHARMANDER / #004',charmeleon:'CHARMELEON / #005',charizard:'CHARIZARD / #006'})[route];
     document.querySelectorAll('[data-nav]').forEach(a=>{a.classList.toggle('active',a.dataset.nav===route);if(a.dataset.nav===route)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
     document.querySelector('.sidebar').classList.remove('open');
   }
@@ -466,6 +516,7 @@
     if(id==='kanto-003' && (window.WORKOUT_DEX_SEED?.entries||[]).some(x=>x.id===id&&x.publicWorkout)){openVenusaurPreview();return;}
     if(id==='kanto-004' && (window.WORKOUT_DEX_SEED?.entries||[]).some(x=>x.id===id&&x.publicWorkout)){openCharmanderPreview();return;}
     if(id==='kanto-005' && (window.WORKOUT_DEX_SEED?.entries||[]).some(x=>x.id===id&&x.publicWorkout)){openCharmeleonPreview();return;}
+    if(id==='kanto-006' && (window.WORKOUT_DEX_SEED?.entries||[]).some(x=>x.id===id&&x.publicWorkout)){openCharizardPreview();return;}
     const e=entryBy(id); if(!e) return;
     const final=e.status==='Final';
     const root=document.getElementById('modalHost');
@@ -564,6 +615,10 @@
     case 'venusaur':selectRoute('venusaur');break;
     case 'charmander':selectRoute('charmander');break;
     case 'charmeleon':selectRoute('charmeleon');break;
+     case 'charizard':selectRoute('charizard');break;
+     case 'charizard-preview':openCharizardPreview();break;
+     case 'charizard-full':closeModal();selectRoute('charizard');requestAnimationFrame(()=>document.getElementById('zard-program')?.scrollIntoView({behavior:'instant',block:'start'}));break;
+     case 'jump-charizard':document.getElementById(el.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'});break;
     case 'charmeleon-preview':openCharmeleonPreview();break;
     case 'charmeleon-full':closeModal();selectRoute('charmeleon');requestAnimationFrame(()=>document.getElementById('meleon-program')?.scrollIntoView({behavior:'instant',block:'start'}));break;
     case 'jump-charmeleon':document.getElementById(el.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'});break;
@@ -579,7 +634,7 @@
     case 'bulbasaur-preview':openBulbasaurPreview();break;
     case 'bulbasaur-full':closeModal();selectRoute('bulbasaur');requestAnimationFrame(()=>document.getElementById('bulba-program')?.scrollIntoView({behavior:'instant',block:'start'}));break;
     case 'jump-bulbasaur':document.getElementById(el.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'});break;
-    case 'video-version':{const ns=route==='ivysaur'?'ivy':route==='charmander'?'char':route==='charmeleon'?'meleon':'bulba';const tab=document.getElementById(ns+'-tab-'+el.dataset.version);if(!tab)break;document.querySelectorAll('#'+ns+'-scripts [role="tab"]').forEach(t=>{const selected=t===tab;t.setAttribute('aria-selected',String(selected));t.tabIndex=selected?0:-1;t.classList.toggle('selected',selected);});document.querySelectorAll('#'+ns+'-scripts [role="tabpanel"]').forEach(p=>p.hidden=p.id!==ns+'-panel-'+el.dataset.version);tab.focus();break;}
+    case 'video-version':{const ns=route==='ivysaur'?'ivy':route==='charmander'?'char':route==='charmeleon'?'meleon':route==='charizard'?'zard':'bulba';const tab=document.getElementById(ns+'-tab-'+el.dataset.version);if(!tab)break;document.querySelectorAll('#'+ns+'-scripts [role="tab"]').forEach(t=>{const selected=t===tab;t.setAttribute('aria-selected',String(selected));t.tabIndex=selected?0:-1;t.classList.toggle('selected',selected);});document.querySelectorAll('#'+ns+'-scripts [role="tabpanel"]').forEach(p=>p.hidden=p.id!==ns+'-panel-'+el.dataset.version);tab.focus();break;}
     case 'oak-preview':openOakPreview();break;
     case 'oak-full-workout':
       closeModal();
