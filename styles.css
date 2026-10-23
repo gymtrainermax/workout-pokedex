@@ -331,3 +331,24 @@
 .bulba-move-type-icon.is-fire{background:linear-gradient(140deg,#f8b65b,#e77839);box-shadow:0 0 0 2px #e7823f,0 3px 7px #48231527;color:#fff7da}
 .bulba-preview-move-heading .bulba-preview-type-name.is-fire{background:#ffebd5;color:#b3542a}
 @media(max-width:750px){.char-preview-modal .bulba-preview-art{min-height:150px}}
+
+
+/* Charmeleon #005: Fire-type move icons, deeper ember palette. */
+.meleon-page .bulba-hero{background:linear-gradient(111deg,#292130 0%,#713128 58%,#b34929 100%)}
+.meleon-page .bulba-hero h1 span{color:#ffe0a0}
+.meleon-page .bulba-hero-art{background:radial-gradient(circle at 44% 40%,#ffeac2 0%,#dd9557 52%,#9c493b 100%)}
+.meleon-page .bulba-move-card:nth-child(-n+2){background:#fff5ed;border-color:#f4ded0}
+.meleon-page .bulba-move-card:nth-child(-n+2) h3{color:#ad512d}
+.meleon-page .bulba-row-no{color:#bf5e38}
+.meleon-page .bulba-warmup{background:#fff6ef}
+.meleon-spotlight{border-color:#eed0bb;background:linear-gradient(125deg,#fff0dd,#f5cb9c 60%,#eeb18e)}
+.meleon-spotlight .btn{background:#793c2d}
+.meleon-preview-modal{border-color:#f4d8c4}
+.meleon-preview-modal .bulba-preview-art{background:radial-gradient(circle at 48% 40%,#fff1cb,#f4b27c 58%,#d47250)}
+.meleon-preview-modal .bulba-preview-list>.bulba-preview-move{background:#fff7ef}
+.meleon-preview-modal .bulba-preview-button{background:#994a31}
+.meleon-preview-modal .bulba-preview-button:hover{background:#7c3827}
+@media(max-width:750px){.meleon-preview-modal .bulba-preview-art{min-height:150px}}
+
+.meleon-page .bulba-hero h1{font-size:clamp(27px,3vw,41px);overflow-wrap:anywhere}
+@media(max-width:475px){.meleon-page .bulba-hero h1{font-size:26px;letter-spacing:-1.3px}}
