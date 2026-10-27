@@ -4,6 +4,19 @@
 ## Connected-workout rule
 Plan a complete evolution family before locking the first stage. Choose four legitimate signature moves and seven purposeful exercises per Pokémon, check uniqueness of each four-move combination against all published Pokémon, and make physical movement themes develop across stages. Preserve each species' actual identity and learnsets: thematic progressions are **creative workout relationships**, never claims that Pokémon attacks literally evolve into one another in the games.
 
+## Same-name move consistency (creator rule; applies across the whole Pokédex)
+
+**If two Pokémon use the same official move name, their exercise interpretations must be the same, or immediately recognizable variations of the same fundamental exercise.** This applies within an evolution line, across rival species, and across unrelated Pokémon recorded months apart. The move name determines the exercise family; the Pokémon's identity influences stance, load, tempo, unilateral/bilateral use, range, level and dosage.
+
+Before assigning any move, search *all published workout records and existing draft families* by exact normalized move name. Compare apparatus, primary movement path, muscle action, starting position and visual silhouette. Prefer keeping the original real exercise or a closely related variation. **Themed explanations or matching VFX are not sufficient on their own** if two exercises look unrelated. For example:
+- **Tackle** is a family of safe forward sled pushes or sled marches (Bulbasaur: sled push; Squirtle: light sled march). A new Tackle may use a slower low-stance sled push, not an unrelated crawl.
+- **String Shot** can scale a forward band press from one arm to two arms or a paused cable press, preserving forward thread projection.
+- **Bug Bite** should retain a visibly recognizable clamping grip, e.g. soft sandbag bear-hug hold or bear-hug carry, with species-specific stance or locomotion.
+- **Harden** should remain one family of safe bracing holds, such as forearm-plank variants, with short controlled breaths.
+- **Electroweb** can use straight or outward-circle battle-rope waves, preserving the two-rope traveling-web pattern.
+
+If a genuinely different exercise is necessary for access, safety or anatomy, document the exception and show an effects-free, side-by-side match before requesting creator signoff. **Do not silently redefine a previously published move.** A new official move name may evolve a training family more substantially, but that is a *thematic* progression, not the same-name rule.
+
 ## Design checkpoints
 1. **Move and theme planning:** Define 3–4 recognizable movement/skill families across all stages, reserving signature finishers for final forms. A move may be a status move or supporting skill. Do not force a false one-to-one three-move chain merely to meet a template.
 2. **Exercise continuity:** Preserve at least one visible element of each continuing movement: direction, muscle action, object path, apparatus or stable skill. Change controlled variables such as load, speed, stance, complexity or scale. Different Pokémon may use **the same move** with different training goals; e.g., Bulbasaur's Tackle uses a Sled Push and Squirtle's Tackle uses a Light Sled March.
