@@ -127,3 +127,10 @@ Both 70-second matched A/B scripts and the 20-shot checklist are published **as 
 Creator-approved advanced seven-exercise workout published in **Review** at `#charizard` with four official moves: Dragon Claw (single-arm high-to-low cable chop with controlled step-and-pivot), Seismic Toss (soft sandbag over-the-shoulder toss), Flare Blitz (sled push), and Blast Burn (two-handed landmine thruster). **22 working sets; 65–75 minutes.** Supporting exercises: Barbell Front Squat, Pull-Up / Assisted Pull-Up and Incline Dumbbell Bench Press.
 
 The page highlights Scratch → Slash → Dragon Claw, Flame Charge → Flare Blitz and Ember → Flamethrower → Blast Burn. Seismic Toss is a historical legitimate Charizard move, not in Scarlet/Violet, and introduces aerial grappling. Six linked production documents include the complete workout, workout card, progression audit, two 70-second A/B script drafts and a 20-shot filming plan. Program approved and public; **video scripts drafts, four actual Camera Tests and A/B results pending, not Final**.
+
+
+## Move-type icon library (all 18 types)
+
+This static site bundles modern-game-inspired circular Pokémon type emblems under `assets/type-icons/`, sourced from [partywhale/pokemon-type-icons](https://github.com/partywhale/pokemon-type-icons). These recreations are MIT licensed by James Watkins (2022). Attribution and the full license are retained in `assets/type-icons/LICENSE.txt`. The fan project is not officially endorsed by The Pokémon Company.
+
+The centralized `moveTypeEmblem` helper in `app.js` handles all 18 types: Normal, Fire, Water, Electric, Grass, Ice, Fighting, Poison, Ground, Flying, Psychic, Bug, Rock, Ghost, Dragon, Dark, Steel, Fairy. All published Pokémon move cards, Pokédex previews and Move Registry entries use the same self-hosted SVG files and color-matched type labels. Unexpected values display an explicit Unknown fallback, not a misleading Normal icon. The move's type is independent of its Pokémon's species typing.

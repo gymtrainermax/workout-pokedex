@@ -365,3 +365,33 @@
 .zard-page .bulba-move-icon-type .bulba-move-type-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;border:2px solid #fff}
 .zard-page .bulba-move-icon-type .bulba-move-type-icon svg{width:26px;height:26px}
 @media(max-width:475px){.zard-page .bulba-move-icon-type{display:grid}}
+/* 18 locally bundled, modern-game-inspired Pokémon move-type SVGs. */
+.bulba-move-type-icon.type-emblem{display:inline-grid;place-items:center;flex:none;width:40px;height:40px;padding:0;border:0;border-radius:50%;color:inherit;background:transparent;box-shadow:none;overflow:visible}
+.bulba-move-type-icon.type-emblem img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 3px #1923362b)}
+.bulba-move-type-icon.type-emblem.is-unknown{background:#747986;color:#fff;font-size:19px;font-weight:800}
+.bulba-preview-list>.bulba-preview-move>.bulba-move-type-icon.type-emblem{border:0;box-shadow:none;background:transparent}
+.bulba-move-icon.type-emblem-holder,.zard-page .bulba-move-icon.type-emblem-holder{display:grid;place-items:center;width:52px;height:52px;margin:10px 0;background:transparent;border:0;color:inherit}
+.bulba-move-icon.type-emblem-holder .bulba-move-type-icon.type-emblem{width:48px;height:48px;border:0;box-shadow:none}
+.bulba-move-icon.type-emblem-holder .bulba-move-type-icon.type-emblem img{width:100%;height:100%}
+.registry-moves{display:flex;flex-wrap:wrap;gap:7px 12px}
+.registry-move{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.registry-move .bulba-move-type-icon.type-emblem{width:24px;height:24px}
+@media(max-width:475px){.bulba-move-icon.type-emblem-holder{display:grid;width:42px;height:42px}.bulba-move-icon.type-emblem-holder .bulba-move-type-icon.type-emblem{width:40px;height:40px}}
+.bulba-preview-move-heading .bulba-preview-type-name.is-normal{background:#ececea;color:#565b5f}
+.bulba-preview-move-heading .bulba-preview-type-name.is-fire{background:#fff0e9;color:#ac4e30}
+.bulba-preview-move-heading .bulba-preview-type-name.is-water{background:#e7f5ff;color:#216eab}
+.bulba-preview-move-heading .bulba-preview-type-name.is-electric{background:#fff8d6;color:#705900}
+.bulba-preview-move-heading .bulba-preview-type-name.is-grass{background:#e7f4e5;color:#2e6d31}
+.bulba-preview-move-heading .bulba-preview-type-name.is-ice{background:#e2fafb;color:#17696e}
+.bulba-preview-move-heading .bulba-preview-type-name.is-fighting{background:#fff0df;color:#96550e}
+.bulba-preview-move-heading .bulba-preview-type-name.is-poison{background:#f3ebfc;color:#67379a}
+.bulba-preview-move-heading .bulba-preview-type-name.is-ground{background:#f3e9da;color:#76502b}
+.bulba-preview-move-heading .bulba-preview-type-name.is-flying{background:#e8f5ff;color:#2f709b}
+.bulba-preview-move-heading .bulba-preview-type-name.is-psychic{background:#fde8f0;color:#a43c58}
+.bulba-preview-move-heading .bulba-preview-type-name.is-bug{background:#f2f5dd;color:#626a1c}
+.bulba-preview-move-heading .bulba-preview-type-name.is-rock{background:#f1f0e7;color:#655f3c}
+.bulba-preview-move-heading .bulba-preview-type-name.is-ghost{background:#f2eaf8;color:#5d3a68}
+.bulba-preview-move-heading .bulba-preview-type-name.is-dragon{background:#ebeffc;color:#3b5196}
+.bulba-preview-move-heading .bulba-preview-type-name.is-dark{background:#eeeaea;color:#3f3939}
+.bulba-preview-move-heading .bulba-preview-type-name.is-steel{background:#e6f3f9;color:#2f647d}
+.bulba-preview-move-heading .bulba-preview-type-name.is-fairy{background:#ffebfc;color:#974996}
