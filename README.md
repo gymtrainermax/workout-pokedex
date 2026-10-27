@@ -145,3 +145,20 @@ The nine creator-approved starter workouts now display shared evolution navigati
 **Fire:** Charmander First Flame → Charmeleon Tempered Flame → Charizard Full Blaze. Exact thematic sequences: Scratch → Slash → Dragon Claw; Flame Charge → strength bridge → Flare Blitz; Ember → Flamethrower → Blast Burn; Seismic Toss is a distinctive final-stage addition. Existing #004–006 approved prescriptions remain unchanged.
 
 **Water:** Squirtle Shell School → Wartortle Current Control → Blastoise Cannon Fortress. Four linked themes: Water Gun → Water Pulse → Hydro Cannon; Withdraw → Protect → Iron Defense; Rapid Spin → Aqua Tail → Surf; Tackle → Aqua Jet → Wave Crash. Approved complete workouts are 16/18/22 working sets and 40–50/50–60/65–75 minutes. All three now have public Review pages with four genuine moves, seven exercises, beginner/intermediate/advanced modifications, both A/B script drafts, 20-shot filming checklists, four pending filmed Camera Tests and production asset links. Not Final, not filmed. See [Water evolution blueprint](production/Water_Starter_Evolution_Blueprint.md).
+
+
+## Viridian Forest: Silk vs. Sting — six approved connected workouts #010–015 (2026-10-27)
+
+**All six exercise programs and both A/B scripts per Pokémon are creator-approved and publicly available in `Review`; filmed Camera Tests and A/B video results are pending. No episode is `Final`.** This paired mini-series is mapped across both evolutionary lines and each same-stage rival matchup:
+
+| Silk line | Opposing Sting line | Training identity |
+|---|---|---|
+| [#010 Caterpie](https://gymtrainermax.github.io/workout-pokedex/#caterpie) • Silk School, 16 sets | [#013 Weedle](https://gymtrainermax.github.io/workout-pokedex/#weedle) • Sting School, 16 sets | Sled / sting fundamentals, forward silk presses, sandbag clamping and battle rope webs |
+| [#011 Metapod](https://gymtrainermax.github.io/workout-pokedex/#metapod) • Shell Protocol, 15 sets | [#014 Kakuna](https://gymtrainermax.github.io/workout-pokedex/#kakuna) • Sting Guard, 15 sets | Reduced-intensity cocoon bracing, longer holds and paused inherited moves |
+| [#012 Butterfree](https://gymtrainermax.github.io/workout-pokedex/#butterfree) • Wing Control, 18 training sets plus 2 recovery-breathing rounds | [#015 Beedrill](https://gymtrainermax.github.io/workout-pokedex/#beedrill) • Double Sting, 21 sets | Coordination/status control versus physical power and precision |
+
+Each page includes the four verified game moves, seven complete training prescriptions, equipment, coaching, safety and scaling, matched 70-second A/B script tabs, twenty-shot filming plan, four pending camera feasibility tests and linked production documents.
+
+**Same move name = same recognizable exercise family.** Tackle uses safe sled push/march variations, String Shot forward band/cable presses, Bug Bite sandbag bear-hug holds/carries, Harden forearm planks, and Electroweb traveling battle rope waves. Refer to [Silk vs. Sting master blueprint](production/Silk_vs_Sting_Master_Continuity_Blueprint.md) and [same-name continuity audit](production/Silk_vs_Sting_Approval_and_Same_Name_Audit.md). These are exercise-storytelling relationships, not in-game move evolutions.
+
+No previously approved workouts #001–009 were changed for this release.

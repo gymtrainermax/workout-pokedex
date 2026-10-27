@@ -436,3 +436,52 @@
 .water-page .bulba-hero h1{font-size:clamp(29px,3.8vw,49px);overflow-wrap:anywhere}
 @media(max-width:750px){.water-preview-modal .bulba-preview-art{min-height:150px}}
 @media(max-width:475px){.water-page .bulba-hero h1{font-size:clamp(26px,8vw,36px)}}
+
+/* Silk vs. Sting — six connected Viridian Forest workouts, #010–015. */
+.bug-silk-page .bulba-hero{background:linear-gradient(112deg,#1a3f38,#326f61 55%,#69a477)}
+.bug-sting-page .bulba-hero{background:linear-gradient(112deg,#3b273f,#63315a 55%,#95604c)}
+.bug-page .bulba-hero h1 span{color:#e8f7b9}
+.bug-page .bulba-hero-art{background:radial-gradient(circle at 47% 40%,#f0f9c9 0%,#b2d58d 55%,#6b9d86)}
+.bug-sting-page .bulba-hero-art{background:radial-gradient(circle at 47% 40%,#f8edb7 0%,#d6a8aa 55%,#956184)}
+.bug-page .bulba-hero h1{font-size:clamp(30px,3.7vw,49px);overflow-wrap:anywhere}
+.bug-page .bulba-row-no{color:#38816b}
+.bug-sting-page .bulba-row-no{color:#934a73}
+.bug-page .bulba-warmup{background:#f4faed}
+.bug-sting-page .bulba-warmup{background:#faf3f7}
+.bug-page .bulba-move-card{background:#f7faee;border-color:#dce9ca}
+.bug-sting-page .bulba-move-card{background:#fcf5fa;border-color:#ebdce6}
+.bug-page .bulba-move-card h3{color:#3b7355}
+.bug-sting-page .bulba-move-card h3{color:#8c4766}
+.bug-page .bulba-move-icon.type-emblem-holder{background:transparent;border:0}
+.bug-preview-modal{border-color:#b8d5b0}
+.bug-preview-modal .bulba-preview-art{background:radial-gradient(circle at 48% 40%,#f0f9cf,#b8d893 60%,#7bac87)}
+.bug-preview-modal.bug-sting-preview{border-color:#dbb8ce}
+.bug-preview-modal.bug-sting-preview .bulba-preview-art{background:radial-gradient(circle at 48% 40%,#fff2d3,#d8aab9 60%,#996b8d)}
+.bug-preview-modal .bulba-preview-list>.bulba-preview-move{background:#f7fced}
+.bug-preview-modal.bug-sting-preview .bulba-preview-list>.bulba-preview-move{background:#fcf3f8}
+.bug-preview-modal .bulba-preview-button{background:#37745c}
+.bug-preview-modal.bug-sting-preview .bulba-preview-button{background:#7f4c70}
+.bug-preview-modal .bulba-preview-button:hover{filter:brightness(.90)}
+.bug-text-block{white-space:pre-line}
+.bug-rival-section{background:linear-gradient(125deg,#f3faee,#faf5fc);border-top:1px solid #e0e9db;border-bottom:1px solid #e0e9db}
+.bug-rival-matrix{display:flex;flex-direction:column;gap:9px;margin:20px 0}
+.bug-rival-pair{display:grid;grid-template-columns:110px minmax(0,1fr) 28px minmax(0,1fr);gap:10px;align-items:stretch}
+.bug-rival-level{align-self:center;font-size:11px;font-weight:900;letter-spacing:.7px;color:#65776c}
+.bug-versus{font-size:11px;font-weight:900;color:#927b85;align-self:center;text-align:center}
+.bug-stage{display:flex;flex-direction:column;gap:4px;text-align:left;border-radius:13px;border:1px solid #d6e4d7;background:#fff;padding:12px 14px;cursor:pointer;min-width:0;transition:transform .14s ease,border-color .14s ease}
+.bug-stage:hover{transform:translateY(-2px)}
+.bug-stage:focus-visible{outline:3px solid #3d99a1;outline-offset:2px}
+.bug-stage small{font-size:11px;color:#6c8173;font-weight:800;letter-spacing:.7px}
+.bug-stage strong{font-size:16px;font-weight:900;color:#2d5e43;overflow-wrap:anywhere}
+.bug-stage span{font-size:11px;color:#758879}
+.bug-stage-sting{border-color:#ead6e2}
+.bug-stage-sting strong{color:#894b6f}
+.bug-stage-sting small,.bug-stage-sting span{color:#936f83}
+.bug-stage.active{background:#e8f5e7;border-color:#549765;box-shadow:inset 0 0 0 1px #549765}
+.bug-stage-sting.active{background:#fbecf3;border-color:#a75a80;box-shadow:inset 0 0 0 1px #a75a80}
+.bug-continuity-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.bug-continuity-grid article{background:#fff;border:1px solid #e0e6dc;border-radius:13px;padding:14px 16px;min-width:0}
+.bug-continuity-grid strong{display:block;font-size:13px;color:#345547;line-height:1.4}
+.bug-continuity-grid p{font-size:12px;line-height:1.65;color:#64756a;margin-top:7px}
+@media(max-width:750px){.bug-preview-modal .bulba-preview-art{min-height:150px}.bug-rival-pair{grid-template-columns:70px minmax(0,1fr) 22px minmax(0,1fr);gap:6px}.bug-rival-level{font-size:9px}.bug-stage{padding:9px 8px}.bug-stage strong{font-size:13px}.bug-continuity-grid{grid-template-columns:1fr}}
+@media(max-width:390px){.bug-rival-pair{grid-template-columns:55px minmax(0,1fr) 18px minmax(0,1fr);gap:4px}.bug-stage strong{font-size:12px}.bug-stage span{font-size:10px}.bug-rival-level{font-size:8px}}
