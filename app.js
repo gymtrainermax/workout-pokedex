@@ -662,11 +662,84 @@
  host.querySelector('.modal-close')?.focus();
 }
 
+
+  const FLIGHT_META = {"016":{"name":"Pidgey","title":"Route One Flight School","route":"pidgey","level":"Beginner+","duration":"40–50 min","sets":"16 working sets","line":"beginner","stage":"LEARN TO TAKE OFF","opponent":"Pidgeotto","intro":"Controlled short acceleration, small wingbeats with ropes, the established Tackle sled push, and a light sand-sweeping band pattern."},"017":{"name":"Pidgeotto","title":"Territory Patrol","route":"pidgeotto","level":"Intermediate","duration":"50–60 min","sets":"16 training sets + 2 balance sets","line":"middle","stage":"PATROL AND CONTROL","opponent":"Pidgeot","intro":"The middle evolution introduces lateral navigation, larger rope circles, loaded wing sweeps and a balanced recovery perch."},"018":{"name":"Pidgeot","title":"Sky Sovereign","route":"pidgeot","level":"Advanced","duration":"65–75 min","sets":"22 working sets","line":"final","stage":"UNLEASH FLIGHT","opponent":"Pidgey","intro":"The final stage combines a powerful sled drive, resisted lateral footwork, storm-sized rope waves and Butterfree-matched Air Slash cable sweeps."}};
+  
+ function flightEvolutionPanel(id){
+  const n=String(id).slice(-3);
+  if(!FLIGHT_META[n])return '';
+  const nums=['016','017','018'];
+  const arcs=[
+    ['Wind grows','Gust → Whirlwind → Hurricane','Anchored rope waves become outside circles and finally bigger power waves.'],
+    ['Wing path','Sand Attack → Wing Attack → Air Slash','Light band sweep becomes a cable wing sweep; Pidgeot repeats Butterfree’s Air Slash exercise family.'],
+    ['Footwork','Quick Attack → Agility → Tailwind','A short safe run develops into lateral direction control and then resisted lateral movement.'],
+    ['Forward power','Tackle → supporting trap bar → Brave Bird','Pidgey’s Tackle remains a sled push, then Pidgeotto builds strength and Pidgeot increases loaded sled drive.']
+  ];
+  return `<section class="bulba-section flight-evolution-section" aria-label="Connected Pidgey, Pidgeotto and Pidgeot training progression"><div class="bulba-section-head"><span class="eyebrow dark">CONNECTED FLIGHT SCHOOL WORKOUTS</span><h2>Pidgey → Pidgeotto → Pidgeot</h2><p>Same flight skills, increasingly demanding training. These are creative exercise relationships, not claims that game moves evolve into different moves.</p></div>
+  <div class="flight-evolution-stages">${nums.map((x,i)=>{const m=FLIGHT_META[x];return `<button class="flight-evolution-stage ${x===n?'active':''}" data-action="flight-stage" data-target="${m.route}" type="button" ${x===n?'aria-current="page"':''}><small>#${x}</small><strong>${safe(m.name)}</strong><span>${['LEARN','DEVELOP','UNLEASH'][i]}</span></button>`}).join('')}</div>
+  <div class="flight-evolution-grid">${arcs.map(a=>`<article><span>${safe(a[0])}</span><strong>${safe(a[1])}</strong><p>${safe(a[2])}</p></article>`).join('')}</div>
+  <p class="starter-chain-note">Same-name move consistency is mandatory: Pidgey Tackle matches Bulbasaur, Squirtle and Caterpie’s sled family; Pidgeot Air Slash matches Butterfree’s cable sweep. All filmed Camera Tests pending.</p></section>`;
+ }
+
+  function flightWorkoutPage(number){
+ const n=String(number).padStart(3,'0'),m=FLIGHT_META[n];
+ if(!m)return head('WORKOUT','Bug Rivalry','Unknown Pokémon.');
+ const e=(window.WORKOUT_DEX_SEED?.entries||[]).find(x=>x.id==='kanto-'+n && x.publicWorkout);
+ if(!e)return head('WORKOUT '+n,m.name,'Programming underway.');
+ const prod=e.production||{},ns='flight-'+n,variants=prod.versions||[],shots=prod.shootList||[];
+ const rows=e.exercises.map((x,i)=>`<tr><td><span class="bulba-row-no">${String(i+1).padStart(2,'0')}</span></td><td><strong>${safe(x.alias||x.name)}</strong>${x.alias?`<span class="bulba-exercise-sub">${safe(x.name)}</span>`:''}</td><td>${safe(x.sets)} × ${safe(x.reps)}</td><td>${safe(x.rest)}</td></tr>`).join('');
+ const tabs=variants.length===2?`<div class="bulba-tabs" role="tablist" aria-label="${m.name} A/B script comparison">${variants.map((v,i)=>`<button id="${ns}-tab-${safe(v.id)}" class="bulba-tab ${i===0?'selected':''}" type="button" role="tab" aria-selected="${i===0?'true':'false'}" aria-controls="${ns}-panel-${safe(v.id)}" tabindex="${i===0?'0':'-1'}" data-action="video-version" data-version="${safe(v.id)}">${safe(v.label)} <span>${safe(v.subtitle)}</span></button>`).join('')}</div>
+ ${variants.map((v,i)=>`<div id="${ns}-panel-${safe(v.id)}" role="tabpanel" aria-labelledby="${ns}-tab-${safe(v.id)}" class="bulba-script-panel" ${i?'hidden':''}><div class="bulba-script-intro"><strong>${safe(v.label)} • ${safe(v.subtitle)}</strong><span>${safe(v.status)}</span></div>${(v.beats||[]).map(b=>`<div class="bulba-beat"><div class="bulba-beat-time">${safe(b.time)}</div><div class="bulba-beat-body"><strong>${safe(b.audio)}</strong><p>${safe(b.visual)}</p><small>ON SCREEN: ${safe(b.onScreen)}</small></div></div>`).join('')}</div>`).join('')}`:'';
+ const usesBreathing=n==='012';
+ return `<div class="bulba-page flight-page flight-${m.line}-page flight-${n}-page">
+  <section class="bulba-hero"><div class="bulba-hero-copy"><div class="eyebrow">POKÉDEX #${n} • ${safe(e.types.join(' / ').toUpperCase())} • ${m.stage}</div><span class="bulba-hero-number">WORKOUT ${n}</span><h1>SO YOU'RE TRAINING<br/><span>${safe(m.name.toUpperCase())}?</span></h1><p>${safe(m.intro)}</p>
+   <div class="bulba-hero-tags"><span>${safe(m.level)}</span><span>${m.duration}</span><span>${m.sets}</span><span>FLIGHT SCHOOL</span></div>
+   <div class="bulba-hero-state">✓ Exercises + A/B scripts approved <span>•</span> Review <span>•</span> Filming pending</div>
+   <div class="bulba-hero-buttons"><button type="button" class="btn btn-lime" data-action="flight-jump" data-target="${ns}-program">Complete workout ↓</button><button type="button" class="btn btn-ghost" data-action="flight-jump" data-target="${ns}-scripts">Compare A/B scripts ↗</button></div>
+  </div><div class="bulba-hero-art"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${Number(n)}.png" alt="${safe(m.name)} Pokémon artwork"/><div class="bulba-hero-art-label">FLIGHT SCHOOL<br/><strong>#${n}</strong></div></div></section>
+  <div class="bulba-progress-note"><span class="bulba-status-dot"></span><p><strong>${safe(m.name)}'s complete workout and A/B scripts are creator-approved and published for Review.</strong> These are production scripts, not filmed videos. All four Camera Tests, A/B distribution and final editorial approval are pending.</p></div>
+  <section class="bulba-section" id="${ns}-moves"><div class="bulba-section-head"><span class="eyebrow dark">FOUR OFFICIAL MOVES</span><h2>Four attacks. Four real gym interpretations.</h2><p>Repeated moves preserve the exercise silhouette established across all published workouts, including Tackle and Air Slash.</p></div>
+   <div class="bulba-move-grid">${e.moves.map((x,i)=>`<article class="bulba-move-card"><div class="bulba-move-number">0${i+1} • ${safe(x.type)}</div><div class="bulba-move-icon type-emblem-holder">${moveTypeEmblem(x)}</div><h3>${safe(x.name)}</h3><strong>${safe(x.exercise)}</strong><p>${safe(x.notes)}</p><span class="bulba-move-dose">${safe(x.reps)}</span></article>`).join('')}</div>
+  </section>
+  ${flightEvolutionPanel(e.id)}
+  <section class="bulba-section" id="${ns}-program"><div class="bulba-section-head"><span class="eyebrow dark">APPROVED SEVEN-EXERCISE PROGRAM</span><h2>Complete ${safe(m.title)} workout</h2><p>${usesBreathing?'18 working/training sets plus two easy Sleep Powder breathing rounds; breathing is not strength work.':'All seven movements are arranged in the actual approved session order, not the script order.'}</p></div>
+   <div class="bulba-program-layout"><div class="bulba-program-main"><div class="bulba-warmup"><strong>WARM-UP</strong><p class="flight-text-block">${safe(e.workout.warmup)}</p></div>
+    <div class="bulba-table-wrap"><table class="bulba-workout-table"><thead><tr><th>#</th><th>Exercise</th><th>Work</th><th>Rest</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div class="bulba-warmup"><strong>COOLDOWN</strong><p class="flight-text-block">${safe(e.workout.cooldown)}</p></div></div>
+    <aside class="bulba-program-side"><div class="bulba-why"><div class="eyebrow dark">TRAINING GOAL</div><h3>${safe(m.title)}</h3><p>${safe(e.goal)}</p></div><div class="bulba-why"><h3>Regressions and progressions</h3><p class="flight-text-block">${safe(e.workout.modifications)}</p></div><div class="bulba-why"><h3>Equipment and safety</h3><p class="flight-text-block">${safe(e.workout.safety)}</p></div></aside></div>
+  </section>
+  <section class="bulba-section" id="${ns}-scripts"><div class="bulba-section-head"><span class="eyebrow dark">TWO MATCHED 70-SECOND SCRIPT DRAFTS</span><h2>${safe(m.name)} — video A / B</h2><p>A = general gym comedy; B = Pokémon-specific jokes. Footage, 9:16 timing, fitness overlays, soundtrack, cover, caption and CTA are held identical. Only spoken dialogue and corresponding subtitles differ. Filming pending.</p></div>
+    ${tabs}
+    <div class="bulba-ab-method"><h3>Controlled A/B comparison</h3><div class="bulba-method-grid">${(prod.testPlan||[]).map((t,i)=>`<p><span>${String(i+1).padStart(2,'0')}</span>${safe(t)}</p>`).join('')}</div></div>
+  </section>
+  <section class="bulba-section" id="${ns}-production"><div class="bulba-section-head"><span class="eyebrow dark">PRE-FILMING • ALL CAMERA TESTS PENDING</span><h2>20 shots, four clean Camera Tests</h2><p>Capture exercise mechanics with no effects and compare the same named move across all three flying evolutions before adding wind and wing VFX.</p></div>
+    <div class="bulba-shoot-grid venus-shoot"><div class="bulba-shoot-list"><h3>20-shot checklist</h3><ol>${shots.map(x=>`<li>${safe(x.shot)}</li>`).join('')}</ol></div><div class="bulba-camera-tests"><h3>Camera Tests <span class="bulba-pending">4 PENDING</span></h3>${(prod.cameraTests||[]).map(t=>`<div class="bulba-camera-test"><strong>${safe(t.move)}</strong><p>${safe(t.test)}</p><small>${safe(t.status)}</small></div>`).join('')}</div></div>
+    <div class="bulba-post-grid venus-docs"><div><strong>Posting assets</strong><p><strong>Cover:</strong> ${safe(e.content.cover)}</p><p><strong>Caption:</strong> ${safe(e.content.caption)}</p><p><strong>Five hashtags:</strong> ${safe(e.content.hashtags)}</p></div><div><strong>Approved production files</strong><p>Seven-exercise workout, full A/B scripts, 20-shot plan, cross-line continuity blueprint and same-name move audit.</p><div class="bulba-doc-links">${(prod.assets||[]).map((path,i)=>`<a href="${safe(path)}" target="_blank" rel="noopener">${['Full approved workout','A/B Script A • gym comedy','A/B Script B • Pokémon humor','20-shot filming and Camera Tests','Six-Pokémon continuity blueprint','Same-name move approval audit'][i]||'Production file'} ↗</a>`).join('')}</div><p class="bulba-draft-note">Review, not Final. No filmed Camera Tests completed.</p></div></div>
+  </section>
+ </div>`;
+}
+  function openFlightPreview(number){
+ const n=String(number).padStart(3,'0'),m=FLIGHT_META[n];
+ if(!m)return;
+ const e=(window.WORKOUT_DEX_SEED?.entries||[]).find(x=>x.id==='kanto-'+n&&x.publicWorkout);
+ if(!e){selectRoute('pokedex');return;}
+ const host=document.getElementById('modalHost');
+ host.innerHTML=`<div class="modal-scrim bulba-preview-scrim flight-preview-scrim" data-action="close-scrim"><article class="modal bulba-preview-modal flight-preview-modal flight-${m.line}-preview" role="dialog" aria-modal="true" aria-labelledby="flight-preview-title">
+  <button class="modal-close" type="button" data-action="close-modal" aria-label="Close ${safe(m.name)} preview">×</button>
+  <div class="bulba-preview-art"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${Number(n)}.png" alt="${safe(m.name)} Pokémon artwork"/><span>${safe(e.types.join(' / ').toUpperCase())} • #${n}</span></div>
+  <div class="bulba-preview-info"><div class="eyebrow dark">WORKOUT ${n} • PROGRAM APPROVED</div><h2 id="flight-preview-title">So You're Training ${safe(m.name)}?</h2><p>${safe(m.title)} • ${safe(m.level)} • ${m.duration}</p>
+   <div class="bulba-preview-list">${e.moves.map(x=>`<div class="bulba-preview-move">${moveTypeEmblem(x)}<div class="bulba-preview-move-copy"><div class="bulba-preview-move-heading"><strong>${safe(x.name)}</strong><span class="bulba-preview-type-name is-${safe(String(x.type||'').toLowerCase())}">${safe(x.type)}</span></div><small>${safe(x.exercise)} · ${safe(x.reps)}</small></div></div>`).join('')}</div>
+  <p class="bulba-preview-status">Both A/B script drafts approved for publication. ${safe(m.opponent)} is the next evolution-family stage; filmed Camera Tests pending.</p>
+  <button type="button" class="bulba-preview-button" data-action="flight-full" data-species="${n}">View complete workout &amp; A/B scripts →</button></div>
+ </article></div>`;
+ host.querySelector('.modal-close')?.focus();
+}
+
   function render(){
-    const views={overview:dashboard,pokedex:()=>browse('pokedex'),characters:()=>browse('characters'),forms:()=>browse('forms'),moves:registry,studio,guide,oak:oakPage,bulbasaur:bulbasaurPage,ivysaur:ivysaurPage,venusaur:venusaurPage,charmander:charmanderPage,charmeleon:charmeleonPage,charizard:charizardPage,squirtle:()=>waterWorkoutPage('007'),wartortle:()=>waterWorkoutPage('008'),blastoise:()=>waterWorkoutPage('009'),caterpie:()=>bugWorkoutPage('010'),metapod:()=>bugWorkoutPage('011'),butterfree:()=>bugWorkoutPage('012'),weedle:()=>bugWorkoutPage('013'),kakuna:()=>bugWorkoutPage('014'),beedrill:()=>bugWorkoutPage('015')};
+    const views={overview:dashboard,pokedex:()=>browse('pokedex'),characters:()=>browse('characters'),forms:()=>browse('forms'),moves:registry,studio,guide,oak:oakPage,bulbasaur:bulbasaurPage,ivysaur:ivysaurPage,venusaur:venusaurPage,charmander:charmanderPage,charmeleon:charmeleonPage,charizard:charizardPage,squirtle:()=>waterWorkoutPage('007'),wartortle:()=>waterWorkoutPage('008'),blastoise:()=>waterWorkoutPage('009'),caterpie:()=>bugWorkoutPage('010'),metapod:()=>bugWorkoutPage('011'),butterfree:()=>bugWorkoutPage('012'),weedle:()=>bugWorkoutPage('013'),kakuna:()=>bugWorkoutPage('014'),beedrill:()=>bugWorkoutPage('015'),pidgey:()=>flightWorkoutPage('016'),pidgeotto:()=>flightWorkoutPage('017'),pidgeot:()=>flightWorkoutPage('018')};
     if(!views[route]) route='overview';
     root.innerHTML=views[route]();
-    document.getElementById('breadcrumb').textContent=({overview:'DASHBOARD',pokedex:'KANTO POKÉDEX',characters:'CHARACTERS',forms:'FORM REGISTRY',moves:'MOVE REGISTRY',studio:'WORKOUT STUDIO',guide:'PROJECT GUIDE',oak:'PROFESSOR OAK / #000',bulbasaur:'BULBASAUR / #001',ivysaur:'IVYSAUR / #002',venusaur:'VENUSAUR / #003',charmander:'CHARMANDER / #004',charmeleon:'CHARMELEON / #005',charizard:'CHARIZARD / #006',squirtle:'SQUIRTLE / #007',wartortle:'WARTORTLE / #008',blastoise:'BLASTOISE / #009',caterpie:'CATERPIE / #010',metapod:'METAPOD / #011',butterfree:'BUTTERFREE / #012',weedle:'WEEDLE / #013',kakuna:'KAKUNA / #014',beedrill:'BEEDRILL / #015'})[route];
+    document.getElementById('breadcrumb').textContent=({overview:'DASHBOARD',pokedex:'KANTO POKÉDEX',characters:'CHARACTERS',forms:'FORM REGISTRY',moves:'MOVE REGISTRY',studio:'WORKOUT STUDIO',guide:'PROJECT GUIDE',oak:'PROFESSOR OAK / #000',bulbasaur:'BULBASAUR / #001',ivysaur:'IVYSAUR / #002',venusaur:'VENUSAUR / #003',charmander:'CHARMANDER / #004',charmeleon:'CHARMELEON / #005',charizard:'CHARIZARD / #006',squirtle:'SQUIRTLE / #007',wartortle:'WARTORTLE / #008',blastoise:'BLASTOISE / #009',caterpie:'CATERPIE / #010',metapod:'METAPOD / #011',butterfree:'BUTTERFREE / #012',weedle:'WEEDLE / #013',kakuna:'KAKUNA / #014',beedrill:'BEEDRILL / #015',pidgey:'PIDGEY / #016',pidgeotto:'PIDGEOTTO / #017',pidgeot:'PIDGEOT / #018'})[route];
     document.querySelectorAll('[data-nav]').forEach(a=>{a.classList.toggle('active',a.dataset.nav===route);if(a.dataset.nav===route)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
     document.querySelector('.sidebar').classList.remove('open');
   }
@@ -708,6 +781,7 @@
     if(id==='kanto-006' && (window.WORKOUT_DEX_SEED?.entries||[]).some(x=>x.id===id&&x.publicWorkout)){openCharizardPreview();return;}
     if(['kanto-007','kanto-008','kanto-009'].includes(id) && (window.WORKOUT_DEX_SEED?.entries||[]).some(x=>x.id===id&&x.publicWorkout)){openWaterStarterPreview(id.slice(-3));return;}
     if(['kanto-010','kanto-011','kanto-012','kanto-013','kanto-014','kanto-015'].includes(id) && (window.WORKOUT_DEX_SEED?.entries||[]).some(x=>x.id===id&&x.publicWorkout)){openBugPreview(id.slice(-3));return;}
+    if(['kanto-016','kanto-017','kanto-018'].includes(id) && (window.WORKOUT_DEX_SEED?.entries||[]).some(x=>x.id===id&&x.publicWorkout)){openFlightPreview(id.slice(-3));return;}
     const e=entryBy(id); if(!e) return;
     const final=e.status==='Final';
     const root=document.getElementById('modalHost');
@@ -808,6 +882,10 @@
     case 'bug-full':{const target=BUG_META[String(el.dataset.species||'')]?.route;if(target){closeModal();selectRoute(target);}break;}
     case 'bug-stage':{const target=el.dataset.target;if(Object.values(BUG_META).some(x=>x.route===target))selectRoute(target);break;}
     case 'bug-jump':document.getElementById(el.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'});break;
+    case 'pidgey':case 'pidgeotto':case 'pidgeot':selectRoute(action);break;
+    case 'flight-full':{const target=FLIGHT_META[String(el.dataset.species||'')]?.route;if(target){closeModal();selectRoute(target);}break;}
+    case 'flight-stage':{const target=el.dataset.target;if(Object.values(FLIGHT_META).some(x=>x.route===target))selectRoute(target);break;}
+    case 'flight-jump':document.getElementById(el.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'});break;
     case 'oak':selectRoute('oak');break;
     case 'bulbasaur':selectRoute('bulbasaur');break;
     case 'ivysaur':selectRoute('ivysaur');break;
@@ -833,7 +911,7 @@
     case 'bulbasaur-preview':openBulbasaurPreview();break;
     case 'bulbasaur-full':closeModal();selectRoute('bulbasaur');requestAnimationFrame(()=>document.getElementById('bulba-program')?.scrollIntoView({behavior:'instant',block:'start'}));break;
     case 'jump-bulbasaur':document.getElementById(el.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'});break;
-    case 'video-version':{const ns=route==='ivysaur'?'ivy':route==='charmander'?'char':route==='charmeleon'?'meleon':route==='charizard'?'zard':route==='squirtle'?'water-007':route==='wartortle'?'water-008':route==='blastoise'?'water-009':BUG_META[({caterpie:'010',metapod:'011',butterfree:'012',weedle:'013',kakuna:'014',beedrill:'015'})[route]]?'bug-'+({caterpie:'010',metapod:'011',butterfree:'012',weedle:'013',kakuna:'014',beedrill:'015'})[route]:'bulba';const tab=document.getElementById(ns+'-tab-'+el.dataset.version);if(!tab)break;document.querySelectorAll('#'+ns+'-scripts [role="tab"]').forEach(t=>{const selected=t===tab;t.setAttribute('aria-selected',String(selected));t.tabIndex=selected?0:-1;t.classList.toggle('selected',selected);});document.querySelectorAll('#'+ns+'-scripts [role="tabpanel"]').forEach(p=>p.hidden=p.id!==ns+'-panel-'+el.dataset.version);tab.focus();break;}
+    case 'video-version':{const ns=route==='ivysaur'?'ivy':route==='charmander'?'char':route==='charmeleon'?'meleon':route==='charizard'?'zard':route==='squirtle'?'water-007':route==='wartortle'?'water-008':route==='blastoise'?'water-009':BUG_META[({caterpie:'010',metapod:'011',butterfree:'012',weedle:'013',kakuna:'014',beedrill:'015'})[route]]?'bug-'+({caterpie:'010',metapod:'011',butterfree:'012',weedle:'013',kakuna:'014',beedrill:'015'})[route]:FLIGHT_META[({pidgey:'016',pidgeotto:'017',pidgeot:'018'})[route]]?'flight-'+({pidgey:'016',pidgeotto:'017',pidgeot:'018'})[route]:'bulba';const tab=document.getElementById(ns+'-tab-'+el.dataset.version);if(!tab)break;document.querySelectorAll('#'+ns+'-scripts [role="tab"]').forEach(t=>{const selected=t===tab;t.setAttribute('aria-selected',String(selected));t.tabIndex=selected?0:-1;t.classList.toggle('selected',selected);});document.querySelectorAll('#'+ns+'-scripts [role="tabpanel"]').forEach(p=>p.hidden=p.id!==ns+'-panel-'+el.dataset.version);tab.focus();break;}
     case 'oak-preview':openOakPreview();break;
     case 'oak-full-workout':
       closeModal();

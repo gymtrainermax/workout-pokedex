@@ -485,3 +485,28 @@
 .bug-continuity-grid p{font-size:12px;line-height:1.65;color:#64756a;margin-top:7px}
 @media(max-width:750px){.bug-preview-modal .bulba-preview-art{min-height:150px}.bug-rival-pair{grid-template-columns:70px minmax(0,1fr) 22px minmax(0,1fr);gap:6px}.bug-rival-level{font-size:9px}.bug-stage{padding:9px 8px}.bug-stage strong{font-size:13px}.bug-continuity-grid{grid-template-columns:1fr}}
 @media(max-width:390px){.bug-rival-pair{grid-template-columns:55px minmax(0,1fr) 18px minmax(0,1fr);gap:4px}.bug-stage strong{font-size:12px}.bug-stage span{font-size:10px}.bug-rival-level{font-size:8px}}
+
+/* #016–018 Flight School: linked wing, wind, footwork and forward-power movement family. */
+.flight-page .bulba-hero{background:linear-gradient(112deg,#1d3650,#32668d 53%,#7da5ba)}
+.flight-page .bulba-hero h1 span{color:#d5f5ff}
+.flight-page .bulba-hero-art{background:radial-gradient(circle at 47% 38%,#effcff 0%,#b1d8ec 55%,#79a0c4 100%)}
+.flight-page .bulba-row-no{color:#396b96}
+.flight-page .bulba-warmup{background:#edf7fd}
+.flight-page .bulba-move-card{background:#f4f9fd;border-color:#d5e7f1}
+.flight-page .bulba-move-card h3{color:#366c95}
+.flight-page .bulba-move-icon.type-emblem-holder{background:transparent;border:0}
+.flight-preview-modal .bulba-preview-art{background:radial-gradient(circle at 48% 40%,#f3fcff,#b8dfed 59%,#7caec5)}
+.flight-preview-modal .bulba-preview-list>.bulba-preview-move{background:#f2faff}
+.flight-preview-modal .bulba-preview-button{background:#346a95}
+.flight-evolution-section{background:linear-gradient(135deg,#eef7ff,#fff);border-top:1px solid #d9e8f3;border-bottom:1px solid #d9e8f3}
+.flight-evolution-stages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:20px 0}
+.flight-evolution-stage{display:flex;flex-direction:column;gap:5px;text-align:left;padding:15px 16px;border-radius:14px;border:1px solid #d7e8f0;background:#fff;cursor:pointer;min-width:0}
+.flight-evolution-stage.active{background:#e6f4ff;border-color:#598db8;box-shadow:inset 0 0 0 1px #598db8}
+.flight-evolution-stage strong{font-size:16px;font-weight:900;color:#346287;overflow-wrap:anywhere}
+.flight-evolution-stage small,.flight-evolution-stage span{font-size:11px;font-weight:800;letter-spacing:.8px;color:#728d9e}
+.flight-evolution-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.flight-evolution-grid article{border-radius:14px;border:1px solid #d7e8f0;background:#fff;padding:15px 16px}
+.flight-evolution-grid article>span{display:block;font-weight:800;font-size:11px;color:#627c92;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.flight-evolution-grid article strong{display:block;font-size:14px;color:#315a7b}
+.flight-evolution-grid article p{font-size:12px;line-height:1.6;margin-top:7px;color:#5a7184}
+@media(max-width:700px){.flight-evolution-stages{gap:6px}.flight-evolution-stage{padding:11px 9px}.flight-evolution-stage strong{font-size:13px}.flight-evolution-grid{grid-template-columns:1fr}}

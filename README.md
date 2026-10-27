@@ -162,3 +162,11 @@ Each page includes the four verified game moves, seven complete training prescri
 **Same move name = same recognizable exercise family.** Tackle uses safe sled push/march variations, String Shot forward band/cable presses, Bug Bite sandbag bear-hug holds/carries, Harden forearm planks, and Electroweb traveling battle rope waves. Refer to [Silk vs. Sting master blueprint](production/Silk_vs_Sting_Master_Continuity_Blueprint.md) and [same-name continuity audit](production/Silk_vs_Sting_Approval_and_Same_Name_Audit.md). These are exercise-storytelling relationships, not in-game move evolutions.
 
 No previously approved workouts #001–009 were changed for this release.
+
+
+## Flight School trilogy #016–018 (2026-10-27)
+Creator-approved exercise programs and **six A/B script drafts**, published as **Review**. Each Pokémon has four verified Gen VII moves, seven prescribed exercises, modifications, coaching and safety notes, two matched 70-second scripts, a twenty-shot filming plan and four pending actual Camera Tests.
+- [#016 Pidgey — Route One Flight School](https://gymtrainermax.github.io/workout-pokedex/#pidgey), 16 working sets
+- [#017 Pidgeotto — Territory Patrol](https://gymtrainermax.github.io/workout-pokedex/#pidgeotto), 16 strength/athletic sets plus 2 balance sets
+- [#018 Pidgeot — Sky Sovereign](https://gymtrainermax.github.io/workout-pokedex/#pidgeot), 22 working sets
+The three linked training themes: Gust → Whirlwind → Hurricane (anchored rope waves); Sand Attack → Wing Attack → Air Slash (wing sweeps); Quick Attack → Agility → Tailwind (footwork). Tackle → supporting trap-bar strength → Brave Bird builds stronger horizontal force. **Pidgey Tackle remains a sled push and Pidgeot Air Slash is the exact cable-sweep family already used by Butterfree.** Brave Bird was inherited by Pidgey as an egg move (Gen VII). See [Flight School master blueprint](production/Flight_School_Master_Evolution_Blueprint.md) and [creator approval audit](production/Flight_School_Creator_Approval_Audit.md). No filmed Camera Tests or A/B audience results exist yet. Earlier workouts #001–015 remain unchanged.
