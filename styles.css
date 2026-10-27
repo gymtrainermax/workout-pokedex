@@ -352,3 +352,16 @@
 
 .meleon-page .bulba-hero h1{font-size:clamp(27px,3vw,41px);overflow-wrap:anywhere}
 @media(max-width:475px){.meleon-page .bulba-hero h1{font-size:26px;letter-spacing:-1.3px}}
+/* Charizard #006 — Dragon and Fighting move-type emblems matching the existing Fire system. */
+.bulba-move-type-icon.is-dragon{background:linear-gradient(140deg,#997bef,#6345b3);box-shadow:0 0 0 2px #7153c3,0 3px 7px #2817442b;color:#fff}
+.bulba-move-type-icon.is-fighting{background:linear-gradient(140deg,#db786a,#a54035);box-shadow:0 0 0 2px #b14940,0 3px 7px #55211d2b;color:#fff}
+.bulba-preview-move-heading .bulba-preview-type-name.is-dragon{background:#eee7fd;color:#6447ad}
+.bulba-preview-move-heading .bulba-preview-type-name.is-fighting{background:#fdebe7;color:#a34036}
+#zard-moves .bulba-move-card:nth-child(1){background:#f7f2ff;border-color:#e1d5fa}
+#zard-moves .bulba-move-card:nth-child(1) h3{color:#6245ae}
+#zard-moves .bulba-move-card:nth-child(2){background:#fff4f0;border-color:#f1d9d3}
+#zard-moves .bulba-move-card:nth-child(2) h3{color:#9f4137}
+.zard-page .bulba-move-icon-type{background:transparent;border:0;color:inherit}
+.zard-page .bulba-move-icon-type .bulba-move-type-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;border:2px solid #fff}
+.zard-page .bulba-move-icon-type .bulba-move-type-icon svg{width:26px;height:26px}
+@media(max-width:475px){.zard-page .bulba-move-icon-type{display:grid}}
