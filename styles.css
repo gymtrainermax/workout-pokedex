@@ -510,3 +510,28 @@
 .flight-evolution-grid article strong{display:block;font-size:14px;color:#315a7b}
 .flight-evolution-grid article p{font-size:12px;line-height:1.6;margin-top:7px;color:#5a7184}
 @media(max-width:700px){.flight-evolution-stages{gap:6px}.flight-evolution-stage{padding:11px 9px}.flight-evolution-stage strong{font-size:13px}.flight-evolution-grid{grid-template-columns:1fr}}
+
+/* Route One rodents #019–020 */
+.rodent-page .bulba-hero{background:linear-gradient(115deg,#3a3459,#675270 57%,#96827e)}
+.rodent-page .bulba-hero h1 span{color:#ffe9b5}
+.rodent-page .bulba-hero-art,.rodent-preview-modal .bulba-preview-art{background:radial-gradient(circle at 48% 40%,#f7e9f3,#c8b6d6 55%,#877d9f)}
+.rodent-develop-page .bulba-hero{background:linear-gradient(115deg,#554336,#78624e 55%,#a48769)}
+.rodent-develop-page .bulba-hero-art,.rodent-develop-preview .bulba-preview-art{background:radial-gradient(circle at 48% 40%,#fdf1d8,#d4bc96 59%,#aa9279)}
+.rodent-page .bulba-row-no{color:#8a5d80}
+.rodent-page .bulba-warmup{background:#faf4fb}
+.rodent-page .bulba-move-card{background:#fcf6ff;border-color:#e9daec}
+.rodent-page .bulba-move-card h3{color:#83557e}
+.rodent-page .bulba-move-icon.type-emblem-holder{background:transparent;border:0}
+.rodent-preview-modal .bulba-preview-button{background:#78517b}
+.rodent-evolution-section{background:linear-gradient(130deg,#faf3fc,#fff9ed);border-block:1px solid #e8deeb}
+.rodent-evolution-stages{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+.rodent-evolution-stage{display:flex;flex-direction:column;text-align:left;gap:6px;border-radius:14px;border:1px solid #e3d4e6;background:#fff;padding:16px;cursor:pointer}
+.rodent-evolution-stage.active{border-color:#90699c;background:#f4eafb;box-shadow:inset 0 0 0 1px #90699c}
+.rodent-evolution-stage strong{font-size:16px;font-weight:900;color:#6f4d79}
+.rodent-evolution-stage span,.rodent-evolution-stage small{font-size:11px;font-weight:700;color:#84718a}
+.rodent-evolution-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.rodent-evolution-grid article{border-radius:13px;background:#fff;border:1px solid #e5deea;padding:15px}
+.rodent-evolution-grid article>span{display:block;color:#907b93;font-size:11px;text-transform:uppercase;font-weight:900;letter-spacing:1px;margin-bottom:7px}
+.rodent-evolution-grid article strong{display:block;color:#694d71;font-size:14px}
+.rodent-evolution-grid article p{color:#6a6270;font-size:12px;line-height:1.6;margin-top:7px}
+@media(max-width:700px){.rodent-evolution-grid{grid-template-columns:1fr}.rodent-evolution-stage{padding:12px}.rodent-evolution-stage strong{font-size:14px}}
