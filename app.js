@@ -173,6 +173,52 @@
   }
 
   // Published Pokémon page uses the official seed so public details do not depend on visitors' saved Studio drafts.
+
+  // Approved connected storytelling. Creative training chains are not canonical move evolution.
+  const STARTER_FAMILIES = [
+    {ids:['kanto-001','kanto-002','kanto-003'],routes:['bulbasaur','ivysaur','venusaur'],names:['Bulbasaur','Ivysaur','Venusaur'],family:'Grass starter',accent:'grass',
+      intro:'From seedling fundamentals to rooted strength and the Frenzy Plant finisher. These are related training themes, not literal Pokémon move evolutions.',
+      arcs:[
+        ['Plant attack grows','Seed Bomb → Growth → Solar Beam','Medicine-ball slam → dumbbell thruster → landmine push press. More whole-body force and projection.'],
+        ['Vines to overgrowth','Vine Whip → Grassy Glide → Frenzy Plant','Alternating rope waves → rooted lateral lunge → decisive two-arm rope slams. Plant-control themes, not identical exercise patterns.'],
+        ['Leg strength foundation','Tackle → Trap Bar Deadlift → Back Squat','Bulbasaur sled push establishes leg drive; later supporting lifts build strength without pretending to be Pokémon moves.'],
+        ['Poison tactics mature','Sludge Bomb → Poison Powder + Giga Drain','Poison appears with Ivysaur; Venusaur adds a poison status move and draining pull. No invented stage-one poison move.']
+      ]},
+    {ids:['kanto-004','kanto-005','kanto-006'],routes:['charmander','charmeleon','charizard'],names:['Charmander','Charmeleon','Charizard'],family:'Fire starter',accent:'fire',
+      intro:'Three signature attack families grow into a final evolution. Charizard adds Seismic Toss as its new identity.',
+      arcs:[
+        ['Claw progression','Scratch → Slash → Dragon Claw','One-arm diagonal cable pull → two-hand chop → one-arm step-and-pivot chop. Keep the descending claw motion.'],
+        ['Forward charge','Flame Charge → strength bridge → Flare Blitz','Short acceleration → Charmeleon deadlift/lunge strength → loaded sled push. Same horizontal drive, greater resistance.'],
+        ['Fire projection','Ember → Flamethrower → Blast Burn','Medicine-ball chest pass → light Svend press → squat-driven landmine thruster.'],
+        ['Final-stage signature','Seismic Toss joins at Charizard','Safe sandbag shoulder/toss builds on earlier hinges and deadlifts, not a fabricated precursor move.']
+      ]},
+    {ids:['kanto-007','kanto-008','kanto-009'],routes:['squirtle','wartortle','blastoise'],names:['Squirtle','Wartortle','Blastoise'],family:'Water starter',accent:'water',
+      intro:'All four signature slots grow into stronger water pressure, shell defense, rotational skill and forward drive.',
+      arcs:[
+        ['Water projection','Water Gun → Water Pulse → Hydro Cannon','Standing one-arm band press → half-kneeling cable press → dual-cable power press.'],
+        ['Shell defense','Withdraw → Protect → Iron Defense','Forearm plank → tall-kneeling Pallof press → double-kettlebell front-rack carry.'],
+        ['Water rotation','Rapid Spin → Aqua Tail → Surf','Controlled band turn → wider landmine sweep → medicine-ball scoop toss into approved wall.'],
+        ['Forward charge','Tackle → Aqua Jet → Wave Crash','Light sled march → accelerated light sled push → moderately heavy sled drive. Squirtle marches instead of copying Bulbasaur’s Tackle push.']
+      ]}
+  ];
+  function starterEvolutionPanel(id){
+    const family=STARTER_FAMILIES.find(x=>x.ids.includes(id));
+    if(!family)return '';
+    const stage=family.ids.indexOf(id);
+    const stages=family.names.map((name,i)=>{
+      const active=stage===i;
+      return `<button class="starter-stage ${active?'active':''}" type="button" data-action="starter-stage" data-target="${family.routes[i]}" ${active?'aria-current="page"':''} aria-label="Open Workout ${family.ids[i].slice(-3)} ${name}">
+        <span class="starter-stage-number">#${family.ids[i].slice(-3)}</span><strong>${safe(name)}</strong><small>${i===0?'LEARN':i===1?'DEVELOP':'UNLEASH'}</small>
+      </button>`;
+    }).join('');
+    return `<section class="bulba-section starter-chain-section starter-chain-${family.accent}" aria-label="${family.family} evolution workout progression">
+      <div class="bulba-section-head"><span class="eyebrow dark">CONNECTED EVOLUTION WORKOUTS</span><h2>${safe(family.names.join(' → '))}</h2><p>${safe(family.intro)}</p></div>
+      <div class="starter-stages">${stages}</div>
+      <div class="starter-chain-grid">${family.arcs.map(arc=>`<article class="starter-chain-card"><span>${safe(arc[0])}</span><strong>${safe(arc[1])}</strong><p>${safe(arc[2])}</p></article>`).join('')}</div>
+      <p class="starter-chain-note">The Pokémon moves are official; the workout connections describe our training design, not in-game move evolution. Filmed Camera Tests remain pending.</p>
+    </section>`;
+  }
+
   function bulbasaurPage(){
     const e=(window.WORKOUT_DEX_SEED?.entries||[]).find(x=>x.id==='kanto-001' && x.publicWorkout);
     if(!e)return head('WORKOUT 001','Bulbasaur','Programming underway.');
@@ -194,6 +240,7 @@
       <section class="bulba-section" id="bulba-moves"><div class="bulba-section-head"><span class="eyebrow dark">THE FOUR SIGNATURE MOVES</span><h2>From game moves to gym movements</h2><p>All four names are official Bulbasaur moves. The exercise mappings are creative interpretations; camera approval is still pending.</p></div>
         <div class="bulba-move-grid">${e.moves.map((m,i)=>`<article class="bulba-move-card"><div class="bulba-move-number">0${i+1}</div><div class="bulba-move-icon type-emblem-holder">${moveTypeEmblem(m)}</div><h3>${safe(m.name)}</h3><strong>${safe(m.exercise)}</strong><p>${safe(m.notes.replace(' Filming Camera Test is not yet complete.',''))}</p><span class="bulba-move-dose">${safe(m.reps)}</span></article>`).join('')}</div>
       </section>
+      ${starterEvolutionPanel(e.id)}
       <section class="bulba-section" id="bulba-program"><div class="bulba-section-head"><span class="eyebrow dark">APPROVED PROGRAM • 7 EXERCISES</span><h2>Complete Seedling Strength workout</h2><p>Perform Seed Bomb first while fresh. The rope finisher goes last. All working sets are moderate effort, with crisp technique before heavier loading.</p></div>
         <div class="bulba-program-layout"><div class="bulba-program-main"><div class="bulba-warmup"><strong>WARM-UP • 7–8 MIN</strong><p>${safe(e.workout.warmup)}</p></div><div class="bulba-table-wrap"><table class="bulba-workout-table"><thead><tr><th>#</th><th>Exercise</th><th>Work</th><th>Rest</th></tr></thead><tbody>${rows}</tbody></table></div><div class="bulba-warmup"><strong>COOLDOWN • 3–5 MIN</strong><p>${safe(e.workout.cooldown)}</p></div></div>
           <aside class="bulba-program-side"><div class="bulba-why"><div class="eyebrow dark">TRAINING IDENTITY</div><h3>Sturdy. Controlled. Explosive.</h3><p>${safe(e.goalRationale)}</p></div><div class="bulba-why"><h3>Scale it to your level</h3><p>${safe(e.workout.modifications)}</p></div><div class="bulba-why"><h3>Technique & safety</h3><p>${safe(e.workout.safety)}</p></div></aside>
@@ -230,6 +277,7 @@
       <section class="bulba-section" id="ivy-moves"><div class="bulba-section-head"><span class="eyebrow dark">THE FOUR SIGNATURE MOVES</span><h2>From game moves to gym movements</h2><p>All four names are official Ivysaur moves. The exercise mappings are creative interpretations; camera approval is still pending.</p></div>
         <div class="bulba-move-grid">${e.moves.map((m,i)=>`<article class="bulba-move-card"><div class="bulba-move-number">0${i+1}</div><div class="bulba-move-icon type-emblem-holder">${moveTypeEmblem(m)}</div><h3>${safe(m.name)}</h3><strong>${safe(m.exercise)}</strong><p>${safe(m.notes.replace(' Filming Camera Test is not yet complete.',''))}</p><span class="bulba-move-dose">${safe(m.reps)}</span></article>`).join('')}</div>
       </section>
+      ${starterEvolutionPanel(e.id)}
       <section class="bulba-section" id="ivy-program"><div class="bulba-section-head"><span class="eyebrow dark">APPROVED PROGRAM • 7 EXERCISES</span><h2>Complete Rooted Power workout</h2><p>Throw while fresh, then deadlift before thrusters. Use controlled loading for strength and preserve the Synthesis breathing as your cooldown. Main strength sets are RPE 7–8.</p></div>
         <div class="bulba-program-layout"><div class="bulba-program-main"><div class="bulba-warmup"><strong>WARM-UP • 7–8 MIN</strong><p>${safe(e.workout.warmup)}</p></div><div class="bulba-table-wrap"><table class="bulba-workout-table"><thead><tr><th>#</th><th>Exercise</th><th>Work</th><th>Rest</th></tr></thead><tbody>${rows}</tbody></table></div><div class="bulba-warmup"><strong>COOLDOWN • 3–5 MIN</strong><p>${safe(e.workout.cooldown)}</p></div></div>
           <aside class="bulba-program-side"><div class="bulba-why"><div class="eyebrow dark">TRAINING IDENTITY</div><h3>Grounded. Stronger. Still growing.</h3><p>${safe(e.goalRationale)}</p></div><div class="bulba-why"><h3>Scale it to your level</h3><p>${safe(e.workout.modifications)}</p></div><div class="bulba-why"><h3>Technique & safety</h3><p>${safe(e.workout.safety)}</p></div></aside>
@@ -269,6 +317,7 @@
       <section class="bulba-section" id="char-moves"><div class="bulba-section-head"><span class="eyebrow dark">FOUR SIGNATURE MOVES</span><h2>Quick feet. First sparks. Controlled fire.</h2><p>Four real Charmander moves mapped to four purposeful gym movements. The Fire and Normal-type emblems appear in the Pokédex preview.</p></div>
         <div class="bulba-move-grid">${e.moves.map((m,i)=>`<article class="bulba-move-card"><div class="bulba-move-number">0${i+1} • ${safe(m.type)}</div><div class="bulba-move-icon type-emblem-holder">${moveTypeEmblem(m)}</div><h3>${safe(m.name)}</h3><strong>${safe(m.exercise)}</strong><p>${safe(m.notes)}</p><span class="bulba-move-dose">${safe(m.reps)}</span></article>`).join('')}</div>
       </section>
+      ${starterEvolutionPanel(e.id)}
       <section class="bulba-section" id="char-program"><div class="bulba-section-head"><span class="eyebrow dark">PROGRAM LOCKED • 7 EXERCISES</span><h2>Complete First Flame workout</h2><p>Accelerate and throw while fresh, trace Fire Spin with light resistance, then train your squat, hinge and push before finishing with Scratch. Keep working strength sets around RPE 6–7.</p></div>
         <div class="bulba-program-layout"><div class="bulba-program-main"><div class="bulba-warmup"><strong>WARM-UP • 8–10 MIN</strong><p>${safe(e.workout.warmup)}</p></div><div class="bulba-table-wrap"><table class="bulba-workout-table"><thead><tr><th>#</th><th>Exercise</th><th>Work</th><th>Rest</th></tr></thead><tbody>${rows}</tbody></table></div><div class="bulba-warmup"><strong>COOLDOWN • 3–5 MIN</strong><p>${safe(e.workout.cooldown)}</p></div></div>
           <aside class="bulba-program-side"><div class="bulba-why"><div class="eyebrow dark">TRAINING IDENTITY</div><h3>Fast. Fiery. Foundational.</h3><p>${safe(e.goalRationale)}</p></div><div class="bulba-why"><h3>Beginner → advanced</h3><p>${safe(e.workout.modifications)}</p></div><div class="bulba-why"><h3>Technique &amp; safety</h3><p>${safe(e.workout.safety)}</p></div></aside></div>
@@ -318,6 +367,7 @@
       <section class="bulba-section" id="meleon-moves"><div class="bulba-section-head"><span class="eyebrow dark">FOUR SIGNATURE MOVES</span><h2>Punch. Slash. Project fire. Vanish.</h2><p>Four official Charmeleon moves become real gym exercises. Fire and Normal-type move emblems appear in the four-move preview.</p></div>
         <div class="bulba-move-grid">${e.moves.map((m,i)=>`<article class="bulba-move-card"><div class="bulba-move-number">0${i+1} • ${safe(m.type)}</div><div class="bulba-move-icon type-emblem-holder">${moveTypeEmblem(m)}</div><h3>${safe(m.name)}</h3><strong>${safe(m.exercise)}</strong><p>${safe(m.notes)}</p><span class="bulba-move-dose">${safe(m.reps)}</span></article>`).join('')}</div>
       </section>
+      ${starterEvolutionPanel(e.id)}
       <section class="bulba-section" id="meleon-program"><div class="bulba-section-head"><span class="eyebrow dark">PROGRAM LOCKED • 7 EXERCISES</span><h2>Complete Tempered Flame workout</h2><p>Deadlift first while fresh, then shadowbox, perform light Svend presses, row, lunge, chop and finish with outward-circling ropes. Main strength work is around RPE 7–8; the Svend press is a light accessory.</p></div>
         <div class="bulba-program-layout"><div class="bulba-program-main"><div class="bulba-warmup"><strong>WARM-UP • 8–10 MIN</strong><p>${safe(e.workout.warmup)}</p></div><div class="bulba-table-wrap"><table class="bulba-workout-table"><thead><tr><th>#</th><th>Exercise</th><th>Work</th><th>Rest</th></tr></thead><tbody>${rows}</tbody></table></div><div class="bulba-warmup"><strong>COOLDOWN • 3–5 MIN</strong><p>${safe(e.workout.cooldown)}</p></div></div>
           <aside class="bulba-program-side"><div class="bulba-why"><div class="eyebrow dark">TRAINING IDENTITY</div><h3>Hotheaded. Strong. Still controlled.</h3><p>${safe(e.goalRationale)}</p></div><div class="bulba-why"><h3>Beginner → advanced</h3><p>${safe(e.workout.modifications)}</p></div><div class="bulba-why"><h3>Technique &amp; safety</h3><p>${safe(e.workout.safety)}</p></div></aside></div>
@@ -367,7 +417,8 @@
       <section class="bulba-section" id="zard-moves"><div class="bulba-section-head"><span class="eyebrow dark">FOUR SIGNATURE MOVES</span><h2>Three evolved moves. One new finishing throw.</h2><p>Four real Charizard moves map to trained movements. Seismic Toss is from historical learnsets, rather than Scarlet/Violet; Dragon Claw is Dragon-type even though Charizard itself is Fire/Flying.</p></div>
         <div class="bulba-move-grid">${e.moves.map((m,i)=>`<article class="bulba-move-card"><div class="bulba-move-number">0${i+1} • ${safe(m.type)}</div><div class="bulba-move-icon type-emblem-holder">${moveTypeEmblem(m)}</div><h3>${safe(m.name)}</h3><strong>${safe(m.exercise)}</strong><p>${safe(m.notes)}</p><span class="bulba-move-dose">${safe(m.reps)}</span></article>`).join('')}</div>
       </section>
-      <section class="bulba-section" id="zard-evolution"><div class="bulba-section-head"><span class="eyebrow dark">THE EVOLUTION PAYOFF</span><h2>Every starter stage builds to this</h2><p>Three move families, with Seismic Toss arriving at the final evolution.</p></div><div class="bulba-move-grid"><article class="bulba-move-card"><h3>Scratch → Slash → Dragon Claw</h3><p>One-hand diagonal pull → two-hand cable woodchop → single-arm descending cable chop with controlled footwork.</p></article><article class="bulba-move-card"><h3>Flame Charge → Flare Blitz</h3><p>Short unloaded acceleration becomes a strong, steady loaded sled charge.</p></article><article class="bulba-move-card"><h3>Ember → Flamethrower → Blast Burn</h3><p>Medicine-ball chest pass → light Svend press → explosive squat-driven landmine thruster.</p></article><article class="bulba-move-card"><h3>Seismic Toss: new dimension</h3><p>Aerial-grappling signature with safe sandbag toss, drawing on earlier hinge and deadlift strength.</p></article></div></section><section class="bulba-section" id="zard-program"><div class="bulba-section-head"><span class="eyebrow dark">PROGRAM LOCKED • 7 EXERCISES</span><h2>Complete Full Blaze workout</h2><p>Perform crisp landmine thrusters and safe sandbag tosses first, then front squats, sled pushes, pull-ups, incline dumbbell presses and a controlled Dragon Claw chop. Heavy strength stays near RPE 7–8.</p></div>
+      ${starterEvolutionPanel(e.id)}
+      <section class="bulba-section" id="zard-program"><div class="bulba-section-head"><span class="eyebrow dark">PROGRAM LOCKED • 7 EXERCISES</span><h2>Complete Full Blaze workout</h2><p>Perform crisp landmine thrusters and safe sandbag tosses first, then front squats, sled pushes, pull-ups, incline dumbbell presses and a controlled Dragon Claw chop. Heavy strength stays near RPE 7–8.</p></div>
         <div class="bulba-program-layout"><div class="bulba-program-main"><div class="bulba-warmup"><strong>WARM-UP • 8–10 MIN</strong><p>${safe(e.workout.warmup)}</p></div><div class="bulba-table-wrap"><table class="bulba-workout-table"><thead><tr><th>#</th><th>Exercise</th><th>Work</th><th>Rest</th></tr></thead><tbody>${rows}</tbody></table></div><div class="bulba-warmup"><strong>COOLDOWN • 3–5 MIN</strong><p>${safe(e.workout.cooldown)}</p></div></div>
           <aside class="bulba-program-side"><div class="bulba-why"><div class="eyebrow dark">TRAINING IDENTITY</div><h3>The final evolution of a real training plan.</h3><p>${safe(e.goalRationale)}</p></div><div class="bulba-why"><h3>Beginner → advanced</h3><p>${safe(e.workout.modifications)}</p></div><div class="bulba-why"><h3>Technique &amp; safety</h3><p>${safe(e.workout.safety)}</p></div></aside></div>
       </section>
@@ -413,6 +464,7 @@
       <section class="bulba-section" id="venus-moves"><div class="bulba-section-head"><span class="eyebrow dark">THE FOUR SIGNATURE MOVES</span><h2>Solar power, roots, energy and spores</h2><p>These are official Venusaur moves mapped to real exercises. Move types are shown in the Pokédex preview, while the complete exercise programming appears below.</p></div>
         <div class="bulba-move-grid">${e.moves.map((m,i)=>`<article class="bulba-move-card"><div class="bulba-move-number">0${i+1} • ${safe(m.type)}</div><div class="bulba-move-icon type-emblem-holder">${moveTypeEmblem(m)}</div><h3>${safe(m.name)}</h3><strong>${safe(m.exercise)}</strong><p>${safe(m.notes)}</p><span class="bulba-move-dose">${safe(m.reps)}</span></article>`).join('')}</div>
       </section>
+      ${starterEvolutionPanel(e.id)}
       <section class="bulba-section" id="venus-program"><div class="bulba-section-head"><span class="eyebrow dark">PROGRAM LOCKED • 7 EXERCISES</span><h2>Complete Solar Overload workout</h2><p>Launch Solar Beam while fresh, keep rope slams brief and sharp, ramp up before your working back squats, then complete the balanced row, bench, hinge and band finisher. Each unilateral set includes both sides.</p></div>
         <div class="bulba-program-layout"><div class="bulba-program-main"><div class="bulba-warmup"><strong>WARM-UP • 8–10 MIN + SQUAT RAMP-UP SETS</strong><p>${safe(e.workout.warmup)}</p></div><div class="bulba-table-wrap"><table class="bulba-workout-table"><thead><tr><th>#</th><th>Exercise</th><th>Work</th><th>Rest</th></tr></thead><tbody>${rows}</tbody></table></div><div class="bulba-warmup"><strong>COOLDOWN • 3–5 MIN</strong><p>${safe(e.workout.cooldown)}</p></div></div>
           <aside class="bulba-program-side"><div class="bulba-why"><div class="eyebrow dark">TRAINING IDENTITY</div><h3>Powerful. Grounded. Fully evolved.</h3><p>${safe(e.goalRationale)}</p></div><div class="bulba-why"><h3>Scale it to your level</h3><p>${safe(e.workout.modifications)}</p></div><div class="bulba-why"><h3>Technique & safety</h3><p>${safe(e.workout.safety)}</p></div></aside></div>
@@ -472,11 +524,71 @@
     host.querySelector('.modal-close')?.focus();
   }
 
+
+  // Reusable Water starter trilogy, all programs creator-approved for Review.
+  function waterWorkoutPage(number){
+    const n=String(number).padStart(3,'0');
+    const metadata={
+      '007':{name:'Squirtle',title:'Shell School',level:'Beginner+',duration:'40–50 min',sets:16,theme:'Learn water projection, shell bracing, a light tackle march and controlled rotation.'},
+      '008':{name:'Wartortle',title:'Current Control',level:'Intermediate',duration:'50–60 min',sets:18,theme:'Develop Squirtle’s four skills with greater speed, cable resistance, tail rotation and anti-rotation.'},
+      '009':{name:'Blastoise',title:'Cannon Fortress',level:'Advanced',duration:'65–75 min',sets:22,theme:'Unleash dual-cannon power, stronger shell defense, wave-sized rotation and a heavy water charge.'}
+    };
+    const m=metadata[n];
+    if(!m)return head('WATER WORKOUT','Unknown stage','No workout');
+    const e=(window.WORKOUT_DEX_SEED?.entries||[]).find(x=>x.id==='kanto-'+n&&x.publicWorkout);
+    if(!e)return head('WORKOUT '+n,m.name,'Program coming soon.');
+    const prod=e.production||{},shots=prod.shootList||[],versions=prod.versions||[],ns='water-'+n;
+    const rows=e.exercises.map((x,i)=>`<tr><td><span class="bulba-row-no">${String(i+1).padStart(2,'0')}</span></td><td><strong>${safe(x.alias||x.name)}</strong>${x.alias?`<span class="bulba-exercise-sub">${safe(x.name)}</span>`:''}</td><td>${safe(x.sets)} × ${safe(x.reps)}</td><td>${safe(x.rest)}</td></tr>`).join('');
+    const tabs=versions.length===2?`<div class="bulba-tabs" role="tablist" aria-label="${m.name} A/B scripts">${versions.map((v,i)=>`<button type="button" id="${ns}-tab-${safe(v.id)}" class="bulba-tab ${i===0?'selected':''}" role="tab" aria-controls="${ns}-panel-${safe(v.id)}" aria-selected="${i===0?'true':'false'}" tabindex="${i===0?'0':'-1'}" data-action="video-version" data-version="${safe(v.id)}">${safe(v.label)} <span>${safe(v.subtitle)}</span></button>`).join('')}</div>
+      ${versions.map((v,i)=>`<div class="bulba-script-panel" id="${ns}-panel-${safe(v.id)}" role="tabpanel" aria-labelledby="${ns}-tab-${safe(v.id)}" ${i?'hidden':''}><div class="bulba-script-intro"><strong>${safe(v.label)} • ${safe(v.subtitle)}</strong><span>${safe(v.status)}</span></div>${(v.beats||[]).map(b=>`<div class="bulba-beat"><div class="bulba-beat-time">${safe(b.time)}</div><div class="bulba-beat-body"><strong>${safe(b.audio)}</strong><p>${safe(b.visual)}</p><small>ON SCREEN: ${safe(b.onScreen)}</small></div></div>`).join('')}</div>`).join('')}`:'';
+    return `<div class="bulba-page water-page water-${n}-page">
+      <section class="bulba-hero"><div class="bulba-hero-copy"><div class="eyebrow">POKÉDEX #${n} • WATER TYPE • CONNECTED EVOLUTION</div><span class="bulba-hero-number">WORKOUT ${n}</span><h1>SO YOU'RE TRAINING<br/><span>${safe(m.name.toUpperCase())}?</span></h1><p>${safe(m.theme)}</p>
+        <div class="bulba-hero-tags"><span>${safe(m.level)}</span><span>${m.duration}</span><span>${m.sets} working sets</span><span>${safe(m.title)}</span></div>
+        <div class="bulba-hero-state">✓ Program approved <span>•</span> Two A/B script drafts <span>•</span> Filming pending</div>
+        <div class="bulba-hero-buttons"><button type="button" class="btn btn-lime" data-action="water-jump" data-target="${ns}-program">Complete workout ↓</button><button type="button" class="btn btn-ghost" data-action="water-jump" data-target="${ns}-scripts">Compare scripts A / B ↗</button></div>
+      </div><div class="bulba-hero-art"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${Number(n)}.png" alt="${safe(m.name)} Pokémon character art"/><div class="bulba-hero-art-label">WATER STARTER<br/><strong>#${n}</strong></div></div></section>
+      <div class="bulba-progress-note"><span class="bulba-status-dot"></span><p><strong>${safe(m.name)}'s seven-exercise workout is approved and published in Review.</strong> A/B voiceovers, actual filmed Camera Tests, and test results remain pending; this episode is not Final.</p></div>
+      <section class="bulba-section" id="${ns}-moves"><div class="bulba-section-head"><span class="eyebrow dark">FOUR SIGNATURE MOVES</span><h2>${safe(m.name)}'s attacks become gym exercises</h2><p>Official move names and correct move-type emblems, with actual equipment and coaching instructions.</p></div>
+        <div class="bulba-move-grid">${e.moves.map((x,i)=>`<article class="bulba-move-card"><div class="bulba-move-number">0${i+1} • ${safe(x.type)}</div><div class="bulba-move-icon type-emblem-holder">${moveTypeEmblem(x)}</div><h3>${safe(x.name)}</h3><strong>${safe(x.exercise)}</strong><p>${safe(x.notes)}</p><span class="bulba-move-dose">${safe(x.reps)}</span></article>`).join('')}</div>
+      </section>
+      ${starterEvolutionPanel(e.id)}
+      <section class="bulba-section" id="${ns}-program"><div class="bulba-section-head"><span class="eyebrow dark">CREATOR-APPROVED • SEVEN EXERCISES</span><h2>Complete ${safe(m.title)} workout</h2><p>For real training, use this seven-exercise order rather than the four-move video order.</p></div>
+        <div class="bulba-program-layout"><div class="bulba-program-main"><div class="bulba-warmup"><strong>WARM-UP • ${n==='007'?'7–8':n==='008'?'8–10':'9–12'} MIN</strong><p>${safe(e.workout.warmup)}</p></div>
+          <div class="bulba-table-wrap"><table class="bulba-workout-table"><thead><tr><th>#</th><th>Exercise</th><th>Work</th><th>Rest</th></tr></thead><tbody>${rows}</tbody></table></div><div class="bulba-warmup"><strong>COOLDOWN • 3–5 MIN</strong><p>${safe(e.workout.cooldown)}</p></div></div>
+          <aside class="bulba-program-side"><div class="bulba-why"><div class="eyebrow dark">TRAINING IDENTITY</div><h3>${safe(m.title)}</h3><p>${safe(e.goalRationale)}</p></div><div class="bulba-why"><h3>Beginner / intermediate / advanced modifications</h3><p class="water-preformatted">${safe(e.workout.modifications)}</p></div><div class="bulba-why"><h3>Technique and safety</h3><p class="water-preformatted">${safe(e.workout.safety)}</p></div></aside></div>
+      </section>
+      <section class="bulba-section" id="${ns}-scripts"><div class="bulba-section-head"><span class="eyebrow dark">TWO MATCHED 70-SECOND SCRIPTS</span><h2>${safe(m.name)} video A / B</h2><p>Gym comedy against game-specific comedy. Same exercise footage, music, cover, captions, onscreen prescriptions and CTA; spoken jokes and corresponding subtitles are the only differences.</p></div>
+        ${tabs}
+        <div class="bulba-ab-method"><h3>A/B test plan</h3><div class="bulba-method-grid">${(prod.testPlan||[]).map((x,i)=>`<p><span>${String(i+1).padStart(2,'0')}</span>${safe(x)}</p>`).join('')}</div></div>
+      </section>
+      <section class="bulba-section" id="${ns}-production"><div class="bulba-section-head"><span class="eyebrow dark">PRODUCTION • ALL CAMERA TESTS PENDING</span><h2>Film once, cut twice, compare each evolution</h2><p>Compare all four signature actions against the preceding stage without VFX before certifying camera legibility.</p></div>
+        <div class="bulba-shoot-grid venus-shoot"><div class="bulba-shoot-list"><h3>20-shot filming checklist</h3><ol>${shots.map(x=>`<li>${safe(x.shot)}</li>`).join('')}</ol></div><div class="bulba-camera-tests"><h3>Four Camera Tests <span class="bulba-pending">ALL PENDING</span></h3>${(prod.cameraTests||[]).map(t=>`<div class="bulba-camera-test"><strong>${safe(t.move)}</strong><p>${safe(t.test)}</p><small>${safe(t.status)}</small></div>`).join('')}</div></div>
+        <div class="bulba-post-grid venus-docs"><div><strong>Cover and caption</strong><p><strong>Cover:</strong> ${safe(e.content.cover)}</p><p><strong>Caption:</strong> ${safe(e.content.caption)}</p><p><strong>Five hashtags:</strong> ${safe(e.content.hashtags)}</p></div><div><strong>Production documents</strong><p>Creator-approved workout, matched draft scripts, filming checklist and connected trilogy standard.</p><div class="bulba-doc-links">${(prod.assets||[]).map((path,i)=>`<a href="${safe(path)}" target="_blank" rel="noopener">${['Approved workout and safety','Script A • Gym comedy','Script B • Pokémon comedy','20-shot checklist and A/B test','Water evolution blueprint','Evolution continuity standard'][i]||'Production file'} ↗</a>`).join('')}</div><p class="bulba-draft-note">Review, not Final. No actual filmed Camera Tests have passed.</p></div></div>
+      </section>
+    </div>`;
+  }
+  function openWaterStarterPreview(number){
+    const n=String(number).padStart(3,'0');
+    if(!['007','008','009'].includes(n))return;
+    const e=(window.WORKOUT_DEX_SEED?.entries||[]).find(x=>x.id==='kanto-'+n&&x.publicWorkout);
+    if(!e){selectRoute('pokedex');return;}
+    const titles={'007':'Shell School','008':'Current Control','009':'Cannon Fortress'};
+    const host=document.getElementById('modalHost');
+    host.innerHTML=`<div class="modal-scrim bulba-preview-scrim water-preview-scrim" data-action="close-scrim"><article class="modal bulba-preview-modal water-preview-modal" role="dialog" aria-modal="true" aria-labelledby="water-preview-title">
+      <button class="modal-close" type="button" data-action="close-modal" aria-label="Close ${safe(e.name)} preview">×</button>
+      <div class="bulba-preview-art"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${Number(n)}.png" alt="${safe(e.name)} artwork"/><span>WATER • #${n}</span></div>
+      <div class="bulba-preview-info"><div class="eyebrow dark">WORKOUT ${n} • PROGRAM APPROVED</div><h2 id="water-preview-title">So You're Training ${safe(e.name)}?</h2><p>${safe(titles[n])} • ${safe(e.difficulty)} • ${n==='007'?'40–50':n==='008'?'50–60':'65–75'} min</p>
+      <div class="bulba-preview-list">${e.moves.map(x=>`<div class="bulba-preview-move">${moveTypeEmblem(x)}<div class="bulba-preview-move-copy"><div class="bulba-preview-move-heading"><strong>${safe(x.name)}</strong><span class="bulba-preview-type-name is-${safe(String(x.type||'').toLowerCase())}">${safe(x.type)}</span></div><small>${safe(x.exercise)} · ${safe(x.reps)}</small></div></div>`).join('')}</div>
+      <p class="bulba-preview-status">Seven exercises approved; two A/B drafts and filming checklist ready. All Camera Tests pending.</p><button type="button" class="bulba-preview-button" data-action="water-full" data-species="${n}">View complete workout and A/B scripts →</button></div>
+    </article></div>`;
+    host.querySelector('.modal-close')?.focus();
+  }
+
   function render(){
-    const views={overview:dashboard,pokedex:()=>browse('pokedex'),characters:()=>browse('characters'),forms:()=>browse('forms'),moves:registry,studio,guide,oak:oakPage,bulbasaur:bulbasaurPage,ivysaur:ivysaurPage,venusaur:venusaurPage,charmander:charmanderPage,charmeleon:charmeleonPage,charizard:charizardPage};
+    const views={overview:dashboard,pokedex:()=>browse('pokedex'),characters:()=>browse('characters'),forms:()=>browse('forms'),moves:registry,studio,guide,oak:oakPage,bulbasaur:bulbasaurPage,ivysaur:ivysaurPage,venusaur:venusaurPage,charmander:charmanderPage,charmeleon:charmeleonPage,charizard:charizardPage,squirtle:()=>waterWorkoutPage('007'),wartortle:()=>waterWorkoutPage('008'),blastoise:()=>waterWorkoutPage('009')};
     if(!views[route]) route='overview';
     root.innerHTML=views[route]();
-    document.getElementById('breadcrumb').textContent=({overview:'DASHBOARD',pokedex:'KANTO POKÉDEX',characters:'CHARACTERS',forms:'FORM REGISTRY',moves:'MOVE REGISTRY',studio:'WORKOUT STUDIO',guide:'PROJECT GUIDE',oak:'PROFESSOR OAK / #000',bulbasaur:'BULBASAUR / #001',ivysaur:'IVYSAUR / #002',venusaur:'VENUSAUR / #003',charmander:'CHARMANDER / #004',charmeleon:'CHARMELEON / #005',charizard:'CHARIZARD / #006'})[route];
+    document.getElementById('breadcrumb').textContent=({overview:'DASHBOARD',pokedex:'KANTO POKÉDEX',characters:'CHARACTERS',forms:'FORM REGISTRY',moves:'MOVE REGISTRY',studio:'WORKOUT STUDIO',guide:'PROJECT GUIDE',oak:'PROFESSOR OAK / #000',bulbasaur:'BULBASAUR / #001',ivysaur:'IVYSAUR / #002',venusaur:'VENUSAUR / #003',charmander:'CHARMANDER / #004',charmeleon:'CHARMELEON / #005',charizard:'CHARIZARD / #006',squirtle:'SQUIRTLE / #007',wartortle:'WARTORTLE / #008',blastoise:'BLASTOISE / #009'})[route];
     document.querySelectorAll('[data-nav]').forEach(a=>{a.classList.toggle('active',a.dataset.nav===route);if(a.dataset.nav===route)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
     document.querySelector('.sidebar').classList.remove('open');
   }
@@ -516,6 +628,7 @@
     if(id==='kanto-004' && (window.WORKOUT_DEX_SEED?.entries||[]).some(x=>x.id===id&&x.publicWorkout)){openCharmanderPreview();return;}
     if(id==='kanto-005' && (window.WORKOUT_DEX_SEED?.entries||[]).some(x=>x.id===id&&x.publicWorkout)){openCharmeleonPreview();return;}
     if(id==='kanto-006' && (window.WORKOUT_DEX_SEED?.entries||[]).some(x=>x.id===id&&x.publicWorkout)){openCharizardPreview();return;}
+    if(['kanto-007','kanto-008','kanto-009'].includes(id) && (window.WORKOUT_DEX_SEED?.entries||[]).some(x=>x.id===id&&x.publicWorkout)){openWaterStarterPreview(id.slice(-3));return;}
     const e=entryBy(id); if(!e) return;
     const final=e.status==='Final';
     const root=document.getElementById('modalHost');
@@ -608,6 +721,10 @@
   function closeModal(){document.getElementById('modalHost').innerHTML='';}
   function action(action,el){switch(action){
     case 'pokedex':case 'studio':case 'overview':case 'characters':case 'forms':case 'moves':case 'guide':selectRoute(action);break;
+    case 'starter-stage':{const target=el.dataset.target;if(STARTER_FAMILIES.some(f=>f.routes.includes(target)))selectRoute(target);break;}
+    case 'squirtle':case 'wartortle':case 'blastoise':selectRoute(action);break;
+    case 'water-full':{const target={'007':'squirtle','008':'wartortle','009':'blastoise'}[el.dataset.species];if(target){closeModal();selectRoute(target);}break;}
+    case 'water-jump':document.getElementById(el.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'});break;
     case 'oak':selectRoute('oak');break;
     case 'bulbasaur':selectRoute('bulbasaur');break;
     case 'ivysaur':selectRoute('ivysaur');break;
@@ -633,7 +750,7 @@
     case 'bulbasaur-preview':openBulbasaurPreview();break;
     case 'bulbasaur-full':closeModal();selectRoute('bulbasaur');requestAnimationFrame(()=>document.getElementById('bulba-program')?.scrollIntoView({behavior:'instant',block:'start'}));break;
     case 'jump-bulbasaur':document.getElementById(el.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'});break;
-    case 'video-version':{const ns=route==='ivysaur'?'ivy':route==='charmander'?'char':route==='charmeleon'?'meleon':route==='charizard'?'zard':'bulba';const tab=document.getElementById(ns+'-tab-'+el.dataset.version);if(!tab)break;document.querySelectorAll('#'+ns+'-scripts [role="tab"]').forEach(t=>{const selected=t===tab;t.setAttribute('aria-selected',String(selected));t.tabIndex=selected?0:-1;t.classList.toggle('selected',selected);});document.querySelectorAll('#'+ns+'-scripts [role="tabpanel"]').forEach(p=>p.hidden=p.id!==ns+'-panel-'+el.dataset.version);tab.focus();break;}
+    case 'video-version':{const ns=route==='ivysaur'?'ivy':route==='charmander'?'char':route==='charmeleon'?'meleon':route==='charizard'?'zard':route==='squirtle'?'water-007':route==='wartortle'?'water-008':route==='blastoise'?'water-009':'bulba';const tab=document.getElementById(ns+'-tab-'+el.dataset.version);if(!tab)break;document.querySelectorAll('#'+ns+'-scripts [role="tab"]').forEach(t=>{const selected=t===tab;t.setAttribute('aria-selected',String(selected));t.tabIndex=selected?0:-1;t.classList.toggle('selected',selected);});document.querySelectorAll('#'+ns+'-scripts [role="tabpanel"]').forEach(p=>p.hidden=p.id!==ns+'-panel-'+el.dataset.version);tab.focus();break;}
     case 'oak-preview':openOakPreview();break;
     case 'oak-full-workout':
       closeModal();
