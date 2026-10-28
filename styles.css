@@ -535,3 +535,31 @@
 .rodent-evolution-grid article strong{display:block;color:#694d71;font-size:14px}
 .rodent-evolution-grid article p{color:#6a6270;font-size:12px;line-height:1.6;margin-top:7px}
 @media(max-width:700px){.rodent-evolution-grid{grid-template-columns:1fr}.rodent-evolution-stage{padding:12px}.rodent-evolution-stage strong{font-size:14px}}
+
+/* Spearow / Fearow, original Kanto bird rivalry #021–022 */
+.spearow-page .bulba-hero{background:linear-gradient(110deg,#383b47,#815950 53%,#b28c70)}
+.spearow-page .bulba-hero h1 span{color:#fff0b4}
+.spearow-page .bulba-hero-art,.spearow-preview-modal .bulba-preview-art{background:radial-gradient(circle at 50% 37%,#fff9df,#efcfa4 53%,#bb8b68)}
+.spearow-hunter-page .bulba-hero{background:linear-gradient(113deg,#453b41,#6a4945 56%,#9c765e)}
+.spearow-page .bulba-row-no{color:#986e4e}
+.spearow-page .bulba-warmup,.spearow-page .bulba-move-card{background:#fff9ef}
+.spearow-page .bulba-move-card{border-color:#f0dfc8}
+.spearow-page .bulba-move-card h3{color:#88582e}
+.spearow-page .bulba-move-icon.type-emblem-holder{background:transparent;border:0}
+.spearow-preview-modal .bulba-preview-button{background:#926241}
+.spearow-evolution-section{background:linear-gradient(128deg,#fff8ee,#eef5ff);border-block:1px solid #e7e1d5}
+.spearow-evolution-stages{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0 12px}
+.spearow-evolution-stage{display:flex;flex-direction:column;gap:5px;background:#fff;border:1px solid #e9d9c5;border-radius:13px;text-align:left;padding:15px;cursor:pointer}
+.spearow-evolution-stage.active{background:#fff0d9;border-color:#ae7a4c;box-shadow:inset 0 0 0 1px #ae7a4c}
+.spearow-evolution-stage small,.spearow-evolution-stage span{color:#846948;font-size:11px;font-weight:800}
+.spearow-evolution-stage strong{color:#6e513c;font-weight:900;font-size:17px}
+.spearow-rival-links{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:18px}
+.spearow-rival-links span{font-size:12px;color:#65798a;font-weight:700}
+.spearow-rival-links button{cursor:pointer;background:#f1f7ff;border:1px solid #bfd4e7;color:#2c5e8b;border-radius:10px;padding:9px 11px;font-weight:800;font-size:12px}
+.spearow-rival-links button:hover{background:#e3efff}
+.spearow-evolution-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.spearow-evolution-grid article{background:#fff;border:1px solid #ecdfd0;border-radius:13px;padding:16px}
+.spearow-evolution-grid article>span{display:block;text-transform:uppercase;font-size:10px;color:#9d7756;letter-spacing:1px;font-weight:900;margin-bottom:7px}
+.spearow-evolution-grid article strong{display:block;font-size:14px;color:#735137}
+.spearow-evolution-grid article p{font-size:12px;line-height:1.7;color:#71695f;margin-top:7px}
+@media(max-width:700px){.spearow-evolution-grid{grid-template-columns:1fr}.spearow-evolution-stage{padding:12px}.spearow-evolution-stage strong{font-size:14px}}

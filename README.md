@@ -177,3 +177,11 @@ Creator-approved complete workouts, four matched A/B scripts, linked progression
 - [#019 Rattata — Route One Scavenger](https://gymtrainermax.github.io/workout-pokedex/#rattata), Beginner+, 16 working sets.
 - [#020 Raticate — Fang Force](https://gymtrainermax.github.io/workout-pokedex/#raticate), Intermediate+, 22 working sets.
 Progression: Tackle stays recognizable as a sled push, Bite plate-pinch hold develops into Hyper Fang plate-pinch carry, Tail Whip band hip-level sweep develops into Iron Tail cable hip-level sweep, and Quick Attack speed becomes a distinct Sucker Punch reactive cable attack. Same-name move consistency follows the original 151 standards. Scripts have matched eight 70-second beats, but footage and A/B results are not yet complete. See [rodent evolution blueprint](production/Route_One_Rodents_Master_Evolution_Blueprint.md) and [approval audit](production/Route_One_Rodents_Creator_Approval_Audit.md). All older workout records remain unchanged.
+
+
+## #021–022 Spearow → Fearow — Early-Route Aerial Rivalry (October 28, 2026)
+Two creator-approved seven-exercise workouts with matching A/B 70-second script drafts have been published as **Review**. No filmed Camera Tests are complete, and neither is Final.
+- [#021 Spearow — Flock Fighter](https://gymtrainermax.github.io/workout-pokedex/#spearow), Beginner+, 16 working sets
+- [#022 Fearow — Aerial Enforcer](https://gymtrainermax.github.io/workout-pokedex/#fearow), Intermediate–Advanced, 21 working sets
+
+Linked exercise continuity: Peck band forward press → Drill Peck landmine press; Aerial Ace remains the same high-to-low cable wing sweep with a step added for Fearow; Pursuit cue acceleration → Agility lateral shuffle to acceleration; Fearow Agility matches Pidgeotto's published drill. The original anime Spearow/Pidgeot rivalry is represented by direct cross-navigation to all Pidgey stages, not contact stunts. Each page links its seven-exercise program, A/B scripts, 20-shot filming checklist, 4 pending filmed Camera Tests, [cross-family blueprint](production/Early_Route_Aerial_Rivalry_Blueprint.md) and [creator audit](production/Early_Route_Aerial_Rivalry_Creator_Audit.md). Earlier #001–020 workouts remain unchanged.
