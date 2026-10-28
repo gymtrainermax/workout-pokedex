@@ -590,3 +590,39 @@
 .snake-evolution-grid article strong{color:#6c467d;font-size:14px}
 .snake-evolution-grid article p{margin-top:8px;font-size:12px;line-height:1.6;color:#6d6174}
 @media(max-width:700px){.snake-evolution-grid{grid-template-columns:1fr}.snake-evolution-stage{padding:11px}.snake-evolution-stage strong{font-size:14px}}
+
+
+/* Published workout color identity. Scoped to the reusable #025+ page and preview components.
+   The first 24 custom preview palettes are intentionally unchanged. */
+.workout-theme-electric .bulba-preview-art,
+.workout-theme-electric .bulba-hero-art {
+ background:radial-gradient(circle at 48% 39%,#fff9c1 0%,#f9df69 48%,#d29e36 100%);
+}
+.workout-theme-ground .bulba-preview-art,
+.workout-theme-ground .bulba-hero-art {
+ background:radial-gradient(circle at 48% 39%,#fff0cf 0%,#d8b57e 49%,#91673e 100%);
+}
+.workout-theme-poison .bulba-preview-art,
+.workout-theme-poison .bulba-hero-art {
+ background:radial-gradient(circle at 48% 39%,#f5d6fa 0%,#b98ad1 49%,#70508e 100%);
+}
+.workout-theme-poison-ground .bulba-preview-art,
+.workout-theme-poison-ground .bulba-hero-art {
+ background:radial-gradient(circle at 48% 39%,#edccec 0%,#b29ac0 43%,#8c6956 100%);
+}
+.workout-theme-fire .bulba-preview-art,.workout-theme-fire .bulba-hero-art {background:radial-gradient(circle at 48% 39%,#ffe5b5,#f7a45b 50%,#b94f38);}
+.workout-theme-water .bulba-preview-art,.workout-theme-water .bulba-hero-art {background:radial-gradient(circle at 48% 39%,#dff9ff,#88ceee 50%,#3d78b4);}
+.workout-theme-grass .bulba-preview-art,.workout-theme-grass .bulba-hero-art {background:radial-gradient(circle at 48% 39%,#e6ffce,#a8da82 50%,#56855a);}
+.workout-theme-bug .bulba-preview-art,.workout-theme-bug .bulba-hero-art {background:radial-gradient(circle at 48% 39%,#eef6cb,#c0d274 50%,#738546);}
+.workout-theme-normal .bulba-preview-art,.workout-theme-normal .bulba-hero-art {background:radial-gradient(circle at 48% 39%,#faf2de,#d4c5a7 50%,#9e8876);}
+.workout-theme-flying .bulba-preview-art,.workout-theme-flying .bulba-hero-art {background:radial-gradient(circle at 48% 39%,#eef6ff,#b8c9e9 50%,#8191bb);}
+.workout-theme-psychic .bulba-preview-art,.workout-theme-psychic .bulba-hero-art {background:radial-gradient(circle at 48% 39%,#ffe5f1,#eca4c6 50%,#b85890);}
+.workout-theme-fighting .bulba-preview-art,.workout-theme-fighting .bulba-hero-art {background:radial-gradient(circle at 48% 39%,#ffeadb,#dc9b81 50%,#a6524e);}
+.workout-theme-rock .bulba-preview-art,.workout-theme-rock .bulba-hero-art {background:radial-gradient(circle at 48% 39%,#f8ebd2,#c9b38a 50%,#827057);}
+.workout-theme-ice .bulba-preview-art,.workout-theme-ice .bulba-hero-art {background:radial-gradient(circle at 48% 39%,#ecffff,#a2e2e6 50%,#65a6b5);}
+.workout-theme-dragon .bulba-preview-art,.workout-theme-dragon .bulba-hero-art {background:radial-gradient(circle at 48% 39%,#e8e2ff,#a298df 50%,#6559a4);}
+.workout-theme-ghost .bulba-preview-art,.workout-theme-ghost .bulba-hero-art {background:radial-gradient(circle at 48% 39%,#eae2fa,#a99bc5 50%,#61547f);}
+.workout-theme-dark .bulba-preview-art,.workout-theme-dark .bulba-hero-art {background:radial-gradient(circle at 48% 39%,#d9d3d9,#8c7f90 50%,#4b4355);}
+.workout-theme-steel .bulba-preview-art,.workout-theme-steel .bulba-hero-art {background:radial-gradient(circle at 48% 39%,#f1f6fa,#b7cad7 50%,#718c9f);}
+.workout-theme-fairy .bulba-preview-art,.workout-theme-fairy .bulba-hero-art {background:radial-gradient(circle at 48% 39%,#fff0f7,#eeb6da 50%,#b66f9b);}
+.workout-theme-electric .bulba-preview-art span,.workout-theme-ground .bulba-preview-art span {color:#413622;}
