@@ -185,3 +185,13 @@ Two creator-approved seven-exercise workouts with matching A/B 70-second script 
 - [#022 Fearow — Aerial Enforcer](https://gymtrainermax.github.io/workout-pokedex/#fearow), Intermediate–Advanced, 21 working sets
 
 Linked exercise continuity: Peck band forward press → Drill Peck landmine press; Aerial Ace remains the same high-to-low cable wing sweep with a step added for Fearow; Pursuit cue acceleration → Agility lateral shuffle to acceleration; Fearow Agility matches Pidgeotto's published drill. The original anime Spearow/Pidgeot rivalry is represented by direct cross-navigation to all Pidgey stages, not contact stunts. Each page links its seven-exercise program, A/B scripts, 20-shot filming checklist, 4 pending filmed Camera Tests, [cross-family blueprint](production/Early_Route_Aerial_Rivalry_Blueprint.md) and [creator audit](production/Early_Route_Aerial_Rivalry_Creator_Audit.md). Earlier #001–020 workouts remain unchanged.
+
+
+## #023–024: Snake Evolution — Ekans and Arbok (2026-10-28)
+Approved exercise programs and **four matched 70-second A/B script drafts** now published as `Review`. Both stages have exactly four official USUM moves, seven gym exercises, 20 planned filming shots and four pending *actual filmed* Camera Tests. No episode has passed filming or achieved Final.
+- [#023 Ekans — Coil Foundations](https://gymtrainermax.github.io/workout-pokedex/#ekans): Beginner+, 16 working sets, 40–50 minutes. Wrap band rotation; Poison Sting band punch; Bite rubber-coated plate pinch hold; Glare tall-kneeling Pallof press.
+- [#024 Arbok — Cobra Command](https://gymtrainermax.github.io/workout-pokedex/#arbok): Intermediate+, 21 working sets, 55–65 minutes. Gunk Shot med-ball chest pass to approved wall; Coil landmine 180s; Crunch plate pinch carry; Glare standing Pallof step-out.
+
+**Evolution themes:** Wrap → Coil (rotational band to landmine), Poison Sting → Gunk Shot (forward punch to projected med-ball), Bite → Crunch (plate pinch hold to carry), and Glare → Glare (same-name Pallof family in progressing positions). These are gym-story analogies, not actual Pokémon move transformations. Ekans Poison Sting also matches Weedle's band-punch move family and Bite matches Rattata's plate pinch hold. Gen VII learnset nuance: Arbok learns Crunch *on evolution*, Coil at Lv56, and Gunk Shot at Lv63 or via the move tutor. Never claim all four moves are available at Lv22.
+
+See [two-stage evolution blueprint](production/Snake_Evolution_Continuity_Blueprint.md) and [creator approval and move audit](production/Snake_Evolution_Creator_Approval_Audit.md). Previously approved workouts #001–022 are not edited.

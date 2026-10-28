@@ -563,3 +563,30 @@
 .spearow-evolution-grid article strong{display:block;font-size:14px;color:#735137}
 .spearow-evolution-grid article p{font-size:12px;line-height:1.7;color:#71695f;margin-top:7px}
 @media(max-width:700px){.spearow-evolution-grid{grid-template-columns:1fr}.spearow-evolution-stage{padding:12px}.spearow-evolution-stage strong{font-size:14px}}
+
+/* Snake Evolution #023–024 • Poison training lineage. */
+.snake-page .bulba-hero{background:linear-gradient(115deg,#35254c,#57345d 55%,#7f507e)}
+.snake-page .bulba-hero h1 span{color:#e7f4a3}
+.snake-page .bulba-hero-art,.snake-preview-modal .bulba-preview-art{background:radial-gradient(circle at 50% 40%,#eef6c2 0%,#c4d991 46%,#8576ab 100%)}
+.snake-cobra-page .bulba-hero{background:linear-gradient(115deg,#29213d,#573d64 54%,#846183)}
+.snake-cobra-page .bulba-hero-art{background:radial-gradient(circle at 50% 40%,#e8e6b7 0%,#baaaab 48%,#7d6489 100%)}
+.snake-page .bulba-row-no{color:#794477}
+.snake-page .bulba-warmup{background:#f6f5e8}
+.snake-page .bulba-move-card{background:#f8f5fb;border-color:#e5ddeb}
+.snake-page .bulba-move-card h3{color:#744876}
+.snake-page .bulba-move-icon.type-emblem-holder{background:transparent;border:0}
+.snake-preview-modal .bulba-preview-button{background:#654875}
+.snake-preview-modal .bulba-preview-list>.bulba-preview-move{background:#f6f3fa}
+.snake-text-block{white-space:pre-line}
+.snake-evolution-section{background:linear-gradient(135deg,#f8f3fc 10%,#f5f8e5 100%);border-block:1px solid #e8dbeb}
+.snake-evolution-stages{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}
+.snake-evolution-stage{display:flex;flex-direction:column;gap:6px;text-align:left;border:1px solid #ded1e4;border-radius:14px;background:#fff;padding:15px 17px;cursor:pointer}
+.snake-evolution-stage.active{background:#efe8f6;border-color:#9368a1;box-shadow:inset 0 0 0 1px #9368a1}
+.snake-evolution-stage strong{font-size:17px;font-weight:900;color:#674575}
+.snake-evolution-stage span,.snake-evolution-stage small{color:#806b86;font-size:11px;font-weight:800}
+.snake-evolution-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.snake-evolution-grid article{background:#fff;border:1px solid #e7deea;border-radius:13px;padding:16px;min-width:0}
+.snake-evolution-grid article>span{display:block;font-size:11px;font-weight:900;letter-spacing:.7px;color:#86708b;text-transform:uppercase;margin-bottom:8px}
+.snake-evolution-grid article strong{color:#6c467d;font-size:14px}
+.snake-evolution-grid article p{margin-top:8px;font-size:12px;line-height:1.6;color:#6d6174}
+@media(max-width:700px){.snake-evolution-grid{grid-template-columns:1fr}.snake-evolution-stage{padding:11px}.snake-evolution-stage strong{font-size:14px}}
