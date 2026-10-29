@@ -953,7 +953,7 @@ function snakeEvolutionPanel(id){
     const e=nextFourEntry(n);
     if(!e)return head('WORKOUT '+n,'Programming underway','No published workout available.');
     const p=e.production||{}, ns='new-'+n;
-    const partner={'025':'026','026':'025','027':'028','028':'027'}[n];
+    const partner={'025':'026','026':'025','027':'028','028':'027','056':'057','057':'056'}[n];
     const peer=nextFourEntry(partner);
     const artUrl='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'+Number(n)+'.png';
     const rows=e.exercises.map((x,i)=>`<tr><td><span class="bulba-row-no">${String(i+1).padStart(2,'0')}</span></td><td><strong>${safe(x.name)}</strong></td><td>${safe(x.sets)} × ${safe(x.reps)}</td><td>${safe(x.rest)}</td></tr>`).join('');
