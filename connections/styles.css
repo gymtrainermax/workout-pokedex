@@ -61,3 +61,31 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;background:li
 @media(max-width:1100px){.visual-atlas{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:720px){.visual-atlas{grid-template-columns:repeat(2,minmax(0,1fr))}.atlas-card{min-height:240px}.dialog-visual{grid-template-columns:1fr}.dialog-visual img{height:220px}.footer-links{align-items:flex-start}.image-credits{text-align:left}}
 @media(max-width:470px){.visual-atlas{grid-template-columns:1fr}.atlas-card{min-height:300px}}
+
+
+/* Neon Planets creator scripts */
+.creator-script{
+  border:1px solid rgba(97,228,197,.22);
+  background:linear-gradient(145deg,rgba(97,228,197,.07),rgba(138,125,255,.07));
+  border-radius:18px;
+  padding:20px;
+}
+.creator-script.skit-script{
+  border-color:rgba(239,120,186,.24);
+  background:linear-gradient(145deg,rgba(239,120,186,.07),rgba(255,206,92,.06));
+}
+.script-heading{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.script-heading h3{margin:0}
+.script-badge{
+  display:inline-flex;align-items:center;justify-content:center;min-width:52px;
+  padding:6px 9px;border-radius:999px;background:#61e4c5;color:#07121d;
+  font:700 11px/1 "Space Grotesk",sans-serif;letter-spacing:.12em
+}
+.skit-script .script-badge{background:#ef78ba}
+.script-piece{padding:14px 0;border-top:1px solid rgba(255,255,255,.08)}
+.script-piece:first-of-type{border-top:0;padding-top:0}
+.script-piece strong{
+  display:block;margin-bottom:7px;color:#ffce5c;
+  font:600 12px/1.2 "Space Grotesk",sans-serif;letter-spacing:.08em;text-transform:uppercase
+}
+.script-piece p{margin:0;color:var(--muted);line-height:1.72}
