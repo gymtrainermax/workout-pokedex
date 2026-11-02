@@ -109,6 +109,21 @@
   $('#clearFilters').addEventListener('click', () => {state.q='';state.franchise='All';state.kind='All';state.visible=24;$('#searchInput').value='';renderFilterRow($('#franchiseFilters'),franchiseList,'franchise');renderFilterRow($('#kindFilters'),kindList,'kind');renderConnections();});
   $('#loadMore').addEventListener('click', () => {state.visible+=24;renderConnections();});
 
+  const creatorScriptMarkup = topic => {
+    const nl = value => escapeHTML(value || '').replace(/\\n/g, '<br>');
+    const video = topic.videoScript ? `<div class="dialog-section creator-script">
+      <div class="script-heading"><span class="script-badge">VIDEO</span><h3>${escapeHTML(topic.videoScript.title || 'Creature Connections explainer')}</h3></div>
+      <div class="script-piece"><strong>Hook</strong><p>${nl(topic.videoScript.hook)}</p></div>
+      ${topic.videoScript.visual ? `<div class="script-piece"><strong>Visual direction</strong><p>${nl(topic.videoScript.visual)}</p></div>` : ''}
+      <div class="script-piece"><strong>Script</strong><p>${nl(topic.videoScript.body)}</p></div>
+      ${topic.videoScript.cta ? `<div class="script-piece"><strong>CTA</strong><p>${nl(topic.videoScript.cta)}</p></div>` : ''}
+    </div>` : '';
+    const skit = topic.skitScript ? `<div class="dialog-section creator-script skit-script">
+      <div class="script-heading"><span class="script-badge">SKIT</span><h3>${escapeHTML(topic.skitScript.title || 'Companion skit')}</h3></div>
+      <div class="script-piece"><strong>Film-ready script</strong><p>${nl(topic.skitScript.body)}</p></div>
+    </div>` : '';
+    return video + skit;
+  };
   const dialog = $('#topicDialog');
   const openTopic = id => {
     const topic = data.topics.find(x=>x.id===id);
@@ -126,6 +141,7 @@
       ${featured ? `<div class="dialog-section"><h3>Evidence framing</h3><p class="dialog-summary">${escapeHTML(featured.evidence)}</p></div>` : ''}
       ${topic.rationale ? `<div class="dialog-section"><h3>Why it stays separate</h3><p class="dialog-summary">${escapeHTML(topic.rationale)}</p></div>` : ''}
       <div class="dialog-section"><h3>Content potential</h3><p class="dialog-summary">${topic.reelCount} mapped Reel concepts · starter format: ${escapeHTML(topic.starterFormat || 'comparison / analysis')}</p></div>
+      ${creatorScriptMarkup(topic)}
       ${topic.sources?.length ? `<div class="dialog-section"><h3>Research links</h3><div class="source-list">${topic.sources.map(url=>`<a href="${escapeHTML(url)}" target="_blank" rel="noreferrer">${escapeHTML(url)} ↗</a>`).join('')}</div></div>` : ''}
     </div>`;
     dialog.showModal();
