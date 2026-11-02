@@ -29,9 +29,20 @@
     confirmed:['#61e4c5','#8ff2d8'], possible:['#ffce5c','#ffe08b'], source:['#4db5ff','#8fd7ff'],
     myth:['#ef78ba','#ffa8d1'], internal:['#8a7dff','#b8aeff']
   };
+  const visualForTopic = id => data.visuals?.find(v => v.topicId === id);
+  const visualMarkup = (v, className='visual-image') => v ? `<div class="${className}-wrap"><img class="${className}" src="${escapeHTML(v.image)}" alt="${escapeHTML(v.alt)}" loading="lazy" decoding="async"><div class="visual-caption"><span>${escapeHTML(v.kicker)}</span><strong>${escapeHTML(v.label)}</strong></div></div>` : '';
+  $('#visualAtlas').innerHTML = (data.visuals || []).map(v => `<article class="atlas-card" data-topic-id="${escapeHTML(v.topicId)}">
+      <img src="${escapeHTML(v.image)}" alt="${escapeHTML(v.alt)}" loading="lazy" decoding="async">
+      <div class="atlas-overlay"><span>${escapeHTML(v.kicker)}</span><h3>${escapeHTML(v.label)}</h3><p>${escapeHTML(v.note)}</p><small>Open connection ↗</small></div>
+    </article>`).join('');
+
+  $('#imageCredits').innerHTML = (data.visuals || []).map(v => `<p><a href="${escapeHTML(v.source)}" target="_blank" rel="noreferrer">${escapeHTML(v.label)} ↗</a> · ${escapeHTML(v.credit)} · ${escapeHTML(v.license)}</p>`).join('');
+
   $('#featuredGrid').innerHTML = data.featured.map((f,i) => {
     const [accent, accentText] = toneMap[f.tone] || toneMap.source;
-    return `<article class="feature-card" data-topic-id="${escapeHTML(f.topicId)}" style="--accent:${accent}55;--accentText:${accentText}">
+    const visual = visualForTopic(f.topicId);
+    return `<article class="feature-card ${visual?'has-photo':''}" data-topic-id="${escapeHTML(f.topicId)}" style="--accent:${accent}55;--accentText:${accentText}">
+      ${visual ? visualMarkup(visual, 'feature-photo') : ''}
       <div class="feature-eyebrow">${escapeHTML(f.eyebrow)}</div>
       <h3>${escapeHTML(f.headline)}</h3>
       <p>${escapeHTML(f.summary)}</p>
@@ -58,7 +69,10 @@
       (state.kind==='All' || topic.kind===state.kind);
   };
 
-  const cardHTML = topic => `<article class="connection-card" data-topic-id="${escapeHTML(topic.id)}">
+  const cardHTML = topic => {
+    const visual = visualForTopic(topic.id);
+    return `<article class="connection-card ${visual?'has-thumb':''}" data-topic-id="${escapeHTML(topic.id)}">
+    ${visual ? `<div class="connection-thumb"><img src="${escapeHTML(visual.image)}" alt="" loading="lazy" decoding="async"></div>` : ''}
     <div class="connection-top"><span class="topic-id">${escapeHTML(topic.id)}</span><span class="topic-kind">${escapeHTML(topic.kind)}</span></div>
     <h3>${escapeHTML(topic.title)}</h3>
     <div class="basis">Shared basis · ${escapeHTML(topic.basis)}</div>
@@ -68,6 +82,7 @@
       <span class="reel-count">${topic.reelCount} reel idea${topic.reelCount===1?'':'s'} ↗</span>
     </div>
   </article>`;
+  };
 
   const renderConnections = () => {
     const filtered = data.topics.filter(matches);
@@ -99,7 +114,9 @@
     const topic = data.topics.find(x=>x.id===id);
     if (!topic) return;
     const featured = data.featured.find(x=>x.topicId===id);
+    const visual = visualForTopic(topic.id);
     $('#dialogContent').innerHTML = `<div class="dialog-body">
+      ${visual ? `<div class="dialog-visual"><img src="${escapeHTML(visual.image)}" alt="${escapeHTML(visual.alt)}"><div><span>${escapeHTML(visual.kicker)}</span><strong>${escapeHTML(visual.label)}</strong><p>${escapeHTML(visual.note)}</p><a href="${escapeHTML(visual.source)}" target="_blank" rel="noreferrer">Image source ↗</a></div></div>` : ''}
       <div class="dialog-kicker">${escapeHTML(topic.id)} · ${escapeHTML(topic.kind)}</div>
       <h2>${escapeHTML(topic.title)}</h2>
       <div class="dialog-basis">Shared basis · ${escapeHTML(topic.basis)}</div>
