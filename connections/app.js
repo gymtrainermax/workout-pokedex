@@ -63,7 +63,7 @@
 
   const matches = topic => {
     const q = state.q.trim().toLowerCase();
-    const hay = [topic.id,topic.title,topic.basis,topic.scope,topic.kind,...topic.characters,...topic.franchises].join(' ').toLowerCase();
+    const hay = [topic.id,topic.title,topic.basis,topic.scope,topic.kind,topic.category,topic.summary,topic.rationale,...topic.characters,...topic.franchises].filter(Boolean).join(' ').toLowerCase();
     return (!q || hay.includes(q)) &&
       (state.franchise==='All' || topic.franchises.includes(state.franchise)) &&
       (state.kind==='All' || topic.kind===state.kind);
