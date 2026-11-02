@@ -107,9 +107,15 @@
           <label class="search-wrap">
             <span class="sr-only">Search connections</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            <input id="searchInput" type="search" placeholder="Search sea angel, Gammamon, fox, Yu-Gi-Oh!…" autocomplete="off" />
+            <input id="searchInput" type="search" placeholder="Search a character, creature, franchise or idea…" autocomplete="off" />
+            <kbd>/</kbd>
           </label>
           <button class="button compact ghost" id="randomButton" type="button">Random connection ✦</button>
+        </div>
+
+        <div class="focus-filter-wrap">
+          <span class="filter-label">Quick view</span>
+          <div class="filter-row focus-row" id="focusFilters"></div>
         </div>
 
         <div class="filter-block">
@@ -121,7 +127,7 @@
           <div class="filter-row" id="kindFilters"></div>
         </div>
 
-        <div class="results-meta"><strong id="resultCount">0</strong><span>connections showing</span><button id="clearFilters" type="button">Clear filters</button></div>
+        <div class="results-meta" aria-live="polite"><div><strong id="resultCount">0</strong><span>connections showing</span></div><button id="clearFilters" type="button">Reset view</button></div>
         <div class="connection-grid" id="connectionGrid"></div>
         <button class="button load-more" id="loadMore" type="button">Load more connections</button>
       </div>
@@ -170,6 +176,11 @@
       </div>
     </section>
   </main>
+
+  <dialog class="image-lightbox" id="imageLightbox" aria-label="Character image viewer">
+    <button class="dialog-close lightbox-close" id="lightboxClose" type="button" aria-label="Close image">×</button>
+    <div id="lightboxContent"></div>
+  </dialog>
 
   <dialog class="topic-dialog" id="topicDialog">
     <button class="dialog-close" id="dialogClose" type="button" aria-label="Close connection details">×</button>
