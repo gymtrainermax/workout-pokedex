@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#09111f" />
+  <meta name="description" content="Creature Connections: a searchable GymTrainerMax archive connecting Tamagotchi, Digimon, Pokémon, Yu-Gi-Oh! and more through animals, folklore, design history and visual language." />
+  <title>Creature Connections · GymTrainerMax</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Creature Connections home">
+      <span class="brand-mark">CC</span>
+      <span class="brand-copy"><strong>Creature Connections</strong><small>by GymTrainerMax</small></span>
+    </a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#case-files">Case Files</a>
+      <a href="#explore">Explore</a>
+      <a href="#method">Method</a>
+      <button class="nav-random" id="navRandom" type="button">Surprise me ✦</button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <div class="hero-copy">
+        <p class="kicker">TAMAGOTCHI × DIGIMON × POKÉMON × YU-GI-OH! × MORE</p>
+        <h1>Different worlds.<br><span>Same creature DNA.</span></h1>
+        <p class="hero-lede">A living research archive of the animals, myths, objects, visual rules and design histories that make our favorite characters feel strangely connected.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#explore">Explore all connections</a>
+          <button class="button ghost" id="heroRandom" type="button">Give me a random connection</button>
+        </div>
+        <div class="hero-stats" id="heroStats" aria-label="Project statistics"></div>
+      </div>
+
+      <div class="hero-visual" aria-label="Abstract creature connection constellation">
+        <div class="orb orb-a"></div>
+        <div class="orb orb-b"></div>
+        <div class="constellation-card">
+          <div class="constellation-head"><span>LIVE CONNECTION MAP</span><span class="pulse"></span></div>
+          <svg viewBox="0 0 560 420" role="img" aria-label="Stylized connection network">
+            <defs>
+              <linearGradient id="lineGrad" x1="0" x2="1"><stop offset="0" stop-color="#61e4c5"/><stop offset="1" stop-color="#8a7dff"/></linearGradient>
+              <filter id="glow"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <g class="network-lines" stroke="url(#lineGrad)" stroke-width="2" opacity=".5">
+              <line x1="280" y1="210" x2="100" y2="90"/><line x1="280" y1="210" x2="454" y2="92"/>
+              <line x1="280" y1="210" x2="468" y2="310"/><line x1="280" y1="210" x2="112" y2="326"/>
+              <line x1="100" y1="90" x2="454" y2="92" opacity=".25"/><line x1="112" y1="326" x2="468" y2="310" opacity=".25"/>
+            </g>
+            <g class="network-nodes" filter="url(#glow)">
+              <circle cx="280" cy="210" r="48" fill="#0e1830" stroke="#61e4c5" stroke-width="3"/>
+              <circle cx="100" cy="90" r="30" fill="#13233c" stroke="#ffce5c" stroke-width="2"/>
+              <circle cx="454" cy="92" r="30" fill="#13233c" stroke="#ef78ba" stroke-width="2"/>
+              <circle cx="468" cy="310" r="30" fill="#13233c" stroke="#8a7dff" stroke-width="2"/>
+              <circle cx="112" cy="326" r="30" fill="#13233c" stroke="#4db5ff" stroke-width="2"/>
+            </g>
+            <g font-family="Space Grotesk, sans-serif" font-size="16" font-weight="700" text-anchor="middle" fill="#f7fbff">
+              <text x="280" y="216">SHARED SOURCE</text>
+              <text x="100" y="95">TAMA</text><text x="454" y="97">DIGI</text>
+              <text x="468" y="315">POKÉ</text><text x="112" y="331">YGO</text>
+            </g>
+          </svg>
+          <div class="constellation-foot"><span>animal</span><span>myth</span><span>design</span><span>history</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ticker" aria-label="Featured connection themes">
+      <div class="ticker-track">
+        <span>SEA ANGELS</span><i>✦</i><span>KITSUNE</span><i>✦</i><span>SLIMES</span><i>✦</i><span>CELESTIAL DRAGONS</span><i>✦</i><span>BEETLES</span><i>✦</i><span>CAT MASCOTS</span><i>✦</i><span>DEVILS</span><i>✦</i><span>FOSSILS</span><i>✦</i><span>SEA ANGELS</span><i>✦</i><span>KITSUNE</span><i>✦</i><span>SLIMES</span><i>✦</i><span>CELESTIAL DRAGONS</span>
+      </div>
+    </section>
+
+    <section class="section shell" id="case-files">
+      <div class="section-heading">
+        <div><p class="kicker">EDITOR'S DESK</p><h2>Featured case files</h2></div>
+        <p>These are the connections that best show the range of the project: confirmed history, possible influence, folklore, real creatures and in-franchise design lineages.</p>
+      </div>
+      <div class="featured-grid" id="featuredGrid"></div>
+    </section>
+
+    <section class="section explore-section" id="explore">
+      <div class="shell">
+        <div class="section-heading explore-heading">
+          <div><p class="kicker">THE CANONICAL ARCHIVE</p><h2>Explore every connection</h2></div>
+          <p>The duplicates are gone. This is the streamlined public index of canonical connection families.</p>
+        </div>
+
+        <div class="explore-toolbar">
+          <label class="search-wrap">
+            <span class="sr-only">Search connections</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <input id="searchInput" type="search" placeholder="Search sea angel, Gammamon, fox, Yu-Gi-Oh!…" autocomplete="off" />
+          </label>
+          <button class="button compact ghost" id="randomButton" type="button">Random connection ✦</button>
+        </div>
+
+        <div class="filter-block">
+          <span class="filter-label">Franchise</span>
+          <div class="filter-row" id="franchiseFilters"></div>
+        </div>
+        <div class="filter-block">
+          <span class="filter-label">Connection type</span>
+          <div class="filter-row" id="kindFilters"></div>
+        </div>
+
+        <div class="results-meta"><strong id="resultCount">0</strong><span>connections showing</span><button id="clearFilters" type="button">Clear filters</button></div>
+        <div class="connection-grid" id="connectionGrid"></div>
+        <button class="button load-more" id="loadMore" type="button">Load more connections</button>
+      </div>
+    </section>
+
+    <section class="section shell method" id="method">
+      <div class="section-heading">
+        <div><p class="kicker">HOW THE DOTS GET CONNECTED</p><h2>Evidence before vibes.</h2></div>
+        <p>Similarity is interesting. It is not automatically proof of copying. Every connection is framed according to what the evidence can actually support.</p>
+      </div>
+
+      <div class="method-grid">
+        <article><span class="method-no">01</span><h3>Start with the source</h3><p>What is the underlying animal, plant, fossil, myth, object, body plan or mascot role?</p></article>
+        <article><span class="method-no">02</span><h3>Compare what had to match</h3><p>A snowflake will be symmetrical. A mantis already has blade-like forelegs. Some similarities are built into the source.</p></article>
+        <article><span class="method-no">03</span><h3>Find what did not have to match</h3><p>Color placement, face geometry, proportions, role and unusual accessories are where a resemblance becomes more interesting.</p></article>
+        <article><span class="method-no">04</span><h3>Check the timeline</h3><p>Who appeared first? Chronology can establish precedent, but it does not prove direct inspiration by itself.</p></article>
+        <article><span class="method-no">05</span><h3>Look for the bridge</h3><p>Shared designers, companies, official lore, interviews and documented variants can turn a resemblance into an actual historical connection.</p></article>
+        <article><span class="method-no">06</span><h3>Label the conclusion</h3><p>Confirmed connection, documented echo, possible influence, convergence, shared source or simply a great comparison.</p></article>
+      </div>
+
+      <div class="evidence-legend">
+        <span class="legend confirmed">Confirmed</span>
+        <span class="legend possible">Possible influence</span>
+        <span class="legend source">Shared source</span>
+        <span class="legend internal">In-franchise lineage</span>
+        <span class="legend myth">Myth / folklore</span>
+      </div>
+    </section>
+
+    <section class="section shell incoming">
+      <div class="incoming-card">
+        <div>
+          <p class="kicker">NEXT WAVE · NOVEMBER 2026</p>
+          <h2>New Tamagotchi characters just dropped.<br>The board is about to get bigger.</h2>
+          <p>This archive was built to expand. New characters can be checked against every existing connection family before a new family is created.</p>
+        </div>
+        <div class="radar" aria-hidden="true"><div></div><span>NEW<br>DATA</span></div>
+      </div>
+    </section>
+
+    <section class="section shell about">
+      <div class="about-card">
+        <div><p class="kicker">ABOUT THE PROJECT</p><h2>Built by a fan who kept noticing things.</h2></div>
+        <p>Creature Connections began with Tamagotchi Paradise and a simple question: <em>why does this character remind me of something from another franchise?</em> That question grew into a catalog spanning virtual pets, monster games, anime, card games, folklore, zoology and character-design history.</p>
+        <p>The goal is not to flatten every character into “they look alike.” It is to make the source material visible—and to appreciate the design choices that make each interpretation its own thing.</p>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="topic-dialog" id="topicDialog">
+    <button class="dialog-close" id="dialogClose" type="button" aria-label="Close connection details">×</button>
+    <div id="dialogContent"></div>
+  </dialog>
+
+  <footer class="site-footer shell">
+    <div><strong>Creature Connections</strong><p>An unofficial fan research project by GymTrainerMax.</p></div>
+    <p class="legal">Tamagotchi, Digimon, Pokémon, Yu-Gi-Oh! and all other referenced properties belong to their respective rights holders. This project is not affiliated with or endorsed by those companies.</p>
+    <a href="https://github.com/gymtrainermax/workout-pokedex/tree/main/connections" target="_blank" rel="noreferrer">View source on GitHub ↗</a>
+  </footer>
+
+  <script src="data-core.js"></script>
+  <script src="topics-1.js"></script>
+  <script src="topics-2.js"></script>
+  <script src="topics-3.js"></script>
+  <script src="topics-4.js"></script>
+  <script src="topics-5.js"></script>
+  <script src="topics-6.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
