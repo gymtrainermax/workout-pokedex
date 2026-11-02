@@ -626,3 +626,9 @@
 .workout-theme-steel .bulba-preview-art,.workout-theme-steel .bulba-hero-art {background:radial-gradient(circle at 48% 39%,#f1f6fa,#b7cad7 50%,#718c9f);}
 .workout-theme-fairy .bulba-preview-art,.workout-theme-fairy .bulba-hero-art {background:radial-gradient(circle at 48% 39%,#fff0f7,#eeb6da 50%,#b66f9b);}
 .workout-theme-electric .bulba-preview-art span,.workout-theme-ground .bulba-preview-art span {color:#413622;}
+
+/* Creature Connections easter egg */
+.connection-easter-egg{position:relative;display:inline-grid;place-items:center;width:18px;height:18px;margin:0 3px;text-decoration:none!important;border-radius:50%;transition:transform .22s ease,color .22s ease,filter .22s ease}
+.connection-easter-egg:hover,.connection-easter-egg:focus-visible{color:#c6fd67;transform:rotate(90deg) scale(1.25);filter:drop-shadow(0 0 7px rgba(198,253,103,.8));outline:none}
+.connection-easter-egg::after{content:"A CONNECTION WAS DETECTED…";position:absolute;left:50%;bottom:28px;transform:translate(-50%,8px);opacity:0;pointer-events:none;white-space:nowrap;padding:8px 10px;border-radius:9px;background:#17172e;color:#c6fd67;font-size:8px;font-weight:900;letter-spacing:1px;box-shadow:0 10px 26px rgba(0,0,0,.22);transition:opacity .18s ease,transform .18s ease;z-index:40}
+.connection-easter-egg:hover::after,.connection-easter-egg:focus-visible::after{opacity:1;transform:translate(-50%,0)}
