@@ -19,6 +19,7 @@
       <span class="brand-copy"><strong>Creature Connections</strong><small>by GymTrainerMax</small></span>
     </a>
     <nav class="nav" aria-label="Primary navigation">
+      <a href="#paradise-worlds">Paradise Worlds</a>
       <a href="#visual-atlas">Visual Atlas</a>
       <a href="#case-files">Case Files</a>
       <a href="#explore">Explore</a>
@@ -80,6 +81,18 @@
     </section>
 
 
+    <section class="section shell paradise-worlds-section" id="paradise-worlds">
+      <div class="section-heading paradise-worlds-heading">
+        <div><p class="kicker">TAMAGOTCHI PARADISE</p><h2>Explore the archive by world.</h2></div>
+        <p>Paradise is organized across six Tama Fields plus Cosmic Planet and Tamagotchi Planet. Pick a world to see only the Creature Connections tied to its official character roster.</p>
+      </div>
+      <div class="worlds-toolbar">
+        <button class="worlds-all-button active" id="worldsAllButton" type="button">All Paradise worlds</button>
+        <span id="worldsSummary">Loading Paradise map…</span>
+      </div>
+      <div class="paradise-worlds-grid" id="paradiseWorldsGrid" aria-live="polite"></div>
+    </section>
+
     <section class="section shell visual-source-section" id="visual-atlas">
       <div class="section-heading">
         <div><p class="kicker">THE SOURCE MATERIAL</p><h2>Before they were characters, they were real.</h2></div>
@@ -127,6 +140,7 @@
           <div class="filter-row" id="kindFilters"></div>
         </div>
 
+        <div class="active-world-filter" id="activeWorldFilter" hidden></div>
         <div class="results-meta" aria-live="polite"><div><strong id="resultCount">0</strong><span>connections showing</span></div><button id="clearFilters" type="button">Reset view</button></div>
         <div class="connection-grid" id="connectionGrid"></div>
         <button class="button load-more" id="loadMore" type="button">Load more connections</button>
@@ -205,6 +219,7 @@
   <script src="topics-6.js"></script>
   <script src="topics-7.js"></script>
   <script src="neon-planets.js"></script>
+  <script src="paradise-worlds.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
