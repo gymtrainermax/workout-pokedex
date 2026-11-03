@@ -19,6 +19,14 @@
 
   const visualForTopic = id => data.visuals?.find(v => v.topicId === id);
   const galleryForTopic = topic => Array.isArray(topic?.gallery) ? topic.gallery.filter(x => x?.name) : [];
+  const worlds = Array.isArray(data.paradiseWorlds) ? data.paradiseWorlds : [];
+  const topicNames = topic => new Set([topic?.title, ...(topic?.characters || [])].filter(Boolean));
+  const worldMatchesTopic = (world, topic) => {
+    if (!world || !topic) return false;
+    const names = topicNames(topic);
+    return (world.characterNames || []).some(name => names.has(name));
+  };
+  const worldsForTopic = topic => worlds.filter(world => worldMatchesTopic(world, topic));
   const primaryMedia = topic => {
     const gallery = galleryForTopic(topic);
     if (gallery.length) return {image:gallery[0].image, alt:gallery[0].name, source:gallery[0].source, name:gallery[0].name};
@@ -86,11 +94,68 @@
     }).join('');
   }
 
-  const state = {q:'', franchise:'All', kind:'All', focus:'All archive', visible:24};
+  const state = {q:'', franchise:'All', kind:'All', focus:'All archive', world:'all', visible:24};
   const priorityFranchises = ['All','Tamagotchi','Digimon','Pokémon','Yu-Gi-Oh!','Sanrio','Disney','Sonic the Hedgehog','Dragon Quest','Final Fantasy'];
   const franchiseList = priorityFranchises.filter(x => x==='All' || data.filters.franchises.includes(x));
   const kindList = ['All', ...data.filters.kinds];
   const focusList = ['All archive','Neon Planets','With images','With scripts'];
+
+  const mappedTopicsForWorld = world => data.topics.filter(topic => worldMatchesTopic(world, topic));
+  const mappedCharactersForWorld = world => {
+    const mappedTopics = mappedTopicsForWorld(world);
+    return (world.characterNames || []).filter(name => mappedTopics.some(topic => topic.title === name || (topic.characters || []).includes(name)));
+  };
+  const renderParadiseWorlds = () => {
+    const grid = $('#paradiseWorldsGrid');
+    if (!grid || !worlds.length) return;
+    grid.innerHTML = worlds.map(world => {
+      const mappedTopics = mappedTopicsForWorld(world);
+      const mappedCharacters = mappedCharactersForWorld(world);
+      const preview = mappedCharacters.slice(0,5);
+      return `<article class="paradise-world-card ${state.world===world.id?'active':''}" data-world-id="${escapeHTML(world.id)}">
+        <div class="world-card-top">
+          <div class="world-orb world-orb-${escapeHTML(world.id)}"><span>${escapeHTML(world.symbol)}</span></div>
+          <div class="world-type">${escapeHTML(world.type)}</div>
+        </div>
+        <div class="world-card-copy">
+          <h3>${escapeHTML(world.name)}</h3>
+          <p>${escapeHTML(world.description)}</p>
+        </div>
+        <div class="world-progress">
+          <strong>${mappedCharacters.length}<span>/${(world.characterNames||[]).length}</span></strong>
+          <small>official adults represented</small>
+        </div>
+        <div class="world-character-preview">
+          ${preview.map(name=>`<span>${escapeHTML(name)}</span>`).join('')}
+          ${mappedCharacters.length>preview.length?`<span>+${mappedCharacters.length-preview.length}</span>`:''}
+        </div>
+        <div class="world-card-footer">
+          <span>${mappedTopics.length} case file${mappedTopics.length===1?'':'s'}</span>
+          <button type="button" data-world-id="${escapeHTML(world.id)}">Explore ${escapeHTML(world.name)} →</button>
+        </div>
+      </article>`;
+    }).join('');
+    const totalMapped = worlds.reduce((n,world)=>n+mappedCharactersForWorld(world).length,0);
+    if ($('#worldsSummary')) $('#worldsSummary').textContent = `${worlds.length} worlds · ${totalMapped} mapped roster links`;
+    $('#worldsAllButton')?.classList.toggle('active', state.world==='all');
+  };
+
+  const renderWorldSelection = () => {
+    const selected = worlds.find(world => world.id === state.world);
+    $('.paradise-world-card').forEach(card => card.classList.toggle('active', card.dataset.worldId === state.world));
+    $('#worldsAllButton')?.classList.toggle('active', state.world==='all');
+    const banner = $('#activeWorldFilter');
+    if (!banner) return;
+    if (!selected) {
+      banner.hidden = true;
+      banner.innerHTML = '';
+    } else {
+      banner.hidden = false;
+      banner.innerHTML = `<div><span>Paradise world</span><strong>${escapeHTML(selected.name)}</strong><small>${escapeHTML(selected.type)}</small></div><button type="button" data-clear-world>Show all worlds ×</button>`;
+    }
+  };
+  renderParadiseWorlds();
+  renderWorldSelection();
 
   const renderFilterRow = (target, items, key) => {
     if (!target) return;
@@ -110,10 +175,13 @@
       (state.focus === 'Neon Planets' && isNeonTopic(topic)) ||
       (state.focus === 'With images' && gallery.length > 0) ||
       (state.focus === 'With scripts' && (topic.videoScript || topic.skitScript));
+    const selectedWorld = worlds.find(world => world.id === state.world);
+    const worldMatch = !selectedWorld || worldMatchesTopic(selectedWorld, topic);
     return (!q || hay.includes(q)) &&
       (state.franchise==='All' || topic.franchises.includes(state.franchise)) &&
       (state.kind==='All' || topic.kind===state.kind) &&
-      focusMatch;
+      focusMatch &&
+      worldMatch;
   };
 
   const cardMedia = topic => {
@@ -130,10 +198,11 @@
     return `<div class="connection-media connection-media-empty" data-fallback="${escapeHTML(initials(topic.title))}"><span>${escapeHTML(initials(topic.title))}</span></div>`;
   };
 
-  const cardHTML = topic => `<article class="connection-card ${galleryForTopic(topic).length?'has-gallery':''}" data-topic-id="${escapeHTML(topic.id)}">
+  const cardHTML = topic => {\n    const topicWorlds = worldsForTopic(topic);\n    return `<article class="connection-card ${galleryForTopic(topic).length?'has-gallery':''}" data-topic-id="${escapeHTML(topic.id)}">
     ${cardMedia(topic)}
     <div class="connection-card-copy">
       <div class="connection-top"><span class="topic-id">${escapeHTML(topic.id)}</span><span class="topic-kind">${escapeHTML(topic.kind)}</span></div>
+      ${topicWorlds.length ? `<div class="card-worlds">${topicWorlds.map(world=>`<span class="world-mini world-mini-${escapeHTML(world.id)}">${escapeHTML(world.label)}</span>`).join('')}</div>` : ''}
       <h3>${escapeHTML(topic.title)}</h3>
       <div class="basis">${escapeHTML(topic.basis)}</div>
       <div class="character-list">${escapeHTML(topic.characters.slice(0,5).join(' · '))}${topic.characters.length>5?' · +'+(topic.characters.length-5)+' more':''}</div>
@@ -143,6 +212,7 @@
       </div>
     </div>
   </article>`;
+  };
 
   const renderConnections = () => {
     const filtered = data.topics.filter(matches);
@@ -155,14 +225,21 @@
 
   $('#searchInput')?.addEventListener('input', e => {state.q=e.target.value;state.visible=24;renderConnections();});
   $('#clearFilters')?.addEventListener('click', () => {
-    state.q=''; state.franchise='All'; state.kind='All'; state.focus='All archive'; state.visible=24;
+    state.q=''; state.franchise='All'; state.kind='All'; state.focus='All archive'; state.world='all'; state.visible=24;
     if ($('#searchInput')) $('#searchInput').value='';
     renderFilterRow($('#franchiseFilters'),franchiseList,'franchise');
     renderFilterRow($('#kindFilters'),kindList,'kind');
     renderFilterRow($('#focusFilters'),focusList,'focus');
+    renderWorldSelection();
     renderConnections();
   });
   $('#loadMore')?.addEventListener('click', () => {state.visible+=24;renderConnections();});
+  $('#worldsAllButton')?.addEventListener('click', () => {
+    state.world = 'all';
+    renderWorldSelection();
+    renderConnections();
+    document.querySelector('#explore')?.scrollIntoView({behavior:'smooth',block:'start'});
+  });
 
   document.addEventListener('keydown', e => {
     if (e.key === '/' && !/input|textarea/i.test(document.activeElement?.tagName || '')) {
@@ -258,6 +335,7 @@
     const media = primaryMedia(topic);
     const neighbors = neighborIds(id);
     const gallery = galleryForTopic(topic);
+    const topicWorldList = worldsForTopic(topic);
     $('#dialogContent').innerHTML = `<div class="dialog-body">
       <div class="topic-hero ${media?'has-media':''}">
         ${media ? `<button class="topic-hero-image" type="button" ${gallery.length?`data-gallery-topic="${escapeHTML(topic.id)}" data-gallery-index="0"`:''} aria-label="Open ${escapeHTML(media.name || topic.title)} image">
@@ -267,6 +345,7 @@
           <div class="dialog-kicker">${escapeHTML(topic.id)} · ${escapeHTML(topic.kind)}</div>
           <h2>${escapeHTML(topic.title)}</h2>
           <div class="dialog-basis">${escapeHTML(topic.basis)}</div>
+          ${topicWorldList.length ? `<div class="topic-world-row">${topicWorldList.map(world=>`<button type="button" class="topic-world-chip world-mini-${escapeHTML(world.id)}" data-world-id="${escapeHTML(world.id)}">${escapeHTML(world.name)}</button>`).join('')}</div>` : ''}
           <div class="chip-row">${topic.franchises.map(x=>`<span class="chip" style="--chip-accent:${franchiseColor(x)}">${escapeHTML(x)}</span>`).join('')}</div>
         </div>
       </div>
@@ -319,6 +398,31 @@
   };
 
   document.addEventListener('click', e => {
+    const clearWorld = e.target.closest('[data-clear-world]');
+    if (clearWorld) {
+      state.world = 'all';
+      renderWorldSelection();
+      renderConnections();
+      return;
+    }
+    const worldButton = e.target.closest('[data-world-id]');
+    if (worldButton) {
+      state.world = worldButton.dataset.worldId || 'all';
+      state.q = '';
+      state.franchise = 'All';
+      state.kind = 'All';
+      state.focus = 'All archive';
+      state.visible = 24;
+      if ($('#searchInput')) $('#searchInput').value = '';
+      renderFilterRow($('#franchiseFilters'), franchiseList, 'franchise');
+      renderFilterRow($('#kindFilters'), kindList, 'kind');
+      renderFilterRow($('#focusFilters'), focusList, 'focus');
+      renderWorldSelection();
+      renderConnections();
+      dialog?.close();
+      document.querySelector('#explore')?.scrollIntoView({behavior:'smooth',block:'start'});
+      return;
+    }
     const filter = e.target.closest('.filter-chip');
     if (filter) {
       state[filter.dataset.filterKey] = filter.dataset.filterValue;
