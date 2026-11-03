@@ -378,3 +378,40 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;background:li
   .related-grid{grid-template-columns:1fr}
   .connection-card-copy{padding:18px}
 }
+
+
+/* Paradise Worlds hub */
+.paradise-worlds-section{padding-top:92px}
+.paradise-worlds-heading{margin-bottom:26px}
+.worlds-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
+.worlds-toolbar>span{color:var(--muted);font-size:12px}
+.worlds-all-button{border:1px solid var(--line);border-radius:999px;padding:10px 14px;color:#c8d6e4;background:rgba(255,255,255,.035);cursor:pointer;font-weight:700}
+.worlds-all-button:hover,.worlds-all-button.active{border-color:rgba(97,228,197,.4);background:rgba(97,228,197,.09);color:var(--text)}
+.paradise-worlds-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.paradise-world-card{--world-accent:#61e4c5;position:relative;min-height:370px;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);border-radius:24px;padding:20px;background:linear-gradient(160deg,rgba(18,35,59,.92),rgba(8,18,33,.95));box-shadow:0 10px 36px rgba(0,0,0,.16);transition:.22s transform,.22s border-color,.22s box-shadow;cursor:pointer}
+.paradise-world-card:hover{transform:translateY(-5px);border-color:var(--world-accent);box-shadow:0 24px 64px rgba(0,0,0,.26)}
+.paradise-world-card.active{border-color:var(--world-accent);box-shadow:0 0 0 1px rgba(255,255,255,.05),0 24px 70px rgba(0,0,0,.32)}
+.paradise-world-card[data-world-id="land"]{--world-accent:#84dc77}
+.paradise-world-card[data-world-id="water"]{--world-accent:#4db5ff}
+.paradise-world-card[data-world-id="sky"]{--world-accent:#9ed7ff}
+.paradise-world-card[data-world-id="forest"]{--world-accent:#56cf8a}
+.paradise-world-card[data-world-id="tropical"]{--world-accent:#ff9f68}
+.paradise-world-card[data-world-id="ice"]{--world-accent:#b9eaff}
+.paradise-world-card[data-world-id="cosmic"]{--world-accent:#8a7dff}
+.paradise-world-card[data-world-id="tamagotchi"]{--world-accent:#ffce5c}
+.world-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.world-orb{width:74px;height:74px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.7) 0 2%,rgba(255,255,255,.1) 3% 9%,transparent 10%),radial-gradient(circle at 58% 62%,var(--world-accent),#15253d 72%);box-shadow:inset -10px -12px 24px rgba(0,0,0,.27),0 12px 34px rgba(0,0,0,.22)}
+.world-orb span{width:62px;text-align:center;color:rgba(255,255,255,.84);font:700 7px/1.15 "Space Grotesk",sans-serif;letter-spacing:.1em}
+.world-type{padding:6px 8px;border:1px solid var(--line);border-radius:999px;color:var(--world-accent);background:rgba(255,255,255,.03);font:700 9px/1 "Space Grotesk",sans-serif;text-transform:uppercase;letter-spacing:.1em}
+.world-card-copy{padding-top:18px}
+.world-card-copy h3{margin:0 0 8px;font:700 24px/1 "Space Grotesk",sans-serif;letter-spacing:-.035em}
+.world-card-copy p{margin:0;min-height:66px;color:var(--muted);font-size:12px;line-height:1.55}
+.world-progress{display:flex;align-items:flex-end;gap:9px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+.world-progress strong{font:700 28px/.9 "Space Grotesk",sans-serif}.world-progress strong span{color:var(--muted);font-size:14px}
+.world-progress small{max-width:100px;color:var(--muted);font-size:9px;line-height:1.2;text-transform:uppercase;letter-spacing:.07em}
+.world-character-preview{display:flex;flex-wrap:wrap;gap:5px;margin-top:13px}
+.world-character-preview span{padding:5px 7px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.075);color:#b9c9d8;font-size:9px}
+.world-card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:18px}
+.world-card-footer>span{color:var(--muted);font-size:10px}
+.world-card-footer button{border:0;padding:0;background:transparent;color:var(--world-accent);cursor:pointer;font-weight:700;font-size:11px}
+.world-card-footer button:hover{text-decoration:underline}
