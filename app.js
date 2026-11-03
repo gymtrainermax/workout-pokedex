@@ -953,7 +953,7 @@ function snakeEvolutionPanel(id){
     const e=nextFourEntry(n);
     if(!e)return head('WORKOUT '+n,'Programming underway','No published workout available.');
     const p=e.production||{}, ns='new-'+n;
-    const partner={'025':'026','026':'025','027':'028','028':'027','056':'057','057':'056','058':'059','059':'058','060':'061','061':'062','062':'061','063':'064','064':'065','065':'064','066':'067','067':'068','068':'067','069':'070','070':'071','071':'070','072':'073','073':'072','074':'075','075':'076','076':'075','077':'078','078':'077'}[n];
+    const partner={'025':'026','026':'025','027':'028','028':'027','056':'057','057':'056','058':'059','059':'058','060':'061','061':'062','062':'061','063':'064','064':'065','065':'064','066':'067','067':'068','068':'067','069':'070','070':'071','071':'070','072':'073','073':'072','074':'075','075':'076','076':'075','077':'078','078':'077','079':'080','080':'079'}[n];
     const peer=nextFourEntry(partner);
     const artUrl='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'+Number(n)+'.png';
     const rows=e.exercises.map((x,i)=>`<tr><td><span class="bulba-row-no">${String(i+1).padStart(2,'0')}</span></td><td><strong>${safe(x.name)}</strong></td><td>${safe(x.sets)} × ${safe(x.reps)}</td><td>${safe(x.rest)}</td></tr>`).join('');
