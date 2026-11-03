@@ -198,7 +198,9 @@
     return `<div class="connection-media connection-media-empty" data-fallback="${escapeHTML(initials(topic.title))}"><span>${escapeHTML(initials(topic.title))}</span></div>`;
   };
 
-  const cardHTML = topic => {\n    const topicWorlds = worldsForTopic(topic);\n    return `<article class="connection-card ${galleryForTopic(topic).length?'has-gallery':''}" data-topic-id="${escapeHTML(topic.id)}">
+  const cardHTML = topic => {
+    const topicWorlds = worldsForTopic(topic);
+    return `<article class="connection-card ${galleryForTopic(topic).length?'has-gallery':''}" data-topic-id="${escapeHTML(topic.id)}">
     ${cardMedia(topic)}
     <div class="connection-card-copy">
       <div class="connection-top"><span class="topic-id">${escapeHTML(topic.id)}</span><span class="topic-kind">${escapeHTML(topic.kind)}</span></div>
