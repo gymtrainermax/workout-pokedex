@@ -415,3 +415,14 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;background:li
 .world-card-footer>span{color:var(--muted);font-size:10px}
 .world-card-footer button{border:0;padding:0;background:transparent;color:var(--world-accent);cursor:pointer;font-weight:700;font-size:11px}
 .world-card-footer button:hover{text-decoration:underline}
+
+
+/* Paradise world badges */
+.card-worlds{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.world-mini,.topic-world-chip{--world-chip:#61e4c5;display:inline-flex;align-items:center;border:1px solid var(--world-chip);background:rgba(255,255,255,.025);color:var(--world-chip);border-radius:999px;padding:5px 7px;font:700 8px/1 "Space Grotesk",sans-serif;letter-spacing:.06em}
+.world-mini-land{--world-chip:#84dc77}.world-mini-water{--world-chip:#4db5ff}.world-mini-sky{--world-chip:#9ed7ff}.world-mini-forest{--world-chip:#56cf8a}.world-mini-tropical{--world-chip:#ff9f68}.world-mini-ice{--world-chip:#b9eaff}.world-mini-cosmic{--world-chip:#8a7dff}.world-mini-tamagotchi{--world-chip:#ffce5c}
+.topic-world-row{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 14px}.topic-world-chip{padding:7px 9px;cursor:pointer}.topic-world-chip:hover{background:rgba(255,255,255,.06)}
+.active-world-filter{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:20px 0 14px;padding:13px 15px;border:1px solid rgba(97,228,197,.2);border-radius:16px;background:linear-gradient(90deg,rgba(97,228,197,.06),rgba(138,125,255,.045))}
+.active-world-filter[hidden]{display:none}.active-world-filter>div{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.active-world-filter span,.active-world-filter small{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em}.active-world-filter strong{font:700 16px/1 "Space Grotesk",sans-serif}.active-world-filter button{border:0;background:transparent;color:var(--mint);cursor:pointer;font-weight:700;font-size:11px}
+@media(max-width:1050px){.paradise-worlds-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.paradise-worlds-section{padding-top:68px}.worlds-toolbar{align-items:flex-start;flex-direction:column}.paradise-worlds-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin-inline:-12px;padding:0 12px 8px;scrollbar-width:none}.paradise-worlds-grid::-webkit-scrollbar{display:none}.paradise-world-card{flex:0 0 min(82vw,330px);min-height:350px;scroll-snap-align:start}.world-card-copy p{min-height:0}.active-world-filter{align-items:flex-start;flex-direction:column}}
